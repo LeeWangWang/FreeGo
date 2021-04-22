@@ -1,0 +1,357 @@
+/*轮播图CSS*/
+#freego_banner{
+    width: 100%;
+    height: 500px;
+}
+.banner-picture{
+    width:100%;
+    height:500px;
+    object-fit: cover;
+    flex: 1;
+}
+.carousel-inner>.item>a>img,.carousel-inner>.item>img,.img-responsive,.thumbnail a>img,.thumbnail>img{
+    display:block;
+    max-width:100%;
+    height:500px;
+}
+#banner_warp > .item > .show-title{
+    position: absolute;
+    z-index:2;
+    left:250px;
+    top:25px
+}
+#banner_warp > div > a > div{
+    font-size: 27px;
+    color: #FFFFFF;
+}
+.carousel-control{
+    height: 500px;
+    margin-top: 10px;
+}
+/*搜索框*/
+.index-search-container{
+    position: absolute;
+    bottom: 220px;
+    left: 50%;
+    margin-left: -290px;
+    width: 600px;
+    z-index: 5;
+}
+.index-search-group{
+    padding: 15px;
+    background-color: rgba(32, 32, 31, 0.6);
+    border-radius: 4px;
+}
+.index-search-tab{
+    margin-bottom: 7px;
+    color: #FFFFFF;
+    line-height: 26px;
+    font-size: 14px;
+}
+.index-search-tab > .clearfix > .tab-select{
+    float: left;
+    height: 30px;
+    display: inline;
+    margin-left: 30px;
+    cursor: pointer;
+}
+.index-search-tab > .clearfix > .tab-select > .tab-check{
+    width: 20px;
+    height: 20px;
+    background-size: 20px;
+    background-image: url(../../images/li/index/check_box_uncheck.jpeg);
+}
+.index-search-tab > .clearfix > .tab-select > .tab-text{
+    font-size: 17px;
+    margin-top: -22px;
+    padding-left: 30px;
+}
+.index-search-bar{
+    height: 46px;
+    overflow: hidden;
+}
+.index-search-wrapper{
+    float: left;
+    width: 510px;
+}
+.index-search-input{
+    height: 46px;
+    overflow: hidden;
+}
+.index-search-input > input{
+    width: 500px;
+    height: 46px;
+    border: 0 none;
+    padding: 0 25px;
+    margin: 0;
+    line-height: 46px;
+    color: #666;
+    font-size:16px;
+    border-radius: 4px;
+}
+.index-search-button{
+    float: left;
+    margin-left: 6px;
+    width: 50px;
+    height: 46px;
+}
+.index-search-button > a{
+    display: block;
+    height: 46px;
+    background-image: url(../../images/li/index/icon_search.jpeg);
+    border-radius: 5px;
+}
+/*webkit内核*/
+input::-webkit-input-placeholder {
+　　color: #D6D0CA;
+    font-size:16px;
+}
+a:hover{
+    text-decoration:none
+}
+/*游记tab*/
+.freego-travelnote{
+    width: 1100px;
+    margin: auto;
+}
+.travelnote-tab{
+    margin-bottom: 10px;
+    margin-top: 10px;
+    height: 54px;
+    line-height: 45px;
+    font-size: 16px;
+    border-bottom: 3px solid #e4e4e4;
+}
+.travelnote-tab > .travelnote-hot{
+    float: left;
+    width: 150px;
+    padding-bottom: 6px;
+    border-bottom: 3px solid #ff9d00;
+    z-index: 11;
+    text-align: center;
+}
+.travelnote-tab > .travelnote-hot a{
+    color: #ff9d00;
+    font-size: 18px;
+}
+.travelnote-tab > .travelnote-new{
+    float: left;
+    width: 150px;
+    padding-bottom: 6px;
+    z-index: 11;
+    text-align: center;
+}
+.travelnote-tab > .travelnote-new a{
+    color: #000000;
+    font-size: 18px;
+}
+.travelnote-tab > .travelnote-publish{
+    float: right;
+    width: 140px;
+    height: 40px;
+    margin-top: 6px;
+    text-align: center;
+    color: #ffffff;
+    background-color: #ff9d00;
+    border-radius: 4px;
+}
+.travelnote-tab > .travelnote-publish > .travelnote-publish-img{
+    float: left;
+    padding-top: 2px;
+    padding-left: 20px;
+}
+.travelnote-tab > .travelnote-publish > .travelnote-publish-text{
+    width: 120px;
+    line-height: 36px;
+
+}
+
+/*游记列表*/
+.travelnote-item{
+    padding: 15px 0;
+    height: 250px;
+}
+.travelnote-item > .travelnote-left{
+    float: left;
+    width: 384px;
+    height: 216px;
+    position: relative;
+    margin-right: 20px;
+}
+.travelnote-item > .travelnote-left img{
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    object-fit: cover;
+}
+.travelnote-right{
+    float: left;
+    width: 695px;
+    height: 216px;
+}
+.travelnote-right dl{
+    height: 160px;
+}
+.travelnote-item dt{
+    height: 26px;
+    line-height: 26px;
+    margin-bottom: 15px;
+    font-size: 22px;
+}
+.travelnote-item dt a{
+    width: 420px;
+    height: 20px;
+    color: #333;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    font-weight: 400;
+}
+.travelnote-item dd{
+    line-height: 20px;
+    font-size: 15px;
+    overflow: hidden;
+}
+.travelnote-item dd a{
+    color: #666;
+}
+.travelnote-extra{
+    height: 56px;
+    overflow: hidden;
+    line-height: 56px;
+}
+.travelnote-extra > .travelnote-location{
+    float: left;
+    margin-right: 40px;
+}
+.travelnote-extra > .travelnote-location > .travelnote-location-pic{
+    float: left;
+    margin: 16px 10px 0 0;
+    width: 27px;
+    height: 23px;
+    overflow: hidden;
+}
+.travelnote-extra > .travelnote-location > .travelnote-location-text{
+    float: left;
+    font-size: 14px;
+    color: #585858;
+}
+.travelnote-extra > .travelnote-location a{
+    color: #585858;
+}
+.travelnote-extra > .travelnote-user{
+    float: left;
+    margin-right: 40px;
+}
+.travelnote-extra > .travelnote-user > .travelnote-user-head{
+    float: left;
+    width: 30px;
+    height: 30px;
+    position: relative;
+    margin-right: 10px;
+}
+.travelnote-extra > .travelnote-user > .travelnote-user-head img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    position: absolute;
+    object-fit: cover;
+    margin-top: 12px;
+}
+.travelnote-extra > .travelnote-user > .travelnote-user-nickname{
+    float: left;
+    color: #585858;
+}
+.travelnote-extra > .travelnote-view-collection img{
+    float: left;
+    /*上右下左*/
+    margin: 15px 10px 0 0;
+    width: 25px;
+    height: 25px;
+}
+.travelnote-extra > .travelnote-view-collection div{
+    float: left;
+    font-size: 14px;
+    color: #585858;
+}
+.travelnote-extra > .travelnote-like{
+    float: right;
+}
+.travelnote-extra > .travelnote-like > div{
+    float: left;
+    margin-right: 15px;
+    font-size: 14px;
+}
+.travelnote-extra > .travelnote-like > img{
+    float: right;
+    width: 40px;
+    height: 40px;
+}
+
+/*分页样式*/
+.page_one{
+    width: 1100px;
+    margin: auto;
+    margin-bottom: 20px;
+}
+.page_num_inf{
+    color: #878787;
+    font-size: 15px;
+    margin-bottom: 20px;
+}
+.page_num_inf i {
+    float: left;
+    width: 4px;
+    background-color: #878787;
+    height: 15px;
+    margin-top: 2px;
+    margin-right: 10px;
+}
+.page_num_inf span {
+    color: #ff4848;
+}
+.pageNum {
+    width: 100%;
+    overflow: hidden;
+}
+.pageNum ul > li{
+    width: 30px;
+    height: 30px;
+    line-height: 30px;
+    float: left;
+    border: 1px solid #eee;
+    margin-right: 10px;
+    text-align: center;
+    border-radius: 6px;
+}
+.pageNum ul li.curPage {
+    background-color: #ffc900;
+}
+.pageNum ul li a {
+    width: 100%;
+    height: 100%;
+    color: #525252;
+    font-size: 10px;
+}
+.pageNum ul .threeword {
+    width: 60px;
+}
+.pageNum ul .first-page{
+    width: 50px;
+}
+.pageNum ul .last-page{
+    width: 50px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+

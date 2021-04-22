@@ -1,0 +1,114 @@
+/*搜索栏*/
+.search-head{
+    width: 100%;
+    background-color: #3c3c3c;
+    position: fixed;
+    left: 0;
+    right: 0;
+    top: 0;
+    z-index: 100;
+}
+.search-head .wid{
+    padding: 15px 0 15px 0;
+}
+.search-head-logo{
+    float: left;
+    padding: 6px 21px;
+}
+.search-head-logo a{
+    display: block;
+    width: 82px;
+    height: 24px;
+    background: url(../../images/li/index/logo-freego.jpeg);
+    background-size: 82px;
+}
+.search-bar{
+    float: left;
+    width: 600px;
+    height: 36px;
+    overflow: hidden;
+}
+.search-wrapper{
+    float: left;
+    width: 556px;
+    position: relative;
+}
+.search-wrapper .search-input{
+    height: 36px;
+    overflow: hidden;
+}
+.search-wrapper .search-input input{
+    width: 526px;
+    height: 36px;
+    border: 0 none;
+    padding: 0 10px 0 20px;
+    margin: 0;
+    line-height: 36px;
+    font-size: 14px;
+    color: #666;
+    border-radius: 4px;
+}
+.search-bar .search-button{
+    float: left;
+    margin-left: 4px;
+    width: 40px;
+    height: 36px;
+}
+.search-bar .search-button a{
+    display: block;
+    height: 36px;
+    background-color: #ff9d00;
+    border-radius: 4px;
+    text-align: center;
+}
+.search-bar .icon-search{
+    display: inline-block;
+    margin-top: 6px;
+    width: 24px;
+    height: 24px;
+    background-image: url(../../images/li/index/icon_search.jpeg);
+    overflow: hidden;
+    vertical-align: top;
+}
+
+/*搜索内容*/
+.search-nav{
+    height: 50px;
+    background: #FAFAFA;
+}
+.freego-search-main .wid{
+    width: 1115px;
+    padding-left: 125px;
+    padding-bottom: 60px;
+}
+.nav-list{
+    line-height: 38px;
+    padding-top: 10px;
+}
+.nav-list a{
+    float: left;
+    height: 37px;
+    font-size: 13px;
+    color: #666;
+    padding: 0 10px;
+    margin-right: 10px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

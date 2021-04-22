@@ -1,0 +1,114 @@
+.login_layout{
+    width: 100%;
+    height: 100%;
+    /*background: url(../images/li/signup&login/1.jpeg) no-repeat center;*/
+    background-size: 100% 100%;
+    overflow: hidden;
+}
+.login_layout .login_form{
+    width: 640px;
+    height: 350px;
+    background-color: #ffff;
+    opacity: 0.8;
+    box-sizing: border-box;
+    margin: auto;
+    margin-top: 150px;
+    border-radius: 5px;
+}
+.login_layout .login_form > .login_form_left{
+    width:122px;
+    float: left;
+    padding-top:20px;
+    padding-left: 30px;
+    box-sizing: border-box;
+}
+.login_layout .login_form > .login_form_center{
+    width:358px;
+    float: left;
+    padding-top:10px;
+    box-sizing: border-box;
+    font-size: 14px;
+}
+.login_layout .login_form > .login_form_right{
+    width: 160px;
+    height: 40px;
+    float: right;
+}
+.login_form > .login_form_left > p:first-child{
+    font-size: 15px;
+    color:#ffcd26;
+
+}
+.login_form > .login_form_left > p:last-child{
+    font-size: 15px;
+    color: #a6a6a6;
+}
+.login_form > .login_form_center .td_left{
+    width: 200px;
+    text-align: right;
+}
+.login_form > .login_form_center table{
+    vertical-align: top;
+}
+.login_form > .login_form_center table tr{
+    height: 50px;
+}
+.login_form > .login_form_center > .line{
+    margin: 30px;
+}
+.login_form > .login_form_center .td_right{
+    width: 283px;
+}
+.login_form_center .td_right > input[type="text"],.login_form_center .td_right > input[type="date"]{
+    width: 256px;
+    height: 32px;
+    line-height: 32px;
+    box-sizing: border-box;
+    padding: 6px 12px;
+    border-radius: 4px;
+    border:1px solid #a6a6a6;
+    float: right;
+}
+.login_form > .login_form_center .td_right.check{
+    text-align: center;
+    box-sizing: border-box;
+}
+.login_form > .login_form_center .td_right > .check{
+    width: 118px;
+    float: left;
+    margin-right:14px;
+    margin-left: 6px;
+}
+.login_form > .login_form_center .td_right > .submit{
+    width: 150px;
+    height: 40px;
+    line-height: 36px;
+    background-color: #ffc900;
+    font-size: 18px;
+    border-radius: 5px;
+}
+.login_form > .login_form_right >p{
+    float: right;
+    font-size: 14px;
+    padding: 15px 20px 0 0;
+    box-sizing: border-box;
+}
+.login_form > .login_form_right >p >a{
+    color: #fc8989;
+}
+table {
+    margin-top: 40px;
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    white-space: normal;
+    line-height: normal;
+    font-weight: normal;
+    font-size: medium;
+    font-style: normal;
+    text-align: start;
+    border-spacing: 15px;
+    border-color: grey;
+    font-variant: normal;
+}

@@ -1,0 +1,161 @@
+/*css 初始化 */
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+    margin: 0;
+    padding: 0;  
+    box-sizing: border-box;
+    font-family: '微软雅黑';
+}
+fieldset, img, input, buttonlogin {
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none;  /*外面环绕线*/
+}
+ul, ol {
+    list-style: none;
+}
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+      /*字体的自动识别*/
+}
+select, input {
+    vertical-align: middle;
+}
+
+/*输入字居中显示*/
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+textarea {
+    resize: none;  /*不可以随意拖动*/
+}
+img{
+    display: block;
+}
+table {
+    border-collapse: collapse; /*合并外连线*/
+}
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+.clearfix {
+    *zoom: 1; /*IE/7/6*/  /*兼容IE6下的写法*/
+}
+a {
+    text-decoration: none;
+}
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%;
+}
+
+/*公共头部*/
+.freego_header{
+    height: 50px;
+    width: 100%;
+}
+.freego_header > .head_logo{
+    width: 207px;
+    height: 60px;
+    background: url(../../images/li/index/head_logo.jpeg) no-repeat center;
+    float: left;
+    margin-left: 130px;
+}
+.freego_header > .head_nav {
+    float: left;
+}
+.freego_header > .head_nav > li{
+    font-size: 12px;
+    text-align: center;
+    float: left;
+    width: 100px;
+    height: 60px;
+}
+.freego_header > .head_nav > li > a{
+    text-decoration: none;
+    line-height: 60px;
+    font-size: 16px;
+    color: #0f0f0f;
+}
+.freego_header > .login_status{
+    width: 220px;
+    height: 60px;
+    float: right;
+    margin-right: 200px;
+}
+.freego_header > .login_status > div > a{
+    font-size: 13px;
+    color: #0f0f0f;
+    line-height: 60px;
+    margin: 0 5px;
+}
+.freego_header > .login_status > .login_out{
+    width: 100px;
+}
+.freego_header > .login_status > .login_in{
+    width: 120px;
+}
+
+/*公共尾部*/
+.foot-pic {
+    float: left;
+}
+.foot-pic > img{
+    width: 80px;
+    height: 80px;
+}
+#footer {
+    width: 100%;
+    background: #3d3d3d;
+}
+.why_select {    
+    overflow: hidden;
+    margin: 0 auto;
+    border-bottom: solid 1px #666;
+    padding: 10px 85px;
+    font-family: '微软雅黑';
+}
+.why_select dl {
+    float: left;
+    width: 300px;
+    margin-bottom: 0;
+    user-select: none;
+}
+.why_select dd {
+    float: left;
+    margin: 20px 80px 0 0;
+}
+.why_select h1 {
+    font-size: 18px;
+    color: #fff;
+    font-weight: bold;
+    margin: 0;
+}
+.why_select h1.title {
+    line-height: 50px;
+    padding-right: 25px;
+}
+.why_select h2 {
+    font-size: 13px;
+    color: #8d8d8e;
+    line-height: 26px;
+}
+.why_select .icon {
+    width: 50px;
+    height: 50px;
+}
+.company {
+    width: 100%;
+    height: 38px;
+    line-height: 38px;
+    background: #ffc900;
+    color: #3d3d3f;
+    text-align: center;
+    font-size: 14px;
+}
+
