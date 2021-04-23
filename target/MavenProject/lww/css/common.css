@@ -56,7 +56,7 @@ h1, h2, h3, h4, h5, h6 {
 
 /*公共头部*/
 .freego_header{
-    height: 50px;
+    height: 60px;
     width: 100%;
 }
 .freego_header > .head_logo{
@@ -82,22 +82,22 @@ h1, h2, h3, h4, h5, h6 {
     font-size: 16px;
     color: #0f0f0f;
 }
-.freego_header > .login_status{
+.login_status{
     width: 220px;
     height: 60px;
     float: right;
     margin-right: 200px;
 }
-.freego_header > .login_status > div > a{
+.login_status > div > a{
     font-size: 13px;
     color: #0f0f0f;
     line-height: 60px;
     margin: 0 5px;
 }
-.freego_header > .login_status > .login_out{
+.login_status > .login_out{
     width: 100px;
 }
-.freego_header > .login_status > .login_in{
+.login_status > .login_in{
     width: 120px;
 }
 
@@ -111,6 +111,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 #footer {
     width: 100%;
+    height: 139px;
     background: #3d3d3d;
 }
 .why_select {    

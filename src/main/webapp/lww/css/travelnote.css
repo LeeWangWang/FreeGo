@@ -1,0 +1,171 @@
+/*头部搜索栏*/
+.search-bar{
+    float: left;
+    width: 300px;
+    height: 60px;
+    overflow: hidden;
+}
+.search-wrapper{
+    float: left;
+    width: 200px;
+    position: relative;
+    margin-top: 11px;
+    margin-left: 30px;
+}
+.search-wrapper .search-input{
+    height: 38px;
+    overflow: hidden;
+}
+.search-wrapper .search-input input{
+    border: 1px solid #efefef;
+    height: 38px;
+    padding: 0 10px 0 20px;
+    margin: 0;
+    line-height: 38px;
+    font-size: 14px;
+    color: #666;
+    border-radius: 4px;
+    background-color: #efefef;
+}
+.glyphicon-search{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    color: #5e5e5e;
+    font-size: 23px;
+    background-position: -30px -150px!important;
+}
+/*游记主体*/
+.set-index{
+    height: 500px;
+    background-size: cover;
+    position: relative;
+}
+.set-bg-load-cover{
+    background-size: cover;
+    float: left;
+    position: relative;
+    width: 100%;
+}
+.set-bg-load-cover img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+.set-title{
+    width: 100%;
+    height: 90px;
+    float: left;
+    transform:translateY(-90px);
+}
+.set-title > .title-info {
+    width: 830px;
+    margin-left: 400px;
+}
+.set-title > .title-info h1{
+    width: 710px;
+    height: 90px;
+    line-height: 90px;
+    font-size: 26px;
+    color: #FFFFFF;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.set-info{
+    height: 170px;
+    width: 100%;
+    border-bottom: 1px solid #d7d7d7;
+    box-shadow: 0 2px 0 #ebebeb;
+    position: relative;
+    float: left;
+    transform: translateY(-175px);
+}
+.set-info .user-head{
+    width: 120px;
+    height: 120px;
+    overflow: hidden;
+    margin-left: 250px;
+}
+.set-info .user-head img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.set-info > .person{
+    width: 480px;
+    float: left;
+    position: relative;
+    margin-left: 400px;
+    transform: translateY(-19px);
+}
+/*///////////////////////////////*/
+.person a{
+    display: inline-block;
+    margin-right: 5px;
+}
+.person a.person-pic{
+    width: 120px;
+    height: 120px;
+    position: absolute;
+    top: -80px;
+    left: 0;
+    z-index: 88;
+}
+.person a.person-pic img{
+    border-radius: 50%;
+}
+.person a.person-name{
+    color: #ff7200;
+    font-size: 14px;
+    font-weight: normal;
+}
+.glyphicon-plus{
+    color: #FFFFFF;
+    font-size: 14px;
+}
+.person-follow{
+    background-color: #ff9d00;
+}
+.publish-time{
+    color: #acacac;
+    display: inline;
+    margin-left: 10px;
+}
+.publish-time span {
+    display: inline-block;
+    margin-right: 10px;
+}
+.publish-time .time, .publish-time span {
+    font-family: Verdana,Arial,Helvetica,STHeiti;
+}
+.publish-time span img{
+    width: 18px;
+    height: 14px;
+    display: inline-block;
+    margin-right: 4px;
+    vertical-align: -2px;
+}
+.bar-collection-like{
+    float: right;
+    width: 245px;
+    border-right: 1px solid #e8e8e6;
+}
+.bar-collection-like .collection{
+    width: 120px;
+    height: 65px;
+    padding-top: 15px;
+    text-align: center;
+    border-left: 1px solid #e8e8e6;
+}
+.collection{
+    position: relative;
+    z-index: 10;
+}
+.view_title .bar_share a.bs_btn {
+    width: auto;
+}
+
+
+

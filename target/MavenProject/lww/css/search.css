@@ -1,0 +1,251 @@
+/*搜索栏*/
+.search-head{
+    width: 100%;
+    background-color: #3c3c3c;
+    position: relative;
+}
+.search-head .wid{
+    padding: 15px 0 15px 0;
+}
+.search-head-logo{
+    float: left;
+    padding: 0 21px 0 21px;
+}
+.search-head-logo a{
+    display: block;
+    width: 82px;
+    height: 38px;
+    background: url(../../images/li/index/logo-freego.jpeg);
+    background-size: 82px;
+}
+.search-bar{
+    float: left;
+    width: 600px;
+    height: 38px;
+    overflow: hidden;
+}
+.search-wrapper{
+    float: left;
+    width: 545px;
+    position: relative;
+}
+.search-wrapper .search-input{
+    height: 38px;
+    overflow: hidden;
+}
+.search-wrapper .search-input input{
+    width: 526px;
+    height: 38px;
+    border: 0 none;
+    padding: 0 10px 0 20px;
+    margin: 0;
+    line-height: 38px;
+    font-size: 14px;
+    color: #666;
+    border-radius: 4px;
+}
+.search-bar .search-button{
+    float: left;
+    margin-left: 4px;
+    width: 45px;
+    height: 38px;
+}
+.search-bar .search-button a{
+    display: block;
+    height: 38px;
+    background-color: #ff9d00;
+    border-radius: 4px;
+}
+.search-bar .icon-search{
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 4px;
+    background-image: url(../../images/li/index/icon_search.jpeg);
+}
+/*修改登录字体颜色*/
+.login_status div a{
+    color: #ff9d00;
+}
+/*搜索内容*/
+.freego-search-main{
+    margin-bottom: 30px;
+}
+.freego-search-main a{
+    color: #333333;
+    font-size: 14px;
+}
+.search-nav{
+    height: 50px;
+    background: #FAFAFA;
+}
+.freego-search-main .wid{
+    width: 1300px;
+    padding-left: 125px;
+    /*padding-bottom: 50px;*/
+}
+.nav-list{
+    line-height: 50px;
+}
+.nav-list a{
+    float: left;
+    font-size: 14px;
+    color: #666;
+    padding: 0 20px;
+}
+.ser-nums{
+}
+.search-lt{
+    width: 600px;
+    overflow: hidden;
+}
+.flt1{
+    float: left;
+}
+.flt1 > a > img{
+    position: relative;
+    width: 150px;
+    height: 90px;
+    object-fit: cover;
+}
+.search-lt .att-list > ul > li {
+    margin-top: 30px;
+}
+.search-lt .ct-text{
+    padding-left: 160px;
+}
+.search-lt .ct-text h3 {
+    margin-bottom: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.freego-search-main h3 a {
+    font-size: 18px;
+    color: #4c4c4c;
+}
+.search-lt .ct-text .seg-desc {
+    max-height: 40px;
+    margin-bottom: 4px;
+    overflow: hidden;
+    font-size: 13px;
+}
+.seg-views{
+    font-size: 13px;
+    margin-top: 6px;
+}
+.search-rt{
+    width: 460px;
+    padding: 15px;
+    border: 1px solid #F4F4F4;
+    box-shadow: 0 0 7px #e0e0e0;
+    float: right;
+    overflow: hidden;
+    border-radius: 2px;
+    margin-top: 20px;
+}
+.search-title{
+    margin-bottom: 10px;
+}
+.search-rt .search-title h2{
+    float: left;
+    font-size: 14px;
+}
+.freego-search-main h2{
+    line-height: 30px;
+    font-weight: bold;
+    color: #333;
+    float: left;
+}
+.freego-search-main h2 a{
+    font-size: 18px;
+    line-height: 30px;
+    font-weight: bold;
+    color: #333333!important;
+}
+.search-title p, .search-title a{
+    float: right;
+    line-height: 30px;
+    font-size: 13px;
+    color: #333333;
+}
+.search-rt .hot-att ul{
+    width: 430px;
+}
+.search-rt .hot-att ul li{
+    margin: 15px 8px 0 9px;
+    float: left;
+    text-align: center;
+}
+.search-rt .hot-att ul li p{
+    width: 90px;
+    height: 40px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    /*-webkit-line-clamp:2;*/
+}
+.hot-att ul li p a{
+    color: #333333;
+    font-size: 13px;
+    line-height: 20px;
+}
+.s-hr{
+    width: 100%;
+    margin: 15px 0;
+    padding: 0;
+    border-top: 1px solid #5e5e5e;
+    height: 0;
+    clear: both;
+}
+.search-rt .hot-rank-list ul{
+    margin-top: 10px;
+}
+.hot-rank-list ul li{
+    width: 100%;
+    line-height: 24px;
+}
+.hot-rank-list ul li .rank{
+    float: left;
+    width: 14px;
+    height: 14px;
+    background: #1493e3;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    display: block;
+    color: #ffffff;
+    border-radius: 2px;
+    margin-right: 5px;
+    margin-top: 4px;
+}
+.hot-rank-list ul li a {
+    float: left;
+    color: #333;
+    font-size: 13px;
+    display: block;
+    width: 330px;
+    margin-right: 5px;
+}
+.hot-rank-list ul li b {
+    float: right;
+    font-weight: normal;
+    color: #ff7000;
+}
+.hot-rank-list > .ser-title > a{
+    float: right;
+    line-height: 30px;
+    font-size: 13px;
+}
+
+
+
+
+
+
+
+
+
+
+
