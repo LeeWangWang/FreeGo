@@ -30,12 +30,13 @@
 }
 /*搜索框*/
 .index-search-container{
-    position: absolute;
+    position: relative;
     bottom: 220px;
     left: 50%;
     margin-left: -290px;
     width: 600px;
     z-index: 5;
+    transform: translateY(50px);
 }
 .index-search-group{
     padding: 15px;

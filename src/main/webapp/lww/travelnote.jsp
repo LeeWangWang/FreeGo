@@ -61,8 +61,8 @@
 
     </div>
 
-    <%--游记主体部分--%>
-    <div class="travelnote-main">
+    <div class="main">
+        <%--游记头部--%>
         <div class="set-index" id="cover_box">
             <div class="set-bg-load-cover">
                 <img src="/FreegoImg/li/travelnote/51.jpeg">
@@ -73,51 +73,358 @@
                     <h1 class="travelnote-title">浦口｜寻觅山水田园，不负春光。</h1>
                 </div>
             </div>
+        </div>
+        <div class="set-info clearfix">
 
-            <div class="set-info clearfix">
-
-                <div class="user-head">
-                    <img src="/FreegoImg/li/user/head12.jpeg">
-                </div>
-                <div class="person">
-                    <a href="" target="_blank" class="person-pic">
-                        <img src="">
+            <div class="user-head">
+                <img src="/FreegoImg/li/user/head12.jpeg">
+            </div>
+            <div class="person">
+                <div>
+                    <a href="" target="_blank" class="person-name">H-C川(上海)</a>
+                    <a href="" target="_blank" class="person-follow">
+                        <span class="glyphicon glyphicon-plus"></span>
+                        关注
                     </a>
-                    <div>
-                        <a href="" target="_blank" class="person-name">H-C川(上海)</a>
-                        <a href="" target="_blank" class="person-follow">
-                            <span class="glyphicon glyphicon-plus"></span>
-                            关注
-                        </a>
-                        <div class="publish-time">
-                            <span class="time">2021-04-06-09:43</span>
-                            <span>
-                                <img src="../images/li/travelnote/eye.jpeg">
-                                3.7w
-                            </span>
+                    <div class="publish-time">
+                        <span class="time">2021-04-06-09:43</span>
+                        <span>
+                            <img src="../images/li/travelnote/eye.jpeg">
+                            3.7w
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bar-collection-like">
+                <div class="collection">
+                    <a href="javascript:void(0);" rel="nofollow" class="tn-btn">
+                        <i class="glyphicon glyphicon-star-empty"></i>
+                        <span>11收藏</span>
+                    </a>
+                </div>
+                <div class="like">
+                    <a href="javascript:void(0);" rel="nofollow" class="tn-btn">
+                        <i class="glyphicon glyphicon-thumbs-up"></i>
+                        <span>681点赞</span>
+                    </a>
+                </div>
+            </div>
+
+        </div>
+        <%--游记内容--%>
+        <div class="travelnote-view clearfix">
+            <div class="view-con">
+                <%--游记特点--%>
+                <div class="travelnote-directory">
+                    <div class="travelnote-dir-list">
+                        <ul>
+                            <li class="time">
+                                <img src="../images/li/travelnote/time.png">
+                                出发时间
+                                <span>/</span>
+                                2021-03-26
+                            </li>
+                            <li class="day">
+                                <img src="../images/li/travelnote/day.png">
+                                出行天数
+                                <span>/</span>
+                                3天
+                            </li>
+                            <li class="people">
+                                <img src="../images/li/travelnote/people.png">
+                                人物
+                                <span>/</span>
+                                情侣/夫妻
+                            </li>
+                            <li class="cost">
+                                <img src="../images/li/travelnote/cost.png">
+                                人均费用
+                                <span>/</span>
+                                1000RMB
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <%--游记正文--%>
+                <div class="vc-article">
+                    <div class="vc-con master-content">
+                        <div class="content-box">
+                            <p class="note-content">
+                                好多人记住“浦口”这个地名，源自于朱自清的那篇散文《背影》，其中描写的火车站，便是南京江北的浦口，而我却是从《金陵十三钗》豆蔻：“你叫浦生，浦口生的，我家也是浦口的”，这句话而得知。
+                                <br>
+                                <br>
+                                南京 作为旅行宝藏地，浦口区之前都没有列入我的旅行清单里，这一次主要想踏青，经攻略研究，才发现山水田园的浦口，拥有所有一切关于春天的描述。
+                            </p>
+                            <div class="article-title">
+                                <span class="anchor t1">不负春光</span>
+                            </div>
+                            <p class="note-content">漫步永宁张圩，在蓝天下赏金色油菜花海。</p>
+                            <div id="note_photo_1167180750" class="add-pic anchorcnt-seqitem" style="width: 680px">
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167180750.jpg">
+                            </div>
+                            <p class="note-content">听一阵樱花纷纷，邂逅一场粉色的梦。</p>
+                            <div id="note_photo_1167193222" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167193222.jpg">
+                            </div>
+                            <p class="note-content">穿梭在老山森林间，探秘大自然的美妙。</p>
+                            <div id="note_photo_1167965372" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167965372.jpg">
+                            </div>
+                            <div id="note_photo_1168632765" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1168632765.jpg">
+                            </div>
+                            <p class="note-content">游历于生态乐园，感受摩天轮下的春暖花开</p>
+                            <div id="note_photo_1170156340" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170156340.jpg">
+                            </div>
+                            <div id="note_photo_1170171463" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170171463.jpg">
+                            </div>
+                            <div class="article-title">
+                                <h2 class="t1">
+                                    <span class="anchor">【一】</span>
+                                </h2>
+                            </div>
+                            <div class="article-title">
+                                <span class="anchor t1">滨江风光带</span>
+                            </div>
+                            <p class="note-content">
+                                避开人头攒动的鸡鸣寺赏樱，寻一处小众秘境。滨江风光带，千株樱花竞相绽放，依山傍水， 临江 赏樱。
+                                <br>
+                                <br>
+                                说起来 南京 也是滨江城市，蜿蜒流淌的长江给 南京 城留下了百公里的主岸线，在打造一个绿色生态环境的同时保留了一些原有的姿色，如今这里也成为很多老 南京 人都想去走一走的新景观。
+                            </p>
+                            <div id="note_photo_1167387227" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167387227.jpg">
+                            </div>
+                            <div id="note_photo_1167596203" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167596203.jpg">
+                            </div>
+                            <div id="note_photo_1167193219" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167193219.jpg">
+                            </div>
+                            <p class="note-content">
+                                滨江风光带位于浦口闻涛广场附近，春暖花开，虽不能面向大海，但行走在滨江风光带景色撩人，暖暖的江风拂面，醉人的碧草樱花清香沁人心脾。
+                                <br>
+                                <br>
+                                在这里可以驻扎帐篷野餐，边吃着甜品吹着江风，看着来往的渡轮货船游走于江面之上，正值春的好时光，这种场景也太惬意了吧~
+                            </p>
+                            <div id="note_photo_1167193203" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167193203.jpg">
+                            </div>
+                            <div id="note_photo_1167192994" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167192994.jpg">
+                            </div>
+                            <div id="note_photo_1167193224" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167193222.jpg">
+                            </div>
+                            <div id="note_photo_1167193243" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167193243.jpg">
+                            </div>
+                            <div id="note_photo_1167193276" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167193276.jpg">
+                            </div>
+                            <div id="note_photo_1167193251" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167193251.jpg">
+                            </div>
+                            <p class="note-content">
+                                临近江边有一处集观景、休闲设施、游憩、乐园等多功能为一体的公园。
+                                <br>
+                                <br>
+                                因樱花年份的关系，不同于樱花大道，公园内的樱花稍显小家碧玉，但也丝毫不减欣赏它的柔美，这里赏樱空间宽阔舒适，满眼春光。
+                            </p>
+                            <div class="article-title">
+                                <span class="anchor t1">·福寿居共享度假小院</span>
+                            </div>
+                            <p class="note-content">
+                                福寿居共享度假小院临近 永宁 张圩油菜花海，因赏花较晚，临行前决定就近选择一家，没想到 永宁 小镇上还有一处如此干净温馨的民宿。
+                                <br>
+                                <br>
+                                民宿由一对夫妻经营，老板娘很爱干净，我们从入口便是脱鞋的状态哈～
+                            </p>
+                            <div id="note_photo_1170313782">
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170313782.jpg">
+                            </div>
+                            <p class="note-content">
+                                整个大堂和房间的布置简约大气，桌面上还摆放了有关浦口的书籍画册，透过玻璃窗前可见水光倒影，这才是真正的小桥流水人家吧～
+                                <br>
+                                <br>
+                                对了，民宿有餐厅的哦～ 用餐需要提前预定。
+                            </p>
+                            <div id="note_photo_1170313784" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170313784.jpg">
+                            </div>
+                            <div id="note_photo_1170313786" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170313786.jpg">
+                            </div>
+                            <div id="note_photo_1170313788" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170313788.jpg">
+                            </div>
+                            <div id="note_photo_1170313790" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170313790.jpg">
+                            </div>
+                            <div id="note_photo_1170313792" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1170313792.jpg">
+                            </div>
+                            <div class="article-title">
+                                <span class="anchor t1">行程</span>
+                            </div>
+                            <p class="note-content">
+                                3天2晚的行程
+                                <br>
+                                <br>
+                                D1:上海—南京南（高铁）—租车提车—滨江风光带— 永宁 张圩油菜花海—侯冲樱花隧道—西埂莲乡村（宿：福寿居共享度假小院）
+                                <br>
+                                <br>
+                                D2:老山国家森林公园—水墨大埝（宿：汤泉大吉温泉度假村）
+                                <br>
+                                <br>
+                                D3：惠济寺遗址文化公园—雨发生态旅游区—还车—返程 上海 （高铁）
+                                <br>
+                                <br>
+                                短暂的旅途将告一段落，镜头里定格的每一瞬间，旅行中路过的每一处风景，都是我的经历，而下一次的未知魅力，都是最期待的。
+                            </p>
+                            <div id="note_photo_1175043811" class="add-pic anchorcnt-seqitem" >
+                                <img src="/FreegoImg/li/travelnote/note_photo_1175043811.jpg">
+                            </div>
+                        </div>
+                    </div>
+                    <%--举报部分--%>
+                    <div class="report">
+                        <a class="r-report"></a>
+                    </div>
+                </div>
+            </div>
+            <div class="view-side">
+                <div id="pagelet-block-1aecefa7c9d7389a7c594923a53dcc1c" class="pagelet-block">
+                    <div class="notes-catalog">
+                        <div class="side-title" id="catalog_title">游记目录</div>
+                        <div id="pagelet-block-60e0226a9a32d403a320ee76fa6ab210" class="pagelet-block">
+                            <div id="catalog_list">
+                                <ul class="catalog-content">
+                                    <li class="vatalog-city" id="paragraph_nav_0">
+                                        <span class="catalog-num">01/</span>
+                                        <a role="button" tabindex="0" title="默认段落(0)" class="catalog-line-catalog-link">默认段落</a>
+                                    </li>
+                                    <li class="vatalog-city" id="paragraph_nav_1">
+                                        <span class="catalog-num">02/</span>
+                                        <a role="button" tabindex="0" title="不负春光(0)" class="catalog-line-catalog-link">不负春光</a>
+                                    </li>
+                                    <li class="vatalog-city" id="paragraph_nav_2">
+                                        <span class="catalog-num">03/</span>
+                                        <a role="button" tabindex="0" title="【一】(0)" class="catalog-line-catalog-link">【一】</a>
+                                    </li>
+                                    <li class="vatalog-city" id="paragraph_nav_3">
+                                        <span class="catalog-num">04/</span>
+                                        <a role="button" tabindex="0" title="滨江风光带(0)" class="catalog-line-catalog-link">滨江风光带</a>
+                                    </li>
+                                    <li class="vatalog-city" id="paragraph_nav_4">
+                                        <span class="catalog-num">05/</span>
+                                        <a role="button" tabindex="0" title="·福寿居共享度假小院(0)" class="catalog-line-catalog-link">·福寿居共享度假小院</a>
+                                    </li>
+                                    <li class="vatalog-city" id="paragraph_nav_5">
+                                        <span class="catalog-num">06/</span>
+                                        <a role="button" tabindex="0" title="行程(0)" class="catalog-line-catalog-link">行程</a>
+                                    </li>
+                                </ul>
+                            </div>
                         </div>
                     </div>
                 </div>
+            </div>
+            <%--游记评论--%>
+            <div class="note-reply-bottomReplyApi">
+                <div class="freego-cmt-warp" id="top_reply_list">
 
-                <div class="bar-collection-like">
-                    <div class="collection">
-                        <a href="javascript:void(0);" rel="nofollow" class="tn-btn">
-                            <img></img>
-                            <span>11</span>
-                            <div>收藏</div>
-                        </a>
+                    <div class="freego-cmt-item" id="note_reply_127001353" data-username="MkocoIe">
+                        <div class="comment-info">
+                            <div class="comment-user-head">
+                                <a href="" title="MkocoIe" target="_blank">
+                                    <img src="/FreegoImg/li/user/head6.jpeg" alt="MkocoIe">
+                                </a>
+                            </div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">MkocoIe(广州)</a>
+                            </div>
+                        </div>
+                        <div class="comment-con-warp clearfix">
+                            <div class="comment-photo">
+                                <img src="/FreegoImg/li/travelnote/note_photo_1167180750.jpg">
+                            </div>
+                            <div class="comment-word">
+                                <p>哇哦~太美了</p>
+                            </div>
+                        </div>
+                        <div class="comment-bot">
+                            <div class="time">2021-04-06 09:54</div>
+                            <div class="option">
+                                <a role="button" class="reply">回复</a>
+                            </div>
+                        </div>
                     </div>
-                    <div class="like">
-                        <a href="javascript:void(0);" rel="nofollow" class="tn-btn">
-                            <img></img>
-                            <span>681</span>
-                            <div>点赞</div>
-                        </a>
+
+                    <div class="freego-cmt-item" id="note_reply_127001734" data-username="H-C川">
+                        <div class="comment-info">
+                            <div class="comment-user-head">
+                                <a href="" title="Muse" target="_blank">
+                                    <img src="/FreegoImg/li/user/head12.jpeg" alt="H-C川">
+                                </a>
+                            </div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">H-C川(上海)</a>
+                            </div>
+                            <div class="comment-reply">回复</div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">MkocoIe(广州)</a>
+                            </div>
+                        </div>
+                        <div class="comment-con-warp clearfix">
+                            <div class="comment-word">
+                                <p>谢谢啦，以后我也会尽量多发一些游记。</p>
+                            </div>
+                        </div>
+                        <div class="comment-bot">
+                            <div class="time">2021-04-06 10:34</div>
+                            <div class="option">
+                                <a role="button" class="reply">回复</a>
+                            </div>
+                        </div>
                     </div>
+
+                    <div class="freego-cmt-item" id="note_reply_127001740" data-username="MkocoIe">
+                        <div class="comment-info">
+                            <div class="comment-user-head">
+                                <a href="" title="Muse" target="_blank">
+                                    <img src="/FreegoImg/li/user/head6.jpeg" alt="MkocoIe">
+                                </a>
+                            </div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">MkocoIe(广州)</a>
+                            </div>
+                            <div class="comment-reply">回复</div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">H-C川(上海)</a>
+                            </div>
+                        </div>
+                        <div class="comment-con-warp clearfix">
+                            <div class="comment-word">
+                                <p>嗯嗯，期待您更多的游记。</p>
+                            </div>
+                        </div>
+                        <div class="comment-bot">
+                            <div class="time">2021-04-06 13:54</div>
+                            <div class="option">
+                                <a role="button" class="reply">回复</a>
+                            </div>
+                        </div>
+                    </div>
+
+
                 </div>
-
             </div>
         </div>
+        <%--评论部分--%>
     </div>
 
     <%--导入尾部--%>
