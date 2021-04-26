@@ -10,6 +10,6 @@
 &emsp;&emsp;界面：游记评论  
 &emsp;&emsp;功能：无  
 1.2版本  
-&emsp;&emsp;界面：  
+&emsp;&emsp;界面：无  
 &emsp;&emsp;功能：用户是否登录判断  
 
