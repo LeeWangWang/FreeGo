@@ -1,6 +1,6 @@
 package test;
 
-import dao.impl.UserInfoDaoImpl;
+import dao.impl.UserInfoDaoInfoImpl;
 import domain.UserInfo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -20,7 +20,7 @@ public class SQLTest {
 
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
 
-        UserInfoDaoImpl userInfoDao = new UserInfoDaoImpl();
+        UserInfoDaoInfoImpl userInfoDao = new UserInfoDaoInfoImpl();
 
         UserInfo userInfo = new UserInfo("15356145755","876213908@qq.com","Joshua Genter","123456789","男","湖人总冠军","",false);
         userInfo.setUserId(1055);

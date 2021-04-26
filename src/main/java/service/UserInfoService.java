@@ -8,13 +8,8 @@ import domain.UserInfo;
  * @Description:
  */
 public interface UserInfoService {
-    /**
-     * 用户注册
-     */
+
     UserInfo register(UserInfo userInfo);
 
-    /**
-     * 用户登录
-     */
     UserInfo login(String account, String password);
 }

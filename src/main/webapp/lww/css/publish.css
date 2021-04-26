@@ -1,0 +1,178 @@
+/*发布游记头部*/
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+.set-index{
+    background-size: cover;
+    position: relative;
+    height: 500px;
+}
+.set-bg-toppiccnt{
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 0;
+    background-position: center 0;
+    background-repeat: no-repeat;
+    overflow: hidden;
+}
+.set-bg-toppiccnt img{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+}
+.set-index .set-page{
+    display: none;
+}
+.set-page a.set-add {
+    width: 67px;
+    height: 67px;
+    float: left;
+    margin-right: 20px;
+    background: url(../../images/li/travelnote/add_photo.jpeg) -10px 0 no-repeat;
+    position: relative;
+}
+.set-page h2 {
+    margin-top: 2px;
+}
+.set-page p {
+    margin-top: 12px;
+    font-size: 16px;
+}
+.clear {
+    clear: both;
+    display: block;
+    height: 0;
+    font-size: 0;
+    line-height: 0;
+    overflow: hidden;
+}
+.set-title{
+    width: 938px;
+    padding: 20px 20px;
+    height: 20px;
+    background: #fff;
+    border: 1px solid #fff;
+    line-height: 20px;
+    position: absolute;
+    bottom: 25px;
+    z-index: 1;
+    left: 50%;
+    margin-left: -489px;
+    box-shadow: 0 2px 2px #dcdadf;
+}
+.set-title input {
+    width: 868px;
+    height: 20px;
+    line-height: 22px;
+    font-size: 18px;
+    border: 0;
+    color: #666;
+    float: left;
+}
+.set-title span {
+    float: right;
+    color: #999;
+    display: none;
+}
+.set-title span strong {
+    color: #f00;
+    font-weight: normal;
+}
+/*发布游记主体*/
+.container {
+    width: 980px;
+    margin: 40px auto;
+}
+.content {
+    min-height: 350px;
+    padding-bottom: 100px;
+    float: left;
+    width: 680px;
+    font-size: 15px;
+    color: #444;
+    line-height: 28px;
+    position: relative;
+}
+.textarea-placeholder{
+    overflow: hidden;
+    position: relative;
+}
+.textarea {
+    width: 100%;
+    min-height: 26px;
+    display: block;
+    border: 0;
+    resize: none;
+    line-height: 1.8;
+    padding: 0;
+}
+.sidebar{
+    position: relative;
+    z-index: 11;
+    float: right;
+    width: 240px;
+    padding-top: 10px;
+}
+.sidebar-item {
+    margin-bottom: 25px;
+    position: relative;
+    line-height: 28px;
+}
+.add-btn {
+    color: #333;
+    display: block;
+    font-size: 18px;
+    color: #333;
+}
+.action-ft {
+    height: 60px;
+    padding: 30px 0;
+}
+.action-ft .action-btn {
+    width: 680px;
+    padding-right: 300px;
+    text-align: right;
+}
+.btn-cancel{
+    background: #ffffff;
+    color: #ff9d00;
+}
+.btn-publish{
+    background: #ff9d00;
+    color: #ffffff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

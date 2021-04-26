@@ -13,20 +13,46 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/search.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/lww/layui/css/layui.css">
     <%--导入JavaScript--%>
     <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/layui/layui.js"></script>
+
+    <script>
+        $(function () {
+            //查询用户信息
+            $.get("/user/findOne", {}, function (user) {
+                if (user) {
+                    //用户登录了
+                    $("#login_out").remove();//移除未登录标签
+                    var userHead = user.userHeadPicturePath;
+                    var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
+                    $("#user_head").html(head);
+                } else {
+                    $("#user_panel").remove();
+                    $("#login_in").remove();//移除已登录标签
+                }
+            });
+            //显示下拉菜单
+            $("#login_status").mouseover(function () {
+                $("#menu_panel").next("a").slideDown;
+            });
+            $("#login_status").mouseleave(function () {
+                $("#user_panel").children("a").slideUp;
+            });
+        });
+    </script>
+
 </head>
 <body>
     <%--搜索框--%>
     <div class="search-head">
         <div class="wid clearfix">
-
             <div class="search-head-logo">
                 <a href=""></a>
             </div>
-
             <div class="search-bar">
                 <div class="search-wrapper">
                     <div class="search-input">
@@ -39,7 +65,6 @@
                     </a>
                 </div>
             </div>
-
             <div class="login_status">
                 <!-- 未登录状态  -->
                 <div id="login_out" class="login_out">
@@ -47,13 +72,13 @@
                     <a href="register.jsp">注册</a>
                 </div>
                 <!-- 登录状态  -->
-                <div id="login_in" class="login_in">
-                    <span id="span_username"></span>
-                    <a href="javascript:location.href='user/exit';">退出</a>
-                    <a id="cancelAccount">注销账号</a>
-                </div>
+                <button id="login_in" class="login_in layui-btn layui-btn-primary">
+                    <div class="user-head" id="user_head">
+                        <img class="user-head-pic" src="/FreegoImg/user/null.jpeg">
+                    </div>
+                    <i class="glyphicon glyphicon-chevron-down"></i>
+                </button>
             </div>
-
         </div>
     </div>
 

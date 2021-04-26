@@ -81,14 +81,10 @@ a {
     width: 100px;
 }
 .login_status > .login_in{
-    width: 70px;
+    width: 100px;
     height: 60px;
     display: flex;
     align-items: center;
-}
-.login_in{
-    width: 100px;
-    height: 40px;
     margin: 0;
     border: 0;
     padding: 0 10px;
@@ -111,6 +107,44 @@ a {
 }
 
 /*下拉菜单*/
+
+/*头部搜索栏*/
+.top-search-bar{
+    float: left;
+    width: 300px;
+    height: 60px;
+    overflow: hidden;
+}
+.top-search-wrapper{
+    float: left;
+    width: 200px;
+    position: relative;
+    margin-top: 11px;
+    margin-left: 30px;
+}
+.top-search-wrapper .top-search-input{
+    height: 38px;
+    overflow: hidden;
+}
+.top-search-wrapper .top-search-input input{
+    border: 1px solid #efefef;
+    height: 38px;
+    padding: 0 10px 0 20px;
+    margin: 0;
+    line-height: 38px;
+    font-size: 14px;
+    color: #666;
+    border-radius: 4px;
+    background-color: #efefef;
+}
+.glyphicon-search{
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    color: #5e5e5e;
+    font-size: 23px;
+    background-position: -30px -150px!important;
+}
 
 /*公共尾部*/
 .foot-pic {

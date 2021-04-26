@@ -1,3 +1,15 @@
+#head_nav_scenic_li:hover #head_nav_scenic_a{
+    color: #ff9d00;
+    border-bottom: 2px #ff9d00;
+}
+#head_nav_hotel_li:hover #head_nav_hotel_a{
+    color: #ff9d00;
+    border-bottom: 2px #ff9d00;
+}
+#head_nav_gonglve_li:hover #head_nav_gonglve_a{
+    color: #ff9d00;
+    border-bottom: 2px #ff9d00;
+}
 /*轮播图CSS*/
 #freego_banner{
     width: 100%;
@@ -40,24 +52,25 @@
     margin-left: -290px;
     width: 600px;
     z-index: 5;
-    transform: translateY(50px);
+    transform: translateY(30px);
 }
 .index-search-group{
-    padding: 15px;
-    background-color: rgba(32, 32, 31, 0.6);
+    padding: 15px 15px 18px 28px;
+    background-color: #000000c2;
     border-radius: 4px;
 }
 .index-search-tab{
-    margin-bottom: 7px;
+    margin-bottom: 10px;
     color: #FFFFFF;
-    line-height: 26px;
     font-size: 14px;
+}
+.index-search-tab input{
+    width: 18px;
+    height: 18px;
 }
 .index-search-tab > .clearfix > .tab-select{
     float: left;
-    height: 30px;
     display: inline;
-    margin-left: 30px;
     cursor: pointer;
 }
 .index-search-tab > .clearfix > .tab-select > .tab-check{
@@ -77,14 +90,15 @@
 }
 .index-search-wrapper{
     float: left;
-    width: 510px;
+    width: 450px;
+    margin-right: 20px;
 }
 .index-search-input{
     height: 46px;
     overflow: hidden;
 }
 .index-search-input > input{
-    width: 500px;
+    width: 450px;
     height: 46px;
     border: 0 none;
     padding: 0 25px;
@@ -92,19 +106,12 @@
     line-height: 46px;
     color: #666;
     font-size:16px;
-    border-radius: 4px;
+    border-radius: 10px;
 }
-.index-search-button{
-    float: left;
-    margin-left: 6px;
-    width: 50px;
-    height: 46px;
-}
-.index-search-button > a{
-    display: block;
-    height: 46px;
-    background-image: url(../../images/li/index/icon_search.jpeg);
-    border-radius: 5px;
+.index-search-wrapper button{
+    font-size: 14px;
+    margin-top: 5px;
+    background-color: #ff9d00;
 }
 /*webkit内核*/
 input::-webkit-input-placeholder {
@@ -120,19 +127,18 @@ a:hover{
     margin: auto;
 }
 .travelnote-tab{
-    margin-bottom: 10px;
-    margin-top: 10px;
-    height: 54px;
-    line-height: 45px;
+    display: inline-block;
+    width: 100%;
+    height: 60px;
+    line-height: 60px;
     font-size: 16px;
     border-bottom: 3px solid #e4e4e4;
 }
 .travelnote-tab > .travelnote-hot{
     float: left;
     width: 150px;
-    padding-bottom: 6px;
+    height: 60px;
     border-bottom: 3px solid #ff9d00;
-    z-index: 11;
     text-align: center;
 }
 .travelnote-tab > .travelnote-hot a{
@@ -142,8 +148,6 @@ a:hover{
 .travelnote-tab > .travelnote-new{
     float: left;
     width: 150px;
-    padding-bottom: 6px;
-    z-index: 11;
     text-align: center;
 }
 .travelnote-tab > .travelnote-new a{
@@ -154,7 +158,7 @@ a:hover{
     float: right;
     width: 140px;
     height: 40px;
-    margin-top: 6px;
+    margin-top: 10px;
     text-align: center;
     color: #ffffff;
     background-color: #ff9d00;
@@ -172,6 +176,9 @@ a:hover{
 }
 
 /*游记列表*/
+.travelnote-list{
+    margin-top: 10px;
+}
 .travelnote-item{
     padding: 15px 0;
     height: 250px;

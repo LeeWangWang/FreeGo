@@ -1,9 +1,10 @@
 package service;
 
-/**
- * @Author: 李旺旺
- * @Date: 2021/4/12 12:28
- * @Description:
- */
+import domain.TravelNoteInfo;
+
+import java.util.List;
+
 public interface TravelNoteInfoService {
+
+    List<TravelNoteInfo> recommendTravelNoteInfoNote(String userId);
 }

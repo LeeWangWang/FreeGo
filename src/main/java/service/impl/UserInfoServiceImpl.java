@@ -1,8 +1,7 @@
 package service.impl;
 
-import com.sun.org.apache.xpath.internal.operations.Bool;
 import dao.UserInfoDao;
-import dao.impl.UserInfoDaoImpl;
+import dao.impl.UserInfoDaoInfoImpl;
 import domain.UserInfo;
 import service.UserInfoService;
 
@@ -13,7 +12,7 @@ import service.UserInfoService;
  */
 public class UserInfoServiceImpl implements UserInfoService {
 
-    private UserInfoDao userDao = new UserInfoDaoImpl();
+    private UserInfoDao userDao = new UserInfoDaoInfoImpl();
 
     /**
     * @Author:  李旺旺
@@ -37,6 +36,13 @@ public class UserInfoServiceImpl implements UserInfoService {
         return null;
     }
 
+    /**
+     * @Author:  李旺旺
+     * @Date:    2021/4/18 16:01
+     * @param:   [userInfo]
+     * @Return:  boolean
+     * @Description: 用户登录，登陆成功返回UserInfo实例对象，失败返回null
+     */
     @Override
     public UserInfo login(String account, String password) {
         return  userDao.isAccountRight(account, password);

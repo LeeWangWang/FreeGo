@@ -13,35 +13,58 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/travelnote.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/lww/layui/css/layui.css">
     <%--导入JavaScript--%>
     <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/layui/layui.js"></script>
+
+    <script>
+        $(function () {
+            //查询用户信息
+            $.get("/user/findOne", {}, function (user) {
+                if (user) {
+                    //用户登录了
+                    $("#login_out").remove();//移除未登录标签
+                    var userHead = user.userHeadPicturePath;
+                    var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
+                    $("#user_head").html(head);
+                } else {
+                    $("#user_panel").remove();
+                    $("#login_in").remove();//移除已登录标签
+                }
+            });
+            //显示下拉菜单
+            $("#login_status").mouseover(function () {
+                $("#menu_panel").next("a").slideDown;
+            });
+            $("#login_status").mouseleave(function () {
+                $("#user_panel").children("a").slideUp;
+            });
+        });
+    </script>
+
 </head>
 <body>
     <%--导入头部--%>
     <div id="header">
-
         <div class="freego_header clearfix" id="head_nav_warper">
-
             <div class="head_logo"><a class="freego_logo" title="FreeGo" href="http://localhost:8080/index.jsp"></a></div>
-
             <ul class="head_nav" id="_j_head_nav" role="tablist">
                 <li id="head_nav_index_li" role="presentation"><a href="" id="head_nav_index_a">首页</a></li>
                 <li id="head_nav_scenic_li" role="presentation"><a href="" id="head_nav_scenic_a" title="景点">景点</a></li>
-                <li id="head_nav_gonglve_li" role="presentation"><a href="" id="head_nav_gonglve_a" title="旅游攻略">旅游攻略</a></li>
                 <li id="head_nav_hotel_li" role="presentation"><a href="" id="head_nav_hotel_a" title="酒店">订酒店</a></li>
+                <li id="head_nav_gonglve_li" role="presentation"><a href="" id="head_nav_gonglve_a" title="旅游攻略">旅游攻略</a></li>
             </ul>
-
-            <div class="search-bar">
-                <div class="search-wrapper">
-                    <div class="search-input">
-                        <input name="q" type="text" id="search_input" placeholder="" autocomplete="off">
-                        <a role="button" href="javascript:" class="glyphicon glyphicon-search" id="head_search_link"></a>
+            <div class="top-search-bar">
+                <div class="top-search-wrapper">
+                    <div class="top-search-input">
+                        <input name="q" type="text" id="top_search_input" placeholder="" autocomplete="off">
+                        <a role="button" href="javascript:" class="glyphicon glyphicon-search" id="top_head_search_link"></a>
                     </div>
                 </div>
             </div>
-
             <div class="login_status">
                 <!-- 未登录状态  -->
                 <div id="login_out" class="login_out">
@@ -49,15 +72,14 @@
                     <a href="register.jsp">注册</a>
                 </div>
                 <!-- 登录状态  -->
-                <div id="login_in" class="login_in">
-                    <span id="span_username"></span>
-                    <a href="javascript:location.href='user/exit';">退出</a>
-                    <a id="cancelAccount">注销账号</a>
-                </div>
+                <button id="login_in" class="login_in layui-btn layui-btn-primary">
+                    <div class="user-head" id="user_head">
+                        <img class="user-head-pic" src="/FreegoImg/user/null.jpeg">
+                    </div>
+                    <i class="glyphicon glyphicon-chevron-down"></i>
+                </button>
             </div>
-
         </div>
-
     </div>
 
     <div class="main">
@@ -159,7 +181,7 @@
                                 <span class="anchor t1">不负春光</span>
                             </div>
                             <p class="note-content">漫步永宁张圩，在蓝天下赏金色油菜花海。</p>
-                            <div id="note_photo_1167180750" class="add-pic anchorcnt-seqitem" style="width: 680px">
+                            <div id="note_photo_1167180750" class="add-pic anchorcnt-seqitem">
                                 <img src="/FreegoImg/li/travelnote/note_photo_1167180750.jpg">
                             </div>
                             <p class="note-content">听一阵樱花纷纷，邂逅一场粉色的梦。</p>

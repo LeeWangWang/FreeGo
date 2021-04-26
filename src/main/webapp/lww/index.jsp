@@ -34,16 +34,50 @@
                     $("#user_panel").remove();
                     $("#login_in").remove();//移除已登录标签
                 }
+                var userId = user.userId;
+                $.get("/travelnote/recommendTravelNoteInfoNote", userId, function (result) {
+                    //展示推荐游记
+                });
             });
-            //显示下拉菜单
+            //头像显示下拉菜单
             $("#login_status").mouseover(function () {
                 $("#menu_panel").next("a").slideDown;
             });
             $("#login_status").mouseleave(function () {
                 $("#user_panel").children("a").slideUp;
             });
+
+            $.get("/travelnote/recommendTravelInfoNote", {}, );
+
+            //发表游记
+            $("#travelnoe_publish").click(function () {
+                $.get("/user/findOne", {}, function (user) {
+                    if (user) {
+                        //用户登录了
+                        location.href = "http://localhost:8080/lww/PublishTravelNote.jsp";
+                    } else {
+                        location.href = "http://localhost:8080/lww/login.jsp";
+                    }
+                });
+            });
+
+            //当表单提交时，调用查询方法
+            $("#index_search").submit(function () {
+                if ($("#checkbox_scenic").get(0).checked) {
+                    // do something
+                } else if ($("#checkbox_hotel").get(0).checked) {
+                    // do something
+                } else if ($("#checkbox_travelnote").get(0).checked) {
+                    $.post("/travelnote/queryTravelNoteInfoBySearch", $(this).serialize(), function (result) {
+                    });
+                } else {
+                    // do something
+                }
+            });
         });
     </script>
+
+    <%--用户头像下拉列表--%>
     <script>
         layui.use(['dropdown', 'util', 'layer'], function(){
             var dropdown = layui.dropdown;
@@ -75,18 +109,14 @@
 <body>
     <%--导入头部--%>
     <div id="header">
-
         <div class="freego_header clearfix" id="head_nav_warper">
-
             <div class="head_logo"><a class="freego_logo" title="FreeGo" href="http://localhost:8080/index.jsp"></a></div>
-
             <ul class="head_nav" id="_j_head_nav" role="tablist">
-                <li id="head_nav_index_li" role="presentation"><a href="" id="head_nav_index_a">首页</a></li>
-                <li id="head_nav_scenic_li" role="presentation"><a href="" id="head_nav_scenic_a" title="景点">景点</a></li>
-                <li id="head_nav_gonglve_li" role="presentation"><a href="" id="head_nav_gonglve_a" title="旅游攻略">旅游攻略</a></li>
-                <li id="head_nav_hotel_li" role="presentation"><a href="" id="head_nav_hotel_a" title="酒店">订酒店</a></li>
+                <li id="head_nav_index_li" role="presentation"><a href="http://localhost:8080/lww/index.jsp" id="head_nav_index_a">首页</a></li>
+                <li id="head_nav_scenic_li" role="presentation"><a href="http://localhost:8080/lww/scenic.jsp" id="head_nav_scenic_a" title="景点">景点</a></li>
+                <li id="head_nav_hotel_li" role="presentation"><a href="http://localhost:8080/lww/hotel.jsp" id="head_nav_hotel_a" title="酒店">订酒店</a></li>
+                <li id="head_nav_gonglve_li" role="presentation"><a href="http://localhost:8080/lww/travelnote.jsp" id="head_nav_gonglve_a" title="旅游攻略">旅游攻略</a></li>
             </ul>
-
             <div class="login_status">
                 <!-- 未登录状态  -->
                 <div id="login_out" class="login_out">
@@ -100,11 +130,8 @@
                     </div>
                     <i class="glyphicon glyphicon-chevron-down"></i>
                 </button>
-
             </div>
-
         </div>
-
     </div>
 
     <%--轮播图--%>
@@ -174,26 +201,22 @@
         </div>
 
         <%--搜索框--%>
-        <div class="index-search-container" id="index_search">
+        <form class="index-search-container layui-form" id="index_search">
             <div class="index-search-group">
                 <div class="index-search-tab" id="index_search_tab">
                     <%--单选框--%>
                     <ul class="clearfix">
-                        <li class="tab-select">
-                            <div class="tab-check" id="tab_all"></div>
-                            <div class="tab-text">全部</div>
+                        <li class="tab-select" id="select_all">
+                            <input id="checkbox_all" type="radio" name="select" value="全部" title="全部" checked>
                         </li>
-                        <li class="tab-select">
-                            <div class="tab-check" id="tab_travelnote"></div>
-                            <div class="tab-text">游记</div>
+                        <li class="tab-select" id="select_scenic">
+                            <input id="checkbox_scenic" type="radio" name="select" value="景点" title="景点">
                         </li>
-                        <li class="tab-select">
-                            <div class="tab-check" id="tab_scenic"></div>
-                            <div class="tab-text">景点</div>
+                        <li class="tab-select" id="select_hotel">
+                            <input id="checkbox_hotel" type="radio" name="select" value="酒店" title="酒店">
                         </li>
-                        <li class="tab-select">
-                            <div class="tab-check" id="tab_hotel"></div>
-                            <div class="tab-text">酒店</div>
+                        <li class="tab-select" id="select_travelnote">
+                            <input id="checkbox_travelnote" type="radio" name="select" value="游记" title="游记">
                         </li>
                     </ul>
                 </div>
@@ -203,12 +226,10 @@
                             <input name="q" type="text" placeholder="搜游记/景点/酒店" id="index_search_input_all" autocomplete="off">
                         </div>
                     </div>
-                    <div class="index-search-button" id="index_search_btn_all">
-                        <a role="button" href="javascript;"></a>
-                    </div>
+                    <button type="submit" class="layui-btn layui-btn-warm layui-btn-radius">搜索</button>
                 </div>
             </div>
-        </div>
+        </form>
 
     </section>
 
@@ -820,8 +841,6 @@
     </div>
 
     <script>
-        /*轮播图-搜索栏*/
-        document.getElementById("tab_all").style.background="url(../images/li/index/check_box_check.jpeg)";
         /*头部*/
         document.getElementById("head_nav_index_li").style.background="#ff9d00";
         document.getElementById("head_nav_index_a").style.color="#FFFFFF";
