@@ -35,6 +35,7 @@
     font-size: 23px;
     background-position: -30px -150px!important;
 }
+
 /*游记主体*/
 .set-index{
     height: 500px;
@@ -191,7 +192,7 @@
 .travelnote-view{
     position: relative;
     width: 1010px;
-    margin: 10px auto 20px;
+    margin: 10px auto 0;
     transform: translateY(80px);
 }
 .view-con{
@@ -272,6 +273,20 @@
     font-size: 22px;
     display: block;
 }
+.vc-article .report{
+    float: left;
+    width: 100%;
+    height: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    transform: translateY(-18px);
+}
+.vc-article .report a{
+    color: #333;
+    float: right;
+    margin-right: 8px;
+}
+
 /*游记目录*/
 .view-side{
     float: right;
@@ -306,6 +321,164 @@
 .catalog-content li a{
     color: #999;
 }
+
+/*游记评论*/
+.note-reply-bottomReplyApi{
+    float: left;
+    transform: translateY(-200px);
+}
+.freego-cmt-warp{
+    width: 680px;
+    margin: 0 10px;
+}
+.freego-cmt-item{
+    width: 100%;
+    font-size: 12px;
+    line-height: 20px;
+    margin-bottom: 24px;
+    float: left;
+}
+.freego-cmt-item .comment-info{
+    width: 100%;
+    height: 48px;
+    line-height: 48px;
+    background-color: #f6f6f6;
+    border-top-left-radius: 24px;
+    border-bottom-left-radius: 24px;
+}
+.freego-cmt-item .comment-info .comment-user-head{
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    float: left;
+    margin-right: 20px;
+    position: relative;
+}
+.freego-cmt-item .comment-info .comment-user-head img{
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.freego-cmt-item .comment-info .comment-user-nickname{
+    float: left;
+}
+.freego-cmt-item .comment-info .comment-user-nickname a{
+    float: left;
+    color: #ff8a00;
+}
+.freego-cmt-item .comment-info .comment-user-nickname p{
+    float: left;
+    margin: 0 10px;
+}
+.freego-cmt-item .comment-con-warp{
+    padding-left: 68px;
+    margin-top: 12px;
+    position: relative;
+}
+.freego-cmt-item .comment-con-warp .comment-con{
+    width: 486px;
+    float: left;
+}
+.freego-cmt-item .comment-con-warp .comment-con .comment-word{
+    color: #666;
+    font-size: 14px;
+    margin-top: 10px;
+}
+.freego-cmt-item .comment-bot{
+    float: left;
+    width: 100%;
+    height: 24px;
+    line-height: 24px;
+    color: #999;
+    margin-top: 16px;
+}
+.freego-cmt-item .comment-bot .time{
+    float: left;
+}
+.freego-cmt-item .comment-bot .option{
+    float: right;
+    padding-right: 5px;
+}
+.freego-cmt-item .comment-bot .option .reply{
+    margin: 0 5px;
+    color: #ff9d00;
+}
+.comment-reply-warp{
+    float: left;
+}
+.comment-tab{
+    height: 44px;
+    line-height: 44px;
+    font-size: 18px;
+    color: #ff9d00;
+    border-bottom: 1px solid #e4e4e4;
+    margin-left: 68px;
+    margin-bottom: 20px;
+}
+.comment-tab div{
+    width: 200px;
+    height: 44px;
+    text-align: center;
+    border-bottom: 3px solid;
+}
+.comment-tab-con{
+    padding-left: 68px;
+    position: relative;
+}
+.comment-tab-con .photo-con{
+    width: 48px;
+    height: 48px;
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+.comment-tab-con .photo-con img{
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+}
+.reply-con .reply-text{
+    padding: 5px;
+    border: 1px solid #e5e5e5;
+}
+.reply-con .reply-text textarea{
+    outline: 0;
+    border: 0;
+    padding: 0;
+    width: 600px;
+    height: 180px;
+    resize: none;
+    color: #666;
+    line-height: 22px;
+}
+.reply-con .reply-submit{
+    float: right;
+    margin-top: 20px;
+}
+.reply-con .reply-submit a{
+    display: block;
+    width: 160px;
+    height: 40px;
+    background-color: #ff9d00;
+    border-radius: 4px;
+    font-size: 18px;
+    line-height: 40px;
+    text-align: center;
+    color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

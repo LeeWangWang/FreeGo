@@ -5,12 +5,6 @@ html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, l
     box-sizing: border-box;
     font-family: '微软雅黑';
 }
-fieldset, img, input, buttonlogin {
-    border: none;
-    padding: 0;
-    margin: 0;
-    outline-style: none;  /*外面环绕线*/
-}
 ul, ol {
     list-style: none;
 }
@@ -21,12 +15,6 @@ input {
 }
 select, input {
     vertical-align: middle;
-}
-
-/*输入字居中显示*/
-select, input, textarea {
-    font-size: 12px;
-    margin: 0;
 }
 textarea {
     resize: none;  /*不可以随意拖动*/
@@ -48,11 +36,6 @@ table {
 a {
     text-decoration: none;
 }
-/*h1, h2, h3, h4, h5, h6 {
-    text-decoration: none;
-    font-weight: normal;
-    font-size: 100%;
-}*/
 
 /*公共头部*/
 .freego_header{
@@ -83,10 +66,10 @@ a {
     color: #0f0f0f;
 }
 .login_status{
-    width: 220px;
+    width: 100px;
     height: 60px;
     float: right;
-    margin-right: 200px;
+    margin-right: 320px;
 }
 .login_status > div > a{
     font-size: 13px;
@@ -98,8 +81,32 @@ a {
     width: 100px;
 }
 .login_status > .login_in{
-    width: 120px;
+    width: 100px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    margin: 0;
+    border: 0;
+    padding: 0 10px;
 }
+.login_in > .user-head{
+    width: 40px;
+    height: 40px;
+    float: left;
+}
+.login_in > .user-head img{
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+.login_in > .glyphicon-chevron-down{
+ font-size: 18px;
+ margin-left: 12px;
+    line-height: 40px;
+}
+
+/*下拉菜单*/
 
 /*公共尾部*/
 .foot-pic {

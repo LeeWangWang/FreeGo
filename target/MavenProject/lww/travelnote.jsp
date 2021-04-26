@@ -4,20 +4,19 @@
   DateTime: 2021/4/23 14:37
   Description: 
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>TravelNote</title>
     <%--导入CSS--%>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" type="text/css" href="css/travelnote.css">
-    <%--导入jQuery--%>
-    <script src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <%--导入布局js--%>
-    <script src="js/getParameter.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/travelnote.css">
+    <%--导入JavaScript--%>
+    <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
 </head>
 <body>
     <%--导入头部--%>
@@ -77,7 +76,7 @@
         <div class="set-info clearfix">
 
             <div class="user-head">
-                <img src="/FreegoImg/li/user/head12.jpeg">
+                <img src="/FreegoImg/user/head12.jpeg">
             </div>
             <div class="person">
                 <div>
@@ -120,25 +119,25 @@
                     <div class="travelnote-dir-list">
                         <ul>
                             <li class="time">
-                                <img src="../images/li/travelnote/time.png">
+                                <img src="../images/li/travelnote/time.jpeg">
                                 出发时间
                                 <span>/</span>
                                 2021-03-26
                             </li>
                             <li class="day">
-                                <img src="../images/li/travelnote/day.png">
+                                <img src="../images/li/travelnote/day.jpeg">
                                 出行天数
                                 <span>/</span>
                                 3天
                             </li>
                             <li class="people">
-                                <img src="../images/li/travelnote/people.png">
+                                <img src="../images/li/travelnote/people.jpeg">
                                 人物
                                 <span>/</span>
                                 情侣/夫妻
                             </li>
                             <li class="cost">
-                                <img src="../images/li/travelnote/cost.png">
+                                <img src="../images/li/travelnote/cost.jpeg">
                                 人均费用
                                 <span>/</span>
                                 1000RMB
@@ -292,7 +291,7 @@
                     </div>
                     <%--举报部分--%>
                     <div class="report">
-                        <a class="r-report"></a>
+                        <a class="r-report">举报</a>
                     </div>
                 </div>
             </div>
@@ -341,42 +340,41 @@
                         <div class="comment-info">
                             <div class="comment-user-head">
                                 <a href="" title="MkocoIe" target="_blank">
-                                    <img src="/FreegoImg/li/user/head6.jpeg" alt="MkocoIe">
+                                    <img src="/FreegoImg/user/head6.jpeg" alt="MkocoIe">
                                 </a>
                             </div>
                             <div class="comment-user-nickname">
-                                <a class="" target="_blank">MkocoIe(广州)</a>
+                                <a class="" target="_blank">MkocoIe</a>
                             </div>
                         </div>
                         <div class="comment-con-warp clearfix">
-                            <div class="comment-photo">
-                                <img src="/FreegoImg/li/travelnote/note_photo_1167180750.jpg">
+                            <div class="comment-con">
+                                <div class="comment-photo">
+                                    <img style="height: 450px;" src="/FreegoImg/li/travelnote/note_photo_1167180750.jpg">
+                                </div>
+                                <div class="comment-word">
+                                    <p>哇哦~太美了</p>
+                                </div>
                             </div>
-                            <div class="comment-word">
-                                <p>哇哦~太美了</p>
+                            <div class="comment-bot">
+                                <div class="time">2021-04-06 09:54</div>
+                                <div class="option">
+                                    <a role="button" class="reply">回复</a>
+                                </div>
                             </div>
-                        </div>
-                        <div class="comment-bot">
-                            <div class="time">2021-04-06 09:54</div>
-                            <div class="option">
-                                <a role="button" class="reply">回复</a>
                             </div>
-                        </div>
                     </div>
-
-                    <div class="freego-cmt-item" id="note_reply_127001734" data-username="H-C川">
+                    <div style="padding-left: 68px;" class="freego-cmt-item" id="note_reply_127001734" data-username="H-C川">
                         <div class="comment-info">
                             <div class="comment-user-head">
                                 <a href="" title="Muse" target="_blank">
-                                    <img src="/FreegoImg/li/user/head12.jpeg" alt="H-C川">
+                                    <img src="/FreegoImg/user/head12.jpeg" alt="H-C川">
                                 </a>
                             </div>
                             <div class="comment-user-nickname">
-                                <a class="" target="_blank">H-C川(上海)</a>
-                            </div>
-                            <div class="comment-reply">回复</div>
-                            <div class="comment-user-nickname">
-                                <a class="" target="_blank">MkocoIe(广州)</a>
+                                <a class="" target="_blank">H-C川</a>
+                                <p>回复</p>
+                                <a class="" target="_blank">MkocoIe</a>
                             </div>
                         </div>
                         <div class="comment-con-warp clearfix">
@@ -391,20 +389,17 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="freego-cmt-item" id="note_reply_127001740" data-username="MkocoIe">
+                    <div style="padding-left: 68px;" class="freego-cmt-item" id="note_reply_127001740" data-username="MkocoIe">
                         <div class="comment-info">
                             <div class="comment-user-head">
                                 <a href="" title="Muse" target="_blank">
-                                    <img src="/FreegoImg/li/user/head6.jpeg" alt="MkocoIe">
+                                    <img src="/FreegoImg/user/head6.jpeg" alt="MkocoIe">
                                 </a>
                             </div>
                             <div class="comment-user-nickname">
-                                <a class="" target="_blank">MkocoIe(广州)</a>
-                            </div>
-                            <div class="comment-reply">回复</div>
-                            <div class="comment-user-nickname">
-                                <a class="" target="_blank">H-C川(上海)</a>
+                                <a class="" target="_blank">MkocoIe</a>
+                                <p>回复</p>
+                                <a class="" target="_blank">H-C川</a>
                             </div>
                         </div>
                         <div class="comment-con-warp clearfix">
@@ -413,7 +408,7 @@
                             </div>
                         </div>
                         <div class="comment-bot">
-                            <div class="time">2021-04-06 13:54</div>
+                            <div class="time">2021-04-06 10:34</div>
                             <div class="option">
                                 <a role="button" class="reply">回复</a>
                             </div>
@@ -421,10 +416,138 @@
                     </div>
 
 
+                    <div class="freego-cmt-item" id="note_reply_127005928" data-username="MkocoIe">
+                        <div class="comment-info">
+                            <div class="comment-user-head">
+                                <a href="" title="MkocoIe" target="_blank">
+                                    <img src="/FreegoImg/user/head6.jpeg" alt="MkocoIe">
+                                </a>
+                            </div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">MkocoIe</a>
+                            </div>
+                        </div>
+                        <div class="comment-con-warp clearfix">
+                            <div class="comment-con">
+                                <div class="comment-photo">
+                                    <img style="height: 450px;" src="/FreegoImg/li/travelnote/note_photo_1167193224.jpg">
+                                </div>
+                                <div class="comment-word">
+                                    <p>美美美</p>
+                                </div>
+                            </div>
+                            <div class="comment-bot">
+                                <div class="time">2021-04-07 10:23</div>
+                                <div class="option">
+                                    <a role="button" class="reply">回复</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding-left: 68px;" class="freego-cmt-item" id="note_reply_127006348" data-username="H-C川">
+                        <div class="comment-info">
+                            <div class="comment-user-head">
+                                <a href="" title="Muse" target="_blank">
+                                    <img src="/FreegoImg/user/head12.jpeg" alt="H-C川">
+                                </a>
+                            </div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">H-C川</a>
+                                <p>回复</p>
+                                <a class="" target="_blank">MkocoIe</a>
+                            </div>
+                        </div>
+                        <div class="comment-con-warp clearfix">
+                            <div class="comment-word">
+                                <p>谢谢夸赞</p>
+                            </div>
+                        </div>
+                        <div class="comment-bot">
+                            <div class="time">2021-04-07 14:17</div>
+                            <div class="option">
+                                <a role="button" class="reply">回复</a>
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="freego-cmt-item" id="note_reply_127005942" data-username="西兰花花花">
+                        <div class="comment-info">
+                            <div class="comment-user-head">
+                                <a href="" title="MkocoIe" target="_blank">
+                                    <img src="/FreegoImg/user/head9.jpeg" alt="西兰花花花">
+                                </a>
+                            </div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">西兰花花花</a>
+                            </div>
+                        </div>
+                        <div class="comment-con-warp clearfix">
+                            <div class="comment-con">
+                                <div class="comment-photo">
+                                    <img style="height: 200px;" src="/FreegoImg/li/travelnote/note_photo_1167182750.jpg">
+                                </div>
+                                <div class="comment-word">
+                                    <p>叼烟？？哈哈哈</p>
+                                </div>
+                            </div>
+                            <div class="comment-bot">
+                                <div class="time">2021-04-08 9:23</div>
+                                <div class="option">
+                                    <a role="button" class="reply">回复</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="padding-left: 68px;" class="freego-cmt-item" id="note_reply_127006384" data-username="H-C川">
+                        <div class="comment-info">
+                            <div class="comment-user-head">
+                                <a href="" title="Muse" target="_blank">
+                                    <img src="/FreegoImg/user/head12.jpeg" alt="H-C川">
+                                </a>
+                            </div>
+                            <div class="comment-user-nickname">
+                                <a class="" target="_blank">H-C川</a>
+                                <p>回复</p>
+                                <a class="" target="_blank">西兰花花花</a>
+                            </div>
+                        </div>
+                        <div class="comment-con-warp clearfix">
+                            <div class="comment-word">
+                                <p>哈哈，这都被你发现啦</p>
+                            </div>
+                        </div>
+                        <div class="comment-bot">
+                            <div class="time">2021-04-08 16:17</div>
+                            <div class="option">
+                                <a role="button" class="reply">回复</a>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="comment-reply-warp">
+                    <div class="comment-tab">
+                        <div>回复游记</div>
+                    </div>
+                    <div class="comment-tab-con">
+                        <div class="photo-con">
+                            <a href="" target="_blank" title="">
+                                <img src="/FreegoImg/user/head1.jpeg" alt="">
+                            </a>
+                        </div>
+                        <div class="reply-con clearfix" id="reply_editer">
+                            <div class="reply-text">
+                                <textarea class="reply-area" name="reply_content" cols="30" rows="10"></textarea>
+                            </div>
+                            <div class="reply-submit">
+                                <a role="button" class="publish-reply" title="发表回复">发表回复</a>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
-        <%--评论部分--%>
     </div>
 
     <%--导入尾部--%>
@@ -440,7 +563,6 @@
                     <h2>产品自主选，随心买</h2>
                 </dd>
             </dl>
-
             <dl>
                 <dt class="foot-pic">
                     <img src="../images/li/index/foot_2.jpeg" alt="">
@@ -450,7 +572,6 @@
                     <h2>24小时不打烊，随时买</h2>
                 </dd>
             </dl>
-
             <dl>
                 <dt class="foot-pic">
                     <img src="../images/li/index/foot_3.jpeg" alt="">
@@ -460,7 +581,6 @@
                     <h2>知名支付工具，放心买</h2>
                 </dd>
             </dl>
-
             <dl>
                 <dt class="foot-pic">
                     <img src="../images/li/index/foot_4.jpeg" alt="">

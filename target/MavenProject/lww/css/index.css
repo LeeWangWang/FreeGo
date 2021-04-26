@@ -24,10 +24,14 @@
     font-size: 27px;
     color: #FFFFFF;
 }
-.carousel-control{
+/*.carousel-control.left{
     height: 500px;
     margin-top: 10px;
 }
+.carousel-control.right{
+    height: 500px;
+    margin-top: 10px;
+}*/
 /*搜索框*/
 .index-search-container{
     position: relative;

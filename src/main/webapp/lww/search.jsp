@@ -4,20 +4,19 @@
   DateTime: 2021/4/22 16:38
   Description: 
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>FreeGo</title>
     <%--导入CSS--%>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" type="text/css" href="css/search.css">
-    <%--导入jQuery--%>
-    <script src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <%--导入布局js--%>
-    <script src="js/getParameter.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/search.css">
+    <%--导入JavaScript--%>
+    <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
 </head>
 <body>
     <%--搜索框--%>
@@ -174,7 +173,6 @@
                                     </div>
                                 </div>
                             </li>
-
                             <li>
                                 <div class="clearfix">
                                     <div class="flt1">
@@ -404,7 +402,6 @@
                     <h2>产品自主选，随心买</h2>
                 </dd>
             </dl>
-
             <dl>
                 <dt class="foot-pic">
                     <img src="../images/li/index/foot_2.jpeg" alt="">
@@ -414,7 +411,6 @@
                     <h2>24小时不打烊，随时买</h2>
                 </dd>
             </dl>
-
             <dl>
                 <dt class="foot-pic">
                     <img src="../images/li/index/foot_3.jpeg" alt="">
@@ -424,7 +420,6 @@
                     <h2>知名支付工具，放心买</h2>
                 </dd>
             </dl>
-
             <dl>
                 <dt class="foot-pic">
                     <img src="../images/li/index/foot_4.jpeg" alt="">

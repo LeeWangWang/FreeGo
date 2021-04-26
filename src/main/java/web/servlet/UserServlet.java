@@ -89,9 +89,45 @@ public class UserServlet extends BaseServlet {
             //登录成功
             user.toString();
             resultInfo.setFlag(true);
+            //登录成功标记，在session中保存user对象
             request.getSession().setAttribute("user", user);
         }
         writeValue(resultInfo, response);
     }
 
+    /**
+     * 在session中查询用户信息
+     */
+    public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //从session中获取登录用户
+        Object user = request.getSession().getAttribute("user");
+        //将user返回客户端
+        writeValue(user,response);
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

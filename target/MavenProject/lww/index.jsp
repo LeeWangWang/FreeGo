@@ -4,21 +4,76 @@
   DateTime: 2021/4/20 15:38
   Description: 
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
 <head>
     <meta charset="UTF-8">
     <title>FreeGo</title>
     <%--导入CSS--%>
-    <link rel="stylesheet" type="text/css" href="css/bootstrap.min.css">
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" type="text/css" href="css/index.css">
-    <%--导入jQuery--%>
-    <script src="js/jquery-3.3.1.js"></script>
-    <script type="text/javascript" src="js/bootstrap.min.js"></script>
-    <%--导入布局js--%>
-    <script src="js/getParameter.js"></script>
-    <script></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/index.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/lww/layui/css/layui.css">
+    <%--导入JavaScript--%>
+    <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/layui/layui.js"></script>
+
+    <script>
+        $(function () {
+            //查询用户信息
+            $.get("/user/findOne", {}, function (user) {
+                if (user) {
+                    //用户登录了
+                    $("#login_out").remove();//移除未登录标签
+                    var userHead = user.userHeadPicturePath;
+                    var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
+                    $("#user_head").html(head);
+                } else {
+                    $("#user_panel").remove();
+                    $("#login_in").remove();//移除已登录标签
+                }
+            });
+            //显示下拉菜单
+            $("#login_status").mouseover(function () {
+                $("#menu_panel").next("a").slideDown;
+            });
+            $("#login_status").mouseleave(function () {
+                $("#user_panel").children("a").slideUp;
+            });
+        });
+    </script>
+    <script>
+        layui.use(['dropdown', 'util', 'layer'], function(){
+            var dropdown = layui.dropdown;
+            dropdown.render({
+                elem: '#login_in'       //可绑定在任意元素中，此处以上述按钮为例
+                ,trigger: 'hover'       //触发组件的事件类型。
+                ,data: [{
+                    title: '我的游记'
+                    ,id: 'icon_travelnote'
+                    ,href: 'https://www.layui.com/'
+                    ,target: '_blank'
+                },{
+                    title: '我的收藏'
+                    ,id: 'icon_collection'
+                    ,href: 'https://www.layui.com/'
+                    ,target: '_blank'
+                },{
+                    title: '我的订单'
+                    ,id: 'icon_order'
+                    ,href: 'https://www.layui.com/'
+                    ,target: '_blank'
+                },{
+                    title: '我的关注'
+                    ,id: 'icon_follow'
+                    ,href: 'https://www.layui.com/'
+                    ,target: '_blank'
+                }]
+            });
+        });
+    </script>
 
 </head>
 <body>
@@ -43,11 +98,13 @@
                     <a href="register.jsp">注册</a>
                 </div>
                 <!-- 登录状态  -->
-                <div id="login_in" class="login_in">
-                    <span id="span_username"></span>
-                    <a href="javascript:location.href='user/exit';">退出</a>
-                    <a id="cancelAccount">注销账号</a>
-                </div>
+                <button id="login_in" class="login_in layui-btn layui-btn-primary">
+                    <div class="user-head" id="user_head">
+                        <img class="user-head-pic" src="/FreegoImg/user/null.jpeg">
+                    </div>
+                    <i class="glyphicon glyphicon-chevron-down"></i>
+                </button>
+
             </div>
 
         </div>
@@ -212,7 +269,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head1.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head1.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">DiDi_酱</a>
                                 </div>
@@ -231,7 +288,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -262,7 +318,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head4.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head4.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">彩虹帮的二当家</a>
                                 </div>
@@ -281,7 +337,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -313,7 +368,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head6.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head6.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">大浪汪洋</a>
                                 </div>
@@ -332,7 +387,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -365,7 +419,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head3.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head3.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">好望角</a>
                                 </div>
@@ -384,7 +438,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -416,7 +469,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head6.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head6.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">大浪汪洋</a>
                                 </div>
@@ -435,7 +488,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -468,7 +520,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head3.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head3.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">好望角</a>
                                 </div>
@@ -487,7 +539,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -518,7 +569,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head1.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head1.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">DiDi_酱</a>
                                 </div>
@@ -537,7 +588,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -568,7 +618,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head4.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head4.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">彩虹帮的二当家</a>
                                 </div>
@@ -587,7 +637,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -619,7 +668,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head6.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head6.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">大浪汪洋</a>
                                 </div>
@@ -638,7 +687,6 @@
 
                         </div>
                     </div>
-
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -671,7 +719,7 @@
                                 <%--用户--%>
                                 <div class="travelnote-user">
                                     <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/li/user/head3.jpeg">
+                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head3.jpeg">
                                     </div>
                                     <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">好望角</a>
                                 </div>

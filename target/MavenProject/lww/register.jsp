@@ -4,16 +4,16 @@
   DateTime: 2021/4/9 14:40
   Description: 用户注册页面
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
     <head>
     <meta charset="utf-8">
     <title>注册-FreeGo</title>
     <%--导入CSS--%>
-    <link rel="stylesheet" type="text/css" href="css/common.css">
-    <link rel="stylesheet" href="css/register.css">
-    <%--导入jQuery--%>
-    <script src="js/jquery-3.3.1.js"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/lww/css/register.css">
+    <%--导入JavaScript--%>
+    <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
 
     <script>
 
@@ -117,7 +117,7 @@
                 if (flag) {
                     //校验通过，发送sjax请求，提交表单的数据
                     //action=register & userTele=15556145755 & userNickName=Joshua_Lee & userPassword=11111111 & check=1234
-                    $.post("user/register", $(this).serialize(), function (data) {
+                    $.post("/user/register", $(this).serialize(), function (data) {
                         //处理服务器响应数据 data {flag:true,errorMsg:"注册失败"}
                         alert("flag: "+data.flag + ",msg:" + data.errorMsg);
                         if (data.flag) {
@@ -203,7 +203,7 @@
                                 <script type="text/javascript">
                                     //图片点击事件
                                     function changeCheckCode(img) {
-                                        img.src="checkCode?"+new Date().getTime();
+                                        img.src="/checkCode?"+new Date().getTime();
                                     }
                                 </script>
                             </td>
@@ -240,6 +240,7 @@
             '31.jpeg', '32.jpeg', '33.jpeg', '34.jpeg', '35.jpeg', '36.jpeg', '37.jpeg', '38.jpeg', '39.jpeg', '40.jpeg',
             '41.jpeg', '42.jpeg', '43.jpeg', '44.jpeg', '45.jpeg'];
         document.getElementById("rg_layout").style.background="url(../images/li/signup&login/"+bg_img[Math.floor(Math.random()*(bg_img.length))]+") no-repeat center";
+        $("#checkCode").click();
 
     </script>
 
