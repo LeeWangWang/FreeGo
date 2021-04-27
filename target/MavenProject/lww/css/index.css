@@ -1,14 +1,11 @@
 #head_nav_scenic_li:hover #head_nav_scenic_a{
     color: #ff9d00;
-    border-bottom: 2px #ff9d00;
 }
 #head_nav_hotel_li:hover #head_nav_hotel_a{
     color: #ff9d00;
-    border-bottom: 2px #ff9d00;
 }
 #head_nav_gonglve_li:hover #head_nav_gonglve_a{
     color: #ff9d00;
-    border-bottom: 2px #ff9d00;
 }
 /*轮播图CSS*/
 #freego_banner{

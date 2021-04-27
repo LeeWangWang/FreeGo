@@ -20,6 +20,7 @@
     left: 0;
     top: 0;
     z-index: 0;
+    background: url(../../images/li/travelnote/Icon/page_bg.jpeg);
     background-position: center 0;
     background-repeat: no-repeat;
     overflow: hidden;
@@ -30,14 +31,19 @@
     height: 100%;
 }
 .set-index .set-page{
-    display: none;
+    position: relative;
+    margin: auto;
+    width: 460px;
+    height: 100px;
+    transform: translateY(150px);
+    color: #6b6b6b;
 }
 .set-page a.set-add {
     width: 67px;
     height: 67px;
     float: left;
     margin-right: 20px;
-    background: url(../../images/li/travelnote/add_photo.jpeg) -10px 0 no-repeat;
+    background: url(../../images/li/travelnote/Icon/add_photo.jpeg) -10px 0 no-repeat;
     position: relative;
 }
 .set-page h2 {
@@ -150,25 +156,6 @@
     background: #ff9d00;
     color: #ffffff;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

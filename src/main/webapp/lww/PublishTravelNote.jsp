@@ -17,6 +17,7 @@
     <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
     <script src="${pageContext.request.contextPath}/lww/layui/layui.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/package/dist/wangEditor.min.js"></script>
 
     <script>
         $(function () {

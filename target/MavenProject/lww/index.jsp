@@ -34,6 +34,10 @@
                     $("#user_panel").remove();
                     $("#login_in").remove();//移除已登录标签
                 }
+                var userId = user.userId;
+                $.get("/travelnote/recommendTravelNoteInfoNote", userId, function (result) {
+                    //展示推荐游记
+                });
             });
             //头像显示下拉菜单
             $("#login_status").mouseover(function () {
@@ -42,6 +46,8 @@
             $("#login_status").mouseleave(function () {
                 $("#user_panel").children("a").slideUp;
             });
+
+            $.get("/travelnote/recommendTravelInfoNote", {}, );
 
             //发表游记
             $("#travelnoe_publish").click(function () {
@@ -53,6 +59,20 @@
                         location.href = "http://localhost:8080/lww/login.jsp";
                     }
                 });
+            });
+
+            //当表单提交时，调用查询方法
+            $("#index_search").submit(function () {
+                if ($("#checkbox_scenic").get(0).checked) {
+                    // do something
+                } else if ($("#checkbox_hotel").get(0).checked) {
+                    // do something
+                } else if ($("#checkbox_travelnote").get(0).checked) {
+                    $.post("/travelnote/queryTravelNoteInfoBySearch", $(this).serialize(), function (result) {
+                    });
+                } else {
+                    // do something
+                }
             });
         });
     </script>
@@ -187,16 +207,16 @@
                     <%--单选框--%>
                     <ul class="clearfix">
                         <li class="tab-select" id="select_all">
-                            <input class="layui-font-orange" type="radio" name="select" value="全部" title="全部" checked>
+                            <input id="checkbox_all" type="radio" name="select" value="全部" title="全部" checked>
                         </li>
                         <li class="tab-select" id="select_scenic">
-                            <input class="layui-bg-orange" type="radio" name="select" value="景点" title="景点">
+                            <input id="checkbox_scenic" type="radio" name="select" value="景点" title="景点">
                         </li>
                         <li class="tab-select" id="select_hotel">
-                            <input class="layui-border-orange" type="radio" name="select" value="酒店" title="酒店">
+                            <input id="checkbox_hotel" type="radio" name="select" value="酒店" title="酒店">
                         </li>
                         <li class="tab-select" id="select_travelnote">
-                            <input type="radio" name="select" value="游记" title="游记">
+                            <input id="checkbox_travelnote" type="radio" name="select" value="游记" title="游记">
                         </li>
                     </ul>
                 </div>
