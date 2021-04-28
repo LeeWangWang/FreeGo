@@ -9,7 +9,12 @@
 1.2版本  
 &emsp;&emsp;界面：游记评论  
 &emsp;&emsp;功能：无  
-1.2版本  
+1.3版本  
 &emsp;&emsp;界面：无  
 &emsp;&emsp;功能：用户是否登录判断  
-
+1.4版本  
+&emsp;&emsp;界面：发表游记  
+&emsp;&emsp;功能：无  
+1.5版本  
+&emsp;&emsp;界面：无  
+&emsp;&emsp;功能：发表游记的富文本编辑框   
