@@ -101,6 +101,13 @@ public class UserServlet extends BaseServlet {
     public void findOne(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //从session中获取登录用户
         Object user = request.getSession().getAttribute("user");
+
+        if (user != null) {
+            System.out.println("查找当前登录的用户信息：");
+            System.out.println(user);
+        } else {
+            System.out.println("当前没有用户登录");
+        }
         //将user返回客户端
         writeValue(user,response);
     }

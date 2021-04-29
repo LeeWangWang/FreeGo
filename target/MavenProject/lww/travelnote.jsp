@@ -108,7 +108,7 @@
                         关注
                     </a>
                     <div class="publish-time">
-                        <span class="time">2021-04-06-09:43</span>
+                        <span class="time">2021-04-06</span>
                         <span>
                             <img src="../images/li/travelnote/Icon/eye.jpeg">
                             3.7w
@@ -144,25 +144,31 @@
                                 <img src="../images/li/travelnote/Icon/time.jpeg">
                                 出发时间
                                 <span>/</span>
-                                2021-03-26
+                                <p id="travelnote_time">2021-03-26</p>
                             </li>
                             <li class="day">
                                 <img src="../images/li/travelnote/Icon/day.jpeg">
                                 出行天数
                                 <span>/</span>
-                                3天
+                                <p id="travelnote_day">3天</p>
                             </li>
                             <li class="people">
                                 <img src="../images/li/travelnote/Icon/people.jpeg">
                                 人物
                                 <span>/</span>
-                                情侣/夫妻
+                                <p id="travelnote_people">情侣/夫妻</p>
                             </li>
                             <li class="cost">
                                 <img src="../images/li/travelnote/Icon/cost.jpeg">
                                 人均费用
                                 <span>/</span>
-                                1000RMB
+                                <p id="travelnote_cost">1000RMB</p>
+                            </li>
+                            <li class="locate">
+                                <img src="../images/li/travelnote/Icon/locate.jpeg">
+                                目的地
+                                <span>/</span>
+                                <p id="travelnote_locate">上海</p>
                             </li>
                         </ul>
                     </div>
@@ -317,7 +323,8 @@
                     </div>
                 </div>
             </div>
-            <div class="view-side">
+            <%--游记目录--%>
+            <%--<div class="view-side">
                 <div id="pagelet-block-1aecefa7c9d7389a7c594923a53dcc1c" class="pagelet-block">
                     <div class="notes-catalog">
                         <div class="side-title" id="catalog_title">游记目录</div>
@@ -353,7 +360,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div>--%>
             <%--游记评论--%>
             <div class="note-reply-bottomReplyApi">
                 <div class="freego-cmt-warp" id="top_reply_list">

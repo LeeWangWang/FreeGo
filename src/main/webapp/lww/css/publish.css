@@ -107,7 +107,7 @@
     width: 1100px;
 }
 .publish-input{
-    height: 400px;
+    /*height: 400px;*/
 }
 #textarea_container{
     border: 1px solid #999999;
@@ -115,7 +115,7 @@
 .action-ft {
     margin: auto;
     line-height: 120px;
-    margin-top: 40px;
+    margin-top: 10px;
 }
 .action-ft .action-btn {
     width: 400px;
@@ -143,9 +143,29 @@
     color: #ffffff;
 }
 
-
-
-
-
+/*选择游记信息*/
+ .layui-form{
+     width: 720px;
+     height: 150px;
+     margin: auto;
+     transform: translateY(35px);
+     z-index: 100;
+ }
+.form-confirm{
+    text-align: center;
+}
+.layui-form-pane .layui-form-label{
+    width: 135px;
+}
+.layui-form-pane .layui-input-block{
+    margin-left: 135px;
+}
+.layui-form-item .layui-inline{
+    width: 280px;
+    margin: 10px;
+}
+.layui-layer-msg{
+    top: 300px;
+}
 
 

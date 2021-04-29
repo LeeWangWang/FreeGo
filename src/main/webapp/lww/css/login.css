@@ -59,7 +59,7 @@
 .login_form > .login_form_center .td_right{
     width: 283px;
 }
-.login_form_center .td_right > input[type="text"],.login_form_center .td_right > input[type="date"]{
+.login_form_center .td_right > input[type="text"],.login_form_center .td_right > input[type="password"]{
     width: 256px;
     height: 32px;
     line-height: 32px;

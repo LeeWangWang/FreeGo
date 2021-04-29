@@ -20,7 +20,7 @@ public class TravelNoteInfo {
     private int travelPrice;            //人均费用
     private String travelLocate;        //游记位置
     private Boolean isPublish;          //是否发布
-    private Boolean flag;               //游记状态(是否删除)
+    private Boolean flag;               //游记状态(0:未删除，1:已删除)
 
     public TravelNoteInfo() {}
 

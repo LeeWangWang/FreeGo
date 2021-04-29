@@ -50,10 +50,7 @@ public class UploadPhotoServlet extends HttpServlet {
             if(!item.isFormField()){
                 // 文件名32位随机字母
                 filename = UuidUtil.getUuid() + ".jpeg";
-                System.out.println(request.getContextPath());
-                // File f = new File(getServletContext().getRealPath("upload"));
                 File f = new File("D://freegoImg/li/travelnote");
-                // File f = new File("D://IntelliJ IDEA 2019.2/Project/FreeGo/src/main/webapp/images/li/travelnote");
                 if (!f.exists()) {
                     f.mkdir();
                 }
@@ -77,7 +74,7 @@ public class UploadPhotoServlet extends HttpServlet {
         }
         String result = "{ \"errno\": 0, \"data\": [ { \"url\": \"/FreegoImg/li/travelnote/"+ filename +"\" } ] }";
         JSONObject json = JSONObject.fromObject(result);
-        System.out.println(json.toString());
+        System.out.println("上传图片返回的Json: " + json.toString());
         response.setContentType("text/text;charset=utf-8");
         PrintWriter out = response.getWriter();
         out.print(json);  //返回url地址

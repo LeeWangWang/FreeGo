@@ -2,11 +2,13 @@
   Created by IntelliJ IDEA.
   User: 李旺旺
   DateTime: 2021/4/27 21:43
-  Description: 
+  Description: 用户发表游记页面
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
+<html xmlns="http://www.w3.org/1999/xhtml">
 <html>
 <head>
+
     <title>发表游记</title>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bootstrap.min.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
@@ -32,13 +34,6 @@
                 } else {
                     location.href="http://localhost:8080/lww/login.jsp";
                 }
-            });
-            //显示用户头像下拉菜单
-            $("#login_status").mouseover(function () {
-                $("#menu_panel").next("a").slideDown;
-            });
-            $("#login_status").mouseleave(function () {
-                $("#user_panel").children("a").slideUp;
             });
         });
     </script>
@@ -98,7 +93,7 @@
             </div>
         </div>
         <div class="set-title">
-            <input type="text" id="title" value placeholder="填写游记标题" maxlength="48">
+            <input type="text" id="travelNote_title" value placeholder="填写游记标题" maxlength="48">
             <div class="clear"></div>
         </div>
     </div>
@@ -110,11 +105,58 @@
             <%--输入正文--%>
             <div id="textarea_container" class="text"></div>
         </div>
+
+        <%--选择游记信息--%>
+        <form class="layui-form layui-form-pane" lay-verify="required" lay-filter="get-info" action="">
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">出发时间</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="date" lay-verify="required|StartDate" id="input_date" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline" style="float: right">
+                    <label class="layui-form-label">人物</label>
+                    <div class="layui-input-block">
+                        <select name="people">
+                            <option value="0">一个人</option>
+                            <option value="1">情侣/夫妻</option>
+                            <option value="2">带孩子</option>
+                            <option value="3">家庭出游</option>
+                            <option value="4">和朋友</option>
+                            <option value="5">和同学</option>
+                            <option value="6"selected="">其它</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label class="layui-form-label">出行天数</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="day" lay-verify="required|number" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+                <div class="layui-inline" style="float: right">
+                    <label class="layui-form-label">人均花费/RMB</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="cost" lay-verify="required|number" autocomplete="off" class="layui-input">
+                    </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item form-confirm">
+                <button class="layui-btn" id="submit_btn" lay-submit="" lay-filter="add-info" style="visibility: hidden; height: 0px;"></button>
+            </div>
+        </form>
+
         <%--取消或发表--%>
         <div class="action-ft">
             <div class="action-btn">
-                <a class="btn-cancel" role="button">取消</a>
-                <a class="btn-publish" role="button">发表游记</a>
+                <a id="btn_cancel" class="btn-cancel" role="button">取消</a>
+                <a id="btn_publish" class="btn-publish" role="button">发表游记</a>
             </div>
         </div>
     </div>
@@ -168,6 +210,7 @@
     </div>
 </div>
 
+<%--layui上传图片--%>
 <script>
     window.onload=function(){
         layui.use('upload', function(){
@@ -188,7 +231,9 @@
                     if (res.code == 0) {
                         //上传成功
                         var imgPath = res.data.src;
-                        $('#head_photo').attr('data-src', imgPath);
+                        var path = "/FreegoImg/li/travelnote/" +imgPath;
+                        $('#head_photo').attr('src', path);                 //头图路径
+                        $('#head_photo').attr('data-file', imgPath);         //头图文件名
                     }
                 }
                 ,error: function(){
@@ -199,29 +244,114 @@
     }
 </script>
 
+<%--layui的From表单--%>
+<script>
+    layui.use(['form', 'layedit', 'laydate'], function(){
+        var form = layui.form
+            ,layer = layui.layer
+            ,laydate = layui.laydate;
+
+        //日期
+        laydate.render({
+            elem: '#input_date'
+        });
+
+        //自定义验证规则
+        form.verify({
+            StartDate: function (value) {
+                if (value == "" || value == null || value == undefined){
+                    layer.alert('请选择出发时间', {
+                        offset:'300px',
+                        title:'错误提示'
+                    });
+                }
+            }
+        });
+
+        //监听提交
+        form.on('submit(add-info)', function(data){
+            /*layer.alert(JSON.stringify(data.field), {
+                offset:'300px',
+                title: '最终的提交信息'
+            });*/
+            //表单取值
+            var data = form.val('get-info');
+            alert("表单取值: " + JSON.stringify(data));
+            return false;
+        });
+
+    });
+</script>
+
+<%--WangEditor富文本编辑框--%>
 <script type="text/javascript">
     const E = window.wangEditor
     const editor = new E('#toolbar_container', '#textarea_container') // 传入两个元素
     // 配置菜单栏，设置不需要的菜单
-    editor.config.excludeMenus = [
-        'fontName',
-        'italic',
-        'strikeThrough',
-        'indent',
-        'lineHeight',
-        'todo',
-        'justify',
-        'quote',
-        'video',
-        'code'
-    ]
+    editor.config.excludeMenus = ['fontName', 'italic', 'strikeThrough', 'indent', 'lineHeight', 'todo', 'justify', 'quote', 'video', 'code']
     editor.config.placeholder = '从这里开始游记正文...'
-    // editor.config.height = 800
+    editor.config.height = 600
     // editor.config.onchange = function (newHtml) { console.log('change 之后最新的 html', newHtml) }
     editor.config.uploadImgServer = 'http://localhost:8080/upload'          // 配置 server 接口地址
     editor.config.showLinkImg = false                                       //即可隐藏插入网络图片的功能
     editor.config.uploadImgAccept = ['jpg', 'jpeg', 'png']                  //限制图片类型
-    editor.create()
+    editor.create();
+
+    //校验头图
+    function checkCover() {
+        var imgSrc = $("#head_photo").attr("src");
+        console.log("头图的路径: " + imgSrc);
+        if (imgSrc == "" || imgSrc == null || imgSrc == undefined) {
+            alert("未设置头图，请设置头图");
+            return false;
+        }
+        return true;
+    }
+    //校验标题
+    function checktitle() {
+        var title = $("#travelNote_title").val();
+        console.log("标题的内容: " + title);
+        if (title.length == 0) {
+            alert("请输入游记标题");
+            return false;
+        } else if (title.length > 50) {
+            alert("游记标题字数超出50个字符，请重新编辑");
+            return false;
+        }
+        return true;
+    }
+    //校验内容
+    function checkText() {
+        var noteText = editor.txt.html();
+        console.log("游记的内容: " + noteText);
+        if (noteText.length < 50) {
+            alert("游记内容太短，请多写一些旅游体验。");
+            return false;
+        }
+        alert("游记内容："+noteText);
+        return true;
+    }
+    //取消按钮
+    $("#btn_cancel").click(function () {
+        var result = window.confirm("确定取消，系统可能不会保存您所做的更改。");
+        if (result == true) {
+            window.location.href="javascript:history.go(-1)";
+        } else {
+            return;
+        }
+    });
+    //发表游记
+    $("#btn_publish").click(function () {
+        var flag = checkCover() && checktitle() && checkText();
+        if (flag) {
+            //校验通过，触发layui的From表单验证
+            $('#submit_btn').trigger('click');
+            return true;
+        }
+        alert("发布失败，请稍后重试");
+        return false;
+    });
+    
 </script>
 
 </body>

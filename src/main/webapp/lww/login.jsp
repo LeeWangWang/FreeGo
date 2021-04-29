@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 李旺旺
   DateTime: 2021/4/19 10:40
-  Description: 
+  Description: 用户登录页面
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
@@ -19,7 +19,6 @@
 
         //校验手机号
         function checkAccount(){
-
             //1.获取账号
             var account = $("#userAccount").val();
             var flag = false;
@@ -88,7 +87,7 @@
                         } else {
                             //登录失败
                             $("#checkCode").click();
-                            $("#errorMsg").html(data);
+                            $("#errorMsg").html(data.errorMsg);
                         }
                     });
                 }
@@ -96,9 +95,7 @@
                 return false;
             });
         });
-
     </script>
-
 </head>
 
 <body>
@@ -112,13 +109,12 @@
         </div>
 
         <div class="login_form_center">
-            <div id="errorMsg" class="alert alert-danger"></div>
+            <div id="errorMsg" style="color: red;text-align: center"></div>
             <%--登录表单--%>
             <form id="loginForm" action="user" method="post" accept-charset="utf-8">
                 <%--提交处理请求的标识符--%>
                 <input type="hidden" name="action" value="login">
                 <table>
-
                     <tr>
                         <td class="td_left">
                             <label for="userAccount">账号</label>
@@ -127,16 +123,14 @@
                             <input type="text" id="userAccount" name="userAccount" placeholder="您的邮箱/手机号">
                         </td>
                     </tr>
-
                     <tr>
                         <td class="td_left">
                             <label for="password">密码</label>
                         </td>
                         <td class="td_right">
-                            <input type="text" id="password" name="userPassword" placeholder="请输入密码(8~20位)">
+                            <input type="password" id="password" name="userPassword" placeholder="请输入密码(8~20位)">
                         </td>
                     </tr>
-
                     <tr>
                         <td class="td_left">
                             <label for="check">验证码</label>
@@ -152,7 +146,6 @@
                             </script>
                         </td>
                     </tr>
-
                     <tr>
                         <td class="td_left">
                         </td>
@@ -161,7 +154,6 @@
                             <span id="msg" style="color: red;"></span>
                         </td>
                     </tr>
-
                 </table>
             </form>
         </div>
@@ -177,7 +169,6 @@
 </div>
 
 <script>
-
     var bg_img = ['0.jpeg', '1.jpeg', '2.jpeg', '3.jpeg', '4.jpeg', '5.jpeg', '6.jpeg', '7.jpeg', '8.jpeg', '9.jpeg', '10.jpeg',
         '11.jpeg', '12.jpeg', '13.jpeg', '14.jpeg', '15.jpeg', '16.jpeg', '17.jpeg', '18.jpeg', '19.jpeg', '20.jpeg',
         '21.jpeg', '22.jpeg', '23.jpeg', '24.jpeg', '25.jpeg', '26.jpeg', '27.jpeg', '28.jpeg', '29.jpeg', '30.jpeg',
@@ -185,7 +176,6 @@
         '41.jpeg', '42.jpeg', '43.jpeg', '44.jpeg', '45.jpeg'];
     document.getElementById("login_layout").style.background="url(../images/li/signup&login/"+bg_img[Math.floor(Math.random()*(bg_img.length))]+") no-repeat center";
     $("#checkCode").click();
-
 </script>
 
 </body>

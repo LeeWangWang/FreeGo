@@ -119,14 +119,14 @@
                     //action=register & userTele=15556145755 & userNickName=Joshua_Lee & userPassword=11111111 & check=1234
                     $.post("/user/register", $(this).serialize(), function (data) {
                         //处理服务器响应数据 data {flag:true,errorMsg:"注册失败"}
-                        alert("flag: "+data.flag + ",msg:" + data.errorMsg);
+                        // alert("flag: "+data.flag + ",msg:" + data.errorMsg);
                         if (data.flag) {
                             //注册成功
                             window.location.href="index.jsp";
                         } else {
                             //注册失败
                             $("#checkCode").click();
-                            $("#errorMsg").html(data);
+                            $("#errorMsg").html(data.errorMsg);
                         }
                     });
                 }
@@ -156,7 +156,6 @@
                     <%--提交处理请求的标识符--%>
                     <input type="hidden" name="action" value="register">
                     <table style="margin-top: 25px;">
-
                         <tr>
                             <td class="td_left">
                                 <label for="userTele">手机号</label>
@@ -165,7 +164,6 @@
                                 <input type="text" id="userTele" name="userTele" placeholder="请输入手机号">
                             </td>
                         </tr>
-
                         <tr>
                             <td class="td_left">
                                 <label for="userName">昵称</label>
@@ -174,7 +172,6 @@
                                 <input type="text" id="userName" name="userNickName" placeholder="请输入昵称(不能有空格)">
                             </td>
                         </tr>
-
                         <tr>
                             <td class="td_left">
                                 <label for="password">密码</label>
@@ -183,7 +180,6 @@
                                 <input type="text" id="password" name="userPassword" placeholder="请输入密码(8~20位)">
                             </td>
                         </tr>
-
                         <tr>
                             <td class="td_left">
                                 <label for="password">确认密码</label>
@@ -192,7 +188,6 @@
                                 <input type="text" id="checkPassword" placeholder="确认密码(8~20位)">
                             </td>
                         </tr>
-
                         <tr>
                             <td class="td_left">
                                 <label for="check">验证码</label>
@@ -208,7 +203,6 @@
                                 </script>
                             </td>
                         </tr>
-
                         <tr>
                             <td class="td_left">
                             </td>
@@ -217,7 +211,6 @@
                                 <span id="msg" style="color: red;"></span>
                             </td>
                         </tr>
-
                     </table>
                 </form>
             </div>

@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 李旺旺
   DateTime: 2021/4/20 15:38
-  Description: 
+  Description: FreeGo主页
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
@@ -31,22 +31,15 @@
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
                     $("#user_head").html(head);
                 } else {
-                    $("#user_panel").remove();
                     $("#login_in").remove();//移除已登录标签
                 }
-                var userId = user.userId;
+                /*var userId = user.userId;
                 $.get("/travelnote/recommendTravelNoteInfoNote", userId, function (result) {
                     //展示推荐游记
-                });
-            });
-            //显示用户头像下拉菜单
-            $("#login_status").mouseover(function () {
-                $("#menu_panel").next("a").slideDown;
-            });
-            $("#login_status").mouseleave(function () {
-                $("#user_panel").children("a").slideUp;
+                });*/
             });
 
+            //游记推荐
             // $.get("/travelnote/recommendTravelInfoNote", {}, );
 
             //发表游记
