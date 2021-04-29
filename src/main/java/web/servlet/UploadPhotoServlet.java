@@ -21,9 +21,9 @@ import utils.UuidUtil;
 @WebServlet("/upload")
 public class UploadPhotoServlet extends HttpServlet {
 
-    public static String filename = null;
+    public String filename = null;
 
-    private static final long serialVersionUID = 1L;
+    private final long serialVersionUID = 1L;
 
     @Override
     public void doGet(HttpServletRequest request,HttpServletResponse response){
@@ -48,14 +48,12 @@ public class UploadPhotoServlet extends HttpServlet {
         while(iter.hasNext()){
             FileItem item = (FileItem) iter.next();
             if(!item.isFormField()){
-                //文件名32位随机字母
+                // 文件名32位随机字母
                 filename = UuidUtil.getUuid() + ".jpeg";
-                // 根据时间戳创建头像文件
-                //filename = System.currentTimeMillis() + ".jpg";
                 System.out.println(request.getContextPath());
-                /*File f = new File(getServletContext().getRealPath("upload"));*/
+                // File f = new File(getServletContext().getRealPath("upload"));
                 File f = new File("D://freegoImg/li/travelnote");
-//                File f = new File("D://IntelliJ IDEA 2019.2/Project/FreeGo/src/main/webapp/images/li/travelnote");
+                // File f = new File("D://IntelliJ IDEA 2019.2/Project/FreeGo/src/main/webapp/images/li/travelnote");
                 if (!f.exists()) {
                     f.mkdir();
                 }
@@ -79,7 +77,6 @@ public class UploadPhotoServlet extends HttpServlet {
         }
         String result = "{ \"errno\": 0, \"data\": [ { \"url\": \"/FreegoImg/li/travelnote/"+ filename +"\" } ] }";
         JSONObject json = JSONObject.fromObject(result);
-
         System.out.println(json.toString());
         response.setContentType("text/text;charset=utf-8");
         PrintWriter out = response.getWriter();

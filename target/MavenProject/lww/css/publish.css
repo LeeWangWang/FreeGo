@@ -8,32 +8,30 @@
     overflow: hidden;
 }
 .set-index{
+    background: url(../../images/li/travelnote/Icon/page_bg.jpeg) center no-repeat;
     background-size: cover;
     position: relative;
     height: 500px;
 }
 .set-bg-toppiccnt{
-    background-size: cover;
     width: 100%;
     height: 100%;
     position: absolute;
     left: 0;
     top: 0;
     z-index: 0;
-    background: url(../../images/li/travelnote/Icon/page_bg.jpeg);
-    background-position: center 0;
-    background-repeat: no-repeat;
     overflow: hidden;
 }
 .set-bg-toppiccnt img{
     position: absolute;
     width: 100%;
     height: 100%;
+    object-fit: cover;
 }
 .set-index .set-page{
     position: relative;
     margin: auto;
-    width: 460px;
+    width: 490px;
     height: 100px;
     transform: translateY(150px);
     color: #6b6b6b;
@@ -53,6 +51,17 @@
     margin-top: 12px;
     font-size: 16px;
 }
+.add-photo{
+    width: 80px;
+    height: 80px;
+    transform: translateY(-85px);
+}
+.upload-head{
+    font-size: 999px;
+    opacity: 0;
+    width: 100%;
+    height: 100%;
+}
 .clear {
     clear: both;
     display: block;
@@ -62,91 +71,68 @@
     overflow: hidden;
 }
 .set-title{
+    position: relative;
     width: 938px;
-    padding: 20px 20px;
-    height: 20px;
+    height: 60px;
+    line-height: 60px;
+    margin: auto;
     background: #fff;
     border: 1px solid #fff;
-    line-height: 20px;
-    position: absolute;
-    bottom: 25px;
-    z-index: 1;
-    left: 50%;
-    margin-left: -489px;
     box-shadow: 0 2px 2px #dcdadf;
+    transform: translateY(285px);
 }
 .set-title input {
-    width: 868px;
-    height: 20px;
-    line-height: 22px;
+    width: 920px;
+    height: 59px;
+    line-height: 59px;
     font-size: 18px;
+    padding-left: 20px;
     border: 0;
     color: #666;
-    float: left;
 }
 .set-title span {
     float: right;
     color: #999;
-    display: none;
+    position: relative;
+    padding-right: 10px;
 }
 .set-title span strong {
     color: #f00;
     font-weight: normal;
 }
 /*发布游记主体*/
-.container {
-    width: 980px;
-    margin: 40px auto;
+.publish-main{
+    margin: auto;
+    text-align: left;
+    width: 1100px;
 }
-.content {
-    min-height: 350px;
-    padding-bottom: 100px;
-    float: left;
-    width: 680px;
-    font-size: 15px;
-    color: #444;
-    line-height: 28px;
-    position: relative;
+.publish-input{
+    height: 400px;
 }
-.textarea-placeholder{
-    overflow: hidden;
-    position: relative;
-}
-.textarea {
-    width: 100%;
-    min-height: 26px;
-    display: block;
-    border: 0;
-    resize: none;
-    line-height: 1.8;
-    padding: 0;
-}
-.sidebar{
-    position: relative;
-    z-index: 11;
-    float: right;
-    width: 240px;
-    padding-top: 10px;
-}
-.sidebar-item {
-    margin-bottom: 25px;
-    position: relative;
-    line-height: 28px;
-}
-.add-btn {
-    color: #333;
-    display: block;
-    font-size: 18px;
-    color: #333;
+#textarea_container{
+    border: 1px solid #999999;
 }
 .action-ft {
-    height: 60px;
-    padding: 30px 0;
+    margin: auto;
+    line-height: 120px;
+    margin-top: 40px;
 }
 .action-ft .action-btn {
-    width: 680px;
-    padding-right: 300px;
-    text-align: right;
+    width: 400px;
+    margin: auto;
+}
+.action-ft .action-btn a{
+    display: inline-block;
+    height: 60px;
+    line-height: 60px;
+    margin-left: 25px;
+    padding: 0 55px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 30px;
+    box-shadow: 0 0 7px rgba(0 0 0 0.15);
+    vertical-align: middle;
+    border: 1px solid;
 }
 .btn-cancel{
     background: #ffffff;

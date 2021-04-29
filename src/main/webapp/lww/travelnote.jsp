@@ -110,7 +110,7 @@
                     <div class="publish-time">
                         <span class="time">2021-04-06-09:43</span>
                         <span>
-                            <img src="../images/li/travelnote/eye.jpeg">
+                            <img src="../images/li/travelnote/Icon/eye.jpeg">
                             3.7w
                         </span>
                     </div>
@@ -141,25 +141,25 @@
                     <div class="travelnote-dir-list">
                         <ul>
                             <li class="time">
-                                <img src="../images/li/travelnote/time.jpeg">
+                                <img src="../images/li/travelnote/Icon/time.jpeg">
                                 出发时间
                                 <span>/</span>
                                 2021-03-26
                             </li>
                             <li class="day">
-                                <img src="../images/li/travelnote/day.jpeg">
+                                <img src="../images/li/travelnote/Icon/day.jpeg">
                                 出行天数
                                 <span>/</span>
                                 3天
                             </li>
                             <li class="people">
-                                <img src="../images/li/travelnote/people.jpeg">
+                                <img src="../images/li/travelnote/Icon/people.jpeg">
                                 人物
                                 <span>/</span>
                                 情侣/夫妻
                             </li>
                             <li class="cost">
-                                <img src="../images/li/travelnote/cost.jpeg">
+                                <img src="../images/li/travelnote/Icon/cost.jpeg">
                                 人均费用
                                 <span>/</span>
                                 1000RMB

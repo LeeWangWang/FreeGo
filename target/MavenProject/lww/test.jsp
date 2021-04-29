@@ -1,66 +1,88 @@
 <%--
   Created by IntelliJ IDEA.
   User: 李旺旺
-  DateTime: 2021/4/27 14:56
-  Description:
+  DateTime: 2021/4/28 16:24
+  Description: 
 --%>
-<%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <html>
 <head>
-    <meta charset="UTF-8">
     <title>Title</title>
 
-    <style>
-        .toolbar {
-            border: 1px solid #ccc;
+    <script>
+        var imgdata = '';
+        //选择文件
+        function selectImage(obj){
+            var f=$(obj).val();
+            if(f == null || f ==undefined || f == ''){
+                document.getElementById('image').src = "";
+                $("#image").show();
+                return false;
+            }
+            if(!/\.(?:png|jpg|bmp|gif|PNG|JPG|BMP|GIF)$/.test(f)){
+                alert("类型必须是图片(.png|jpg|bmp|gif|PNG|JPG|BMP|GIF)");
+                $(obj).val('');
+                return false;
+            }
+            imgdata = new FormData();
+            $.each($(obj)[0].files,function(i,file){
+                imgdata.append('file', file);
+            });
+            if(!file.files || !file.files[0]){
+                return;
+            }
+            //将上传的图片显示到页面
+            var reader = new FileReader();
+            reader.onload = function(evt){
+                $("#image").show();
+                document.getElementById('image').src = evt.target.result;
+                uploadfile = evt.target.result;
+            }
+            reader.readAsDataURL(file.files[0]);
         }
-        .text {
-            border: 1px solid #ccc;min-height: 400px;
+        var imageurl = "";
+        //点击上传
+        function importWeldingMachine() {
+            var file = $("#file").val();
+            $.ajax({
+                type : "post",
+                async : false,
+                url : "/uploadFile",
+                data : imgdata,
+                cache : false,
+                contentType : false, //不可缺
+                processData : false, //不可缺,设置为true的时候,ajax提交的时候不会序列化 data，而是直接使用data
+                dataType : "json", //返回数据形式为json
+                success : function(result) {
+                    result=JSON.parse(result);
+                    if (result) {
+                        if (!result.success) {
+                            imageurl = "";
+                            $.messager.show({title : 'Error',msg : result.errorMsg});
+                        } else {
+                            imageurl = result.imgurl;
+                            //上传图片后，进行保存入库图片信息操作
+                        }
+                    }
+                },
+                error : function(errorMsg) {
+                    alert("数据请求失败，请联系系统管理员!");
+                }
+            });
+        }
 
-        }
-    </style>
+    </script>
 
 </head>
 <body>
-    <p>container 和 toolbar 分开</p>
-    <div>
-        <div id="toolbar-container" class="toolbar"></div>
-        <p>------ 我是分割线 ------</p>
-        <div id="text-container" class="text"></div>
-    </div>
-
-    <%--引入 wangEditor.min.js --%>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/package/dist/wangEditor.min.js"></script>
-    <script type="text/javascript">
-        const E = window.wangEditor
-        const editor = new E('#toolbar-container', '#text-container') // 传入两个元素
-        // 配置菜单栏，设置不需要的菜单
-        editor.config.excludeMenus = [
-            'fontName',
-            'italic',
-            'strikeThrough',
-            'indent',
-            'lineHeight',
-            'todo',
-            'justify',
-            'quote',
-            'video',
-            'code'
-        ]
-        editor.config.height = 400
-        editor.config.placeholder = '请输入游记内容'
-        // 设置 headers（举例）
-        editor.config.uploadHeaders = {
-            'Accept' : 'text/x-json'
-        };
-        editor.config.onchange = function (newHtml) {
-            console.log('change 之后最新的 html', newHtml)
-        }
-        editor.config.uploadImgServer = 'http://localhost:8080/upload'          // 配置 server 接口地址
-        editor.config.showLinkImg = false                                       //即可隐藏插入网络图片的功能
-        editor.config.uploadImgAccept = ['jpg', 'jpeg', 'png']                  //限制图片类型
-        editor.create()
-    </script>
+    <tr>
+        <td class="tdstyle">上传图片：</td>
+        <td>
+            <img id="image" src=""  style="width: 300px; height: 200px;display: block;"/>
+            <span><input type="file" name="file" id="file" onchange="selectImage(this);"></span>
+            <button onclick="importWeldingMachine()">保存</button>
+        </td>
+    </tr>
 
 </body>
 </html>

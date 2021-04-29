@@ -22,7 +22,7 @@
 
     <script>
         $(function () {
-            //查询用户信息
+            //判断用户是否登录
             $.get("/user/findOne", {}, function (user) {
                 if (user) {
                     //用户登录了
@@ -39,7 +39,7 @@
                     //展示推荐游记
                 });
             });
-            //头像显示下拉菜单
+            //显示用户头像下拉菜单
             $("#login_status").mouseover(function () {
                 $("#menu_panel").next("a").slideDown;
             });
@@ -47,14 +47,14 @@
                 $("#user_panel").children("a").slideUp;
             });
 
-            $.get("/travelnote/recommendTravelInfoNote", {}, );
+            // $.get("/travelnote/recommendTravelInfoNote", {}, );
 
             //发表游记
             $("#travelnoe_publish").click(function () {
                 $.get("/user/findOne", {}, function (user) {
                     if (user) {
                         //用户登录了
-                        location.href = "http://localhost:8080/lww/PublishTravelNote.jsp";
+                        location.href = "http://localhost:8080/lww/publish.jsp";
                     } else {
                         location.href = "http://localhost:8080/lww/login.jsp";
                     }
@@ -99,6 +99,10 @@
                 },{
                     title: '我的关注'
                     ,id: 'icon_follow'
+                    ,href: 'https://www.icon_follow.com/'
+                },{
+                    title: '退出登录'
+                    ,id: 'icon_logout'
                     ,href: 'https://www.icon_follow.com/'
                 }]
             });
@@ -247,7 +251,7 @@
                     <a href="javascript:void(0);" rel="nofollow">最新发表</a>
                 </div>
                 <div class="travelnote-publish" id="travelnoe_publish">
-                    <img class="travelnote-publish-img" src="../images/li/travelnote/write.jpeg">
+                    <img class="travelnote-publish-img" src="../images/li/travelnote/Icon/write.jpeg">
                     <div class="travelnote-publish-text">写游记</div>
                 </div>
             </div>
@@ -280,7 +284,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">青岛</div>
                                 </div>
                                 <%--用户--%>
@@ -292,14 +296,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">1207/</div>
                                     <div class="travlenote-collection">6</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -329,7 +333,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">大柴旦</div>
                                 </div>
                                 <%--用户--%>
@@ -341,14 +345,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">7.1w/</div>
                                     <div class="travlenote-collection">729</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">2066</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -379,7 +383,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">青海</div>
                                 </div>
                                 <%--用户--%>
@@ -391,14 +395,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">2.2w/</div>
                                     <div class="travlenote-collection">288</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">5034</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -430,7 +434,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">圣彼得堡</div>
                                 </div>
                                 <%--用户--%>
@@ -442,14 +446,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">1207/</div>
                                     <div class="travlenote-collection">6</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -480,7 +484,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">青海</div>
                                 </div>
                                 <%--用户--%>
@@ -492,14 +496,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">2.2w/</div>
                                     <div class="travlenote-collection">288</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">5034</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -531,7 +535,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">圣彼得堡</div>
                                 </div>
                                 <%--用户--%>
@@ -543,14 +547,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">1207/</div>
                                     <div class="travlenote-collection">6</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -580,7 +584,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">青岛</div>
                                 </div>
                                 <%--用户--%>
@@ -592,14 +596,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">1207/</div>
                                     <div class="travlenote-collection">6</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -629,7 +633,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">大柴旦</div>
                                 </div>
                                 <%--用户--%>
@@ -641,14 +645,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">7.1w/</div>
                                     <div class="travlenote-collection">729</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">2066</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -679,7 +683,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">青海</div>
                                 </div>
                                 <%--用户--%>
@@ -691,14 +695,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">2.2w/</div>
                                     <div class="travlenote-collection">288</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">5034</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
@@ -730,7 +734,7 @@
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/location.jpeg">
+                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
                                     <div class="travelnote-location-text">圣彼得堡</div>
                                 </div>
                                 <%--用户--%>
@@ -742,14 +746,14 @@
                                 </div>
                                 <%--浏览量/收藏量--%>
                                 <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/eye.jpeg">
+                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
                                     <div class="travelnote-view">1207/</div>
                                     <div class="travlenote-collection">6</div>
                                 </div>
                                 <%--点赞量--%>
                                 <div class="travelnote-like">
                                     <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/like.jpeg">
+                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
 
