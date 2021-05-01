@@ -39,7 +39,7 @@ a {
 
 /*公共头部*/
 .freego_header{
-    height: 60px;
+    height: 58px;
     width: 100%;
 }
 .freego_header > .head_logo{
@@ -48,6 +48,11 @@ a {
     background: url(../../images/li/index/head_logo.jpeg) no-repeat center;
     float: left;
     margin-left: 130px;
+}
+.freego_logo{
+    display: block;
+    width: 207px;
+    height: 60px;
 }
 .freego_header > .head_nav {
     float: left;

@@ -5,7 +5,7 @@
     position: relative;
 }
 .search-head .wid{
-    padding: 15px 0 15px 0;
+    padding-top: 20px;
 }
 .search-head-logo{
     float: left;
@@ -63,9 +63,15 @@
     border-radius: 4px;
     background-image: url(../../images/li/index/icon_search.jpeg);
 }
-/*修改登录字体颜色*/
+/*修改登录信息*/
+.login_status{
+    transform: translateY(-10px);
+}
 .login_status div a{
     color: #ff9d00;
+}
+.login_in > .glyphicon-chevron-down{
+    color: #FFFFFF;
 }
 /*搜索内容*/
 .freego-search-main{

@@ -107,7 +107,7 @@
     <%--导入头部--%>
     <div id="header">
         <div class="freego_header clearfix" id="head_nav_warper">
-            <div class="head_logo"><a class="freego_logo" title="FreeGo" href="http://localhost:8080/index.jsp"></a></div>
+            <div class="head_logo"><a class="freego_logo" title="FreeGo" href="http://localhost:8080/lww/index.jsp"></a></div>
             <ul class="head_nav" id="_j_head_nav" role="tablist">
                 <li id="head_nav_index_li" role="presentation"><a href="http://localhost:8080/lww/index.jsp" id="head_nav_index_a">首页</a></li>
                 <li id="head_nav_scenic_li" role="presentation"><a href="http://localhost:8080/lww/scenic.jsp" id="head_nav_scenic_a" title="景点">景点</a></li>

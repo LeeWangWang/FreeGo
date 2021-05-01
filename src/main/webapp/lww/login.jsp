@@ -11,9 +11,9 @@
     <title>登录-FreeGo</title>
     <%--导入CSS--%>
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/lww/css/login.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/login.css">
     <%--导入JavaScript--%>
-    <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
 
     <script>
 
@@ -100,7 +100,7 @@
 
 <body>
 
-<div id="login_layout" class="login_layout">
+<div id="login_layout" class="login_layout" style="background-size: cover;">
     <div class="login_form clearfix">
 
         <div class="login_form_left">

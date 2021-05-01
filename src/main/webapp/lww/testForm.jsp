@@ -40,17 +40,17 @@
 </head>
 <body>
 
-<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px;">
+<fieldset class="layui-elem-field layui-field-title" style="margin-top: 50px; margin-bottom: 50px">
     <legend>最终效果</legend>
 </fieldset>
 
-<form class="layui-form layui-form-pane" action="">
+<form class="layui-form layui-form-pane" lay-verify="required" action="">
 
     <div class="layui-form-item">
         <div class="layui-inline">
             <label class="layui-form-label">出发时间</label>
             <div class="layui-input-block">
-                <input type="text" name="date" lay-verify="date" id="input_date" autocomplete="off" class="layui-input">
+                <input type="text" name="date" lay-verify="required" id="input_date" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
@@ -73,13 +73,31 @@
         <div class="layui-inline">
             <label class="layui-form-label">出行天数</label>
             <div class="layui-input-block">
-                <input type="text" name="day" lay-verify="day" autocomplete="off" class="layui-input">
+                <input type="text" name="day" lay-verify="required|number" autocomplete="off" class="layui-input">
             </div>
         </div>
         <div class="layui-inline">
             <label class="layui-form-label">人均花费/RMB</label>
             <div class="layui-input-block">
-                <input type="text" name="cost" lay-verify="cost" autocomplete="off" class="layui-input">
+                <input type="text" name="cost" lay-verify="required|number" autocomplete="off" class="layui-input">
+            </div>
+        </div>
+    </div>
+
+    <div class="layui-form-item">
+        <div class="layui-inline">
+            <label class="layui-form-label">添加目的地</label>
+            <div class="layui-input-inline">
+                <select name="modules" lay-verify="required" lay-search="">
+                    <option value="">直接选择或搜索选择</option>
+                    <option value="1">layer</option>
+                    <option value="2">form</option>
+                    <option value="3">layim</option>
+                    <option value="4">element</option>
+                    <option value="5">laytpl</option>
+                    <option value="6">upload</option>
+                    <option value="7">laydate</option>
+                </select>
             </div>
         </div>
     </div>
@@ -88,11 +106,6 @@
         <button class="layui-btn submit-btn" lay-submit="" lay-filter="add">确定</button>
     </div>
 </form>
-
-<div class="layerBtn-b display-flex-right position-f">
-    <button class="cursor layui-layer-btn0">确定</button>
-    <button class="cursor layui-layer-btn1">取消</button>
-</div>
 
 <script>
     $('.layui-layer-btn0').on('click',function(){
@@ -122,35 +135,16 @@
                     return '请选择出发时间'
                 }
             }
-            ,day: function (value) {
-                var reg_test = /^[0-9]*$/;
-                var flag = reg_test.test(value);
-                if (!flag || value == "") {
-                    return '出行天数必须是数字'
-                }
-            }
-            ,cost: function (value) {
-                var reg_test = /^[0-9]*$/;
-                var flag = reg_test.test(value);
-                if (!flag || value == "") {
-                    return '人均花费必须是数字'
-                }
-            }
         });
 
         //监听提交
         form.on('submit(add)', function(data){
-            layer.alert(JSON.stringify(data.field), {
-                title: '最终的提交信息'
-            })
+            //表单取值
+            var data = form.val('get-info');
+            alert("表单取值: " + JSON.stringify(data));
             return false;
         });
 
-        //表单取值
-        layui.$('#LAY-component-form-getval').on('click', function(){
-            var data = form.val('example');
-            alert(JSON.stringify(data));
-        });
 
     });
 </script>

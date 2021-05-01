@@ -51,7 +51,7 @@
     <div class="search-head">
         <div class="wid clearfix">
             <div class="search-head-logo">
-                <a href=""></a>
+                <a href="http://localhost:8080/lww/index.jsp"></a>
             </div>
             <div class="search-bar">
                 <div class="search-wrapper">
