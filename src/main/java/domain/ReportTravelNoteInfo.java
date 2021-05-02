@@ -1,6 +1,6 @@
 package domain;
 
-import org.joda.time.DateTime;
+import java.sql.Date;
 
 /**
  * @Author: 李旺旺
@@ -12,18 +12,16 @@ public class ReportTravelNoteInfo {
     private int userId;                 //用户id
     private String reportSelect;        //举报原因
     private String reportContent;       //举报内容
-    private DateTime reportTime;        //举报时间
+    private Date reportTime;        //举报时间
     private Boolean flag;               //是否受理
 
     public ReportTravelNoteInfo() {}
 
-    public ReportTravelNoteInfo(int travelId, int userId, String reportSelect, String reportContent, DateTime reportTime, Boolean flag) {
-        this.travelId = travelId;
+    public ReportTravelNoteInfo(int userId, String reportSelect, String reportContent, Date reportTime) {
         this.userId = userId;
         this.reportSelect = reportSelect;
         this.reportContent = reportContent;
         this.reportTime = reportTime;
-        this.flag = flag;
     }
 
     public int getTravelId() {
@@ -58,11 +56,11 @@ public class ReportTravelNoteInfo {
         this.reportContent = reportContent;
     }
 
-    public DateTime getReportTime() {
+    public Date getReportTime() {
         return reportTime;
     }
 
-    public void setReportTime(DateTime reportTime) {
+    public void setReportTime(Date reportTime) {
         this.reportTime = reportTime;
     }
 

@@ -9,7 +9,8 @@
 			$("body").append("<div id='bigAutocompleteContent' class='bigautocomplete-layout'></div>");
 			$(document).bind('mousedown',function(event){
 				var $target = $(event.target);
-				if((!($target.parents().andSelf().is('#bigAutocompleteContent'))) && (!$target.is(bigAutocomplete.currentInputText))){
+				// if((!($target.parents().andSelf().is('#bigAutocompleteContent'))) && (!$target.is(bigAutocomplete.currentInputText))){
+				if((!($target.parents().addBack().is('#bigAutocompleteContent'))) && (!$target.is(bigAutocomplete.currentInputText))){
 					bigAutocomplete.hideAutocomplete();
 				}
 			})

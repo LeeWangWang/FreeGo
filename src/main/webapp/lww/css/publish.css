@@ -145,8 +145,8 @@
 
 /*选择游记信息*/
  .layui-form{
-     width: 720px;
-     height: 150px;
+     width: 750px;
+     height: 210px;
      margin: auto;
      transform: translateY(35px);
      z-index: 100;
@@ -154,15 +154,20 @@
 .form-confirm{
     text-align: center;
 }
-.layui-form-pane .layui-form-label{
-    width: 135px;
-}
-.layui-form-pane .layui-input-block{
-    margin-left: 135px;
-}
 .layui-form-item .layui-inline{
-    width: 280px;
+    width: 310px;
     margin: 10px;
+}
+.layui-form-item input{
+    width: 180px;
+    height: 38px;
+    line-height: 1.3;
+    border-width: 1px;
+    border-style: solid;
+    background-color: #fff;
+    border-radius: 0 2px 2px 0;
+    border-color: #eee;
+    padding-left: 20px;
 }
 .layui-layer-msg{
     top: 300px;

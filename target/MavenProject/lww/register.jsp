@@ -141,7 +141,7 @@
 
 <body>
 
-    <div id="rg_layout" class="rg_layout" style="background-size: cover;">
+    <div id="rg_layout" class="rg_layout">
         <div class="rg_form clearfix">
 
             <div class="rg_form_left">
@@ -233,6 +233,7 @@
             '31.jpeg', '32.jpeg', '33.jpeg', '34.jpeg', '35.jpeg', '36.jpeg', '37.jpeg', '38.jpeg', '39.jpeg', '40.jpeg',
             '41.jpeg', '42.jpeg', '43.jpeg', '44.jpeg', '45.jpeg'];
         document.getElementById("rg_layout").style.background="url(../images/li/signup&login/"+bg_img[Math.floor(Math.random()*(bg_img.length))]+") no-repeat center";
+        $("#rg_layout").attr("style", "background-size: cover");
         $("#checkCode").click();
 
     </script>

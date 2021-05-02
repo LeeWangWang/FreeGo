@@ -100,7 +100,7 @@
 
 <body>
 
-<div id="login_layout" class="login_layout" style="background-size: cover;">
+<div id="login_layout" class="login_layout">
     <div class="login_form clearfix">
 
         <div class="login_form_left">

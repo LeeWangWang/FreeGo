@@ -3,9 +3,19 @@
 <head>
     <meta charset="utf-8">
     <title>Title</title>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/jquery-1.7.min.js"></script>
-    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bigautocomplete.js?v=2"></script>
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bootstrap.min.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/publish.css">
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/lww/layui/css/layui.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bigautocomplete.css">
+    <%--导入JavaScript--%>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bigautocomplete.js?v=2"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
+    <script src="${pageContext.request.contextPath}/lww/layui/layui.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/package/dist/wangEditor.min.js"></script>
 
     <style type="text/css">
         *{margin:0;padding:0;list-style-type:none;}
@@ -23,8 +33,16 @@
 <div class="demo">
     <h2>bigautocomplete联想输入测试</h2>
     <form action="" method="post" name="searchform" id="searchform" class="searchinfo">
+        <ul style="margin-bottom: 40px; float: left">
+            <li><input type="text" id="location1" value="" class="text" /></li>
+            <li><input type="submit" value="搜索" class="button" /></li>
+        </ul>
+        <ul style="margin-bottom: 40px; float: left ">
+            <li><input type="text" id="location2" value="" class="text" /></li>
+            <li><input type="submit" value="搜索" class="button" /></li>
+        </ul>
         <ul>
-            <li><input type="text" id="location" value="" class="text" /></li>
+            <li><input type="text" id="location3" value="" class="text" /></li>
             <li><input type="submit" value="搜索" class="button" /></li>
         </ul>
     </form>
@@ -32,17 +50,43 @@
 
 <script>
 
+    var locateInfo = null;
+    var jsonData = null;
+    var result = null;
+
     $(function() {
-        $("#location").bigAutocomplete({
+        $.post("/travelnote/getLocate", function (data) {
+            locateInfo = data;
+            jsonData = JSON.stringify(data);// 转成JSON格式
+            result = $.parseJSON(jsonData);// 转成JSON对象
+            console.log("前台获取地址信息: ");
+            console.log(locateInfo);
+            console.log("前台获取地址信息: ");
+            console.log(jsonData);
+            console.log("前台获取地址信息: ");
+            console.log(result);
+        }, "json");
+
+        $("#location1").bigAutocomplete({
             width:543,
-            url:'http://localhost:8080/travelnote/getLocate',
+            data:locateInfo,
             callback:function(data){
-                alert(data.title);
             }
         });
-        /*$.post("/travelnote/getLocate", function (data) {
-            alert(data);
-        });*/
+
+        $("#location2").bigAutocomplete({
+            width:543,
+            data:jsonData,
+            callback:function(data){
+            }
+        });
+
+        $("#location3").bigAutocomplete({
+            width:543,
+            data:result,
+            callback:function(data){
+            }
+        });
     });
 </script>
 

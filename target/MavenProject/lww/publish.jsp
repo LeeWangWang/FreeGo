@@ -14,8 +14,11 @@
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/common.css">
     <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/publish.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/lww/layui/css/layui.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/lww/css/bigautocomplete.css">
     <%--导入JavaScript--%>
-    <script src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/jquery-2.2.4.min.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bigautocomplete.js?v=2"></script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/lww/js/bootstrap.min.js"></script>
     <script src="${pageContext.request.contextPath}/lww/js/getParameter.js"></script>
     <script src="${pageContext.request.contextPath}/lww/layui/layui.js"></script>
@@ -111,14 +114,14 @@
 
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">出发时间</label>
-                    <div class="layui-input-block">
+                    <label style="width: 130px" class="layui-form-label">出发时间</label>
+                    <div style="margin-left: 130px;" class="layui-input-block">
                         <input type="text" name="date" lay-verify="required|StartDate" id="input_date" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline" style="float: right">
-                    <label class="layui-form-label">人物</label>
-                    <div class="layui-input-block">
+                    <label style="width: 130px" class="layui-form-label">人物</label>
+                    <div style="margin-left: 130px;" class="layui-input-block">
                         <select name="people">
                             <option value="0">一个人</option>
                             <option value="1">情侣/夫妻</option>
@@ -134,16 +137,27 @@
 
             <div class="layui-form-item">
                 <div class="layui-inline">
-                    <label class="layui-form-label">出行天数</label>
-                    <div class="layui-input-block">
+                    <label style="width: 130px" class="layui-form-label">出行天数</label>
+                    <div style="margin-left: 130px;" class="layui-input-block">
                         <input type="text" name="day" lay-verify="required|number" autocomplete="off" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-inline" style="float: right">
-                    <label class="layui-form-label">人均花费/RMB</label>
-                    <div class="layui-input-block">
+                    <label style="width: 130px" class="layui-form-label">人均花费/RMB</label>
+                    <div style="margin-left: 130px;" class="layui-input-block">
                         <input type="text" name="cost" lay-verify="required|number" autocomplete="off" class="layui-input">
                     </div>
+                </div>
+            </div>
+
+            <div class="layui-form-item">
+                <div class="layui-inline">
+                    <label style="width: 130px" class="layui-form-label">请输入目的地</label>
+                    <div style="margin-left: 130px;" class="layui-input-block">
+                        <input type="text" name="locate" lay-verify="required" id="input_location" placeholder="搜索目的地" autocomplete="off">
+                    </div>
+                </div>
+                <div class="layui-inline" style="float: right">
                 </div>
             </div>
 
@@ -210,9 +224,37 @@
     </div>
 </div>
 
-<%--layui上传图片--%>
+
 <script>
-    window.onload=function(){
+    window.onload = function(){
+        var locateInfo = null;
+        var tn_Title = null;
+        var tn_Cover = null;
+        var tn_Text = null;
+        var tn_publishDate = null;
+        var tn_travelTime = null;
+        var tn_travelDays = null;
+        var tn_travelPerson = null;
+        var tn_travelPrice = null;
+        var tn_travelLocate = null;
+
+        <%--自动搜索功能--%>
+        $.post("/travelnote/getLocate", function (data) {
+            console.log("前台获取地址信息: " + data); console.log();
+            locateInfo = data;
+            //var jsonData = JSON.stringify(data);// 转成JSON格式
+            //var result = $.parseJSON(jsonData);// 转成JSON对象
+        }, "json");
+
+        $("#input_location").bigAutocomplete({
+            width:543,
+            data:locateInfo,
+            callback:function(data){
+                //回调函数
+            }
+        });
+
+        <%--layui上传图片--%>
         layui.use('upload', function(){
             var upload = layui.upload;
 
@@ -232,7 +274,7 @@
                         //上传成功
                         var imgPath = res.data.src;
                         var path = "/FreegoImg/li/travelnote/" +imgPath;
-                        $('#head_photo').attr('src', path);                 //头图路径
+                        $('#head_photo').attr('src', path);                  //头图路径
                         $('#head_photo').attr('data-file', imgPath);         //头图文件名
                     }
                 }
@@ -241,118 +283,177 @@
                 }
             });
         });
-    }
-</script>
 
-<%--layui的From表单--%>
-<script>
-    layui.use(['form', 'layedit', 'laydate'], function(){
-        var form = layui.form
-            ,layer = layui.layer
-            ,laydate = layui.laydate;
 
-        //日期
-        laydate.render({
-            elem: '#input_date'
-        });
+        <%--WangEditor富文本编辑框--%>
+        const E = window.wangEditor
+        const editor = new E('#toolbar_container', '#textarea_container') // 传入两个元素
+        // 配置菜单栏，设置不需要的菜单
+        editor.config.excludeMenus = ['fontName', 'italic', 'strikeThrough', 'indent', 'lineHeight', 'todo', 'justify', 'quote', 'video', 'code']
+        editor.config.placeholder = '从这里开始游记正文...'
+        editor.config.height = 600
+        // editor.config.onchange = function (newHtml) { console.log('change 之后最新的 html', newHtml) }
+        editor.config.uploadImgServer = 'http://localhost:8080/upload'          // 配置 server 接口地址
+        editor.config.showLinkImg = false                                       //即可隐藏插入网络图片的功能
+        editor.config.uploadImgAccept = ['jpg', 'jpeg', 'png']                  //限制图片类型
+        editor.create();
 
-        //自定义验证规则
-        form.verify({
-            StartDate: function (value) {
-                if (value == "" || value == null || value == undefined){
-                    layer.alert('请选择出发时间', {
-                        offset:'300px',
-                        title:'错误提示'
-                    });
-                }
+        //校验头图
+        function checkCover() {
+            var imgSrc = $("#head_photo").attr("src");
+            console.log("头图的路径: "); console.log(imgSrc);
+            if (imgSrc == "" || imgSrc == null || imgSrc == undefined) {
+                alert("未设置头图，请设置头图");
+                return false;
             }
-        });
-
-        //监听提交
-        form.on('submit(add-info)', function(data){
-            //生成游记对象，发送到后台进行保存——————————————————————————————————————————————————————————————
-            /*layer.alert(JSON.stringify(data.field), {
-                offset:'300px',
-                title: '最终的提交信息'
-            });*/
-            //表单取值
-            var data = form.val('get-info');
-            alert("表单取值: " + JSON.stringify(data));
-            return false;
-        });
-
-    });
-</script>
-
-<%--WangEditor富文本编辑框--%>
-<script type="text/javascript">
-    const E = window.wangEditor
-    const editor = new E('#toolbar_container', '#textarea_container') // 传入两个元素
-    // 配置菜单栏，设置不需要的菜单
-    editor.config.excludeMenus = ['fontName', 'italic', 'strikeThrough', 'indent', 'lineHeight', 'todo', 'justify', 'quote', 'video', 'code']
-    editor.config.placeholder = '从这里开始游记正文...'
-    editor.config.height = 600
-    // editor.config.onchange = function (newHtml) { console.log('change 之后最新的 html', newHtml) }
-    editor.config.uploadImgServer = 'http://localhost:8080/upload'          // 配置 server 接口地址
-    editor.config.showLinkImg = false                                       //即可隐藏插入网络图片的功能
-    editor.config.uploadImgAccept = ['jpg', 'jpeg', 'png']                  //限制图片类型
-    editor.create();
-
-    //校验头图
-    function checkCover() {
-        var imgSrc = $("#head_photo").attr("src");
-        console.log("头图的路径: " + imgSrc);
-        if (imgSrc == "" || imgSrc == null || imgSrc == undefined) {
-            alert("未设置头图，请设置头图");
-            return false;
-        }
-        return true;
-    }
-    //校验标题
-    function checktitle() {
-        var title = $("#travelNote_title").val();
-        console.log("标题的内容: " + title);
-        if (title.length == 0) {
-            alert("请输入游记标题");
-            return false;
-        } else if (title.length > 50) {
-            alert("游记标题字数超出50个字符，请重新编辑");
-            return false;
-        }
-        return true;
-    }
-    //校验内容
-    function checkText() {
-        var noteText = editor.txt.html();
-        console.log("游记的内容: " + noteText);
-        if (noteText.length < 50) {
-            alert("游记内容太短，请多写一些旅游体验。");
-            return false;
-        }
-        alert("游记内容："+noteText);
-        return true;
-    }
-    //取消按钮
-    $("#btn_cancel").click(function () {
-        var result = window.confirm("确定取消，系统可能不会保存您所做的更改。");
-        if (result == true) {
-            window.location.href="javascript:history.go(-1)";
-        } else {
-            return;
-        }
-    });
-    //发表游记
-    $("#btn_publish").click(function () {
-        var flag = checkCover() && checktitle() && checkText();
-        if (flag) {
-            //校验通过，触发layui的From表单验证
-            $('#submit_btn').trigger('click');
             return true;
         }
-        alert("发布失败，请稍后重试");
-        return false;
-    });
-    
+        //校验标题
+        function checktitle() {
+            var title = $("#travelNote_title").val();
+            console.log("标题的内容: "); console.log(title);
+            if (title.length == 0) {
+                alert("请输入游记标题");
+                return false;
+            } else if (title.length > 50) {
+                alert("游记标题字数超出50个字符，请重新编辑");
+                return false;
+            }
+            return true;
+        }
+        //校验内容
+        function checkText() {
+            var noteText = editor.txt.html();
+            console.log("游记的内容: ");console.log(noteText);
+            if (noteText.length < 50) {
+                alert("游记内容太短，请多写一些旅游体验。");
+                return false;
+            }
+            return true;
+        }
+        //取消按钮
+        $("#btn_cancel").click(function () {
+            var result = window.confirm("确定取消，系统可能不会保存您所做的更改。");
+            if (result == true) {
+                window.location.href="javascript:history.go(-1)";
+            } else {
+                return;
+            }
+        });
+        //发表游记
+        $("#btn_publish").click(function () {
+            var flag = checkCover() && checktitle() && checkText();
+            if (flag) {
+                //校验通过，给全局变量赋值，触发layui的From表单验证
+                var myDate = new Date();
+                myDate.toLocaleDateString();
+                tn_Title = $("#travelNote_title").val();
+                tn_Cover = $("#head_photo").attr("src");
+                tn_Text = editor.txt.html();
+                tn_publishDate = myDate;
+
+                $('#submit_btn').trigger('click');
+                return true;
+            }
+            alert("发布失败，请稍后重试");
+            return false;
+        });
+
+
+        <%--layui的From表单--%>
+        layui.use(['form', 'layedit', 'laydate'], function(){
+            var form = layui.form
+                ,layer = layui.layer
+                ,laydate = layui.laydate;
+
+            //日期
+            laydate.render({
+                elem: '#input_date'
+            });
+
+            //自定义验证规则
+            form.verify({
+                StartDate: function (value) {
+                    if (value == "" || value == null || value == undefined){
+                        layer.alert('请选择出发时间', {
+                            offset:'300px',
+                            title:'错误提示'
+                        });
+                    }
+                }
+            });
+
+            //监听提交
+            form.on('submit(add-info)', function(data){
+
+                var people;
+                var position = data.locate;
+                console.log("游记信息"); console.log(data);
+                tn_travelTime = data.date;      //出发时间
+                tn_travelDays = parseInt(data.day);       //出行天数
+                switch (parseInt(data.people)) {
+                    case 1 : people = 23; break;     //一个人
+                    case 2 : people = 19; break;     //情侣/夫妻
+                    case 3 : people = 20; break;     //带孩子
+                    case 4 : people = 18; break;     //家庭出游
+                    case 5 : people = 26; break;     //和朋友
+                    case 6 : people = 21; break;     //和同学
+                    default :  people = 25;          //其他
+                }
+                tn_travelPerson = people;       //人物
+                tn_travelPrice = parseInt(data.cost);     //人均花费
+
+                console.log("前台获取标题: "); console.log(tn_Title);
+                console.log("前台获取封面: "); console.log(tn_Cover);
+                console.log("前台获取正文: "); console.log(tn_Text);
+                console.log("前台获取发表日期: "); console.log(tn_publishDate);
+                console.log("前台获取出行日期: "); console.log(tn_travelTime);
+                console.log("前台获取出行天数: "); console.log(tn_travelDays);
+                console.log("前台获取人物: "); console.log(tn_travelPerson);
+                console.log("前台获取人均花费: "); console.log(tn_travelPrice);
+                console.log("前台获取地址信息: "); console.log(tn_travelLocate);
+
+                /*$.post("/travelnote/checkLocate",{name : position}, function (data) {
+                    console.log("前台获取地址编号: "); console.log(data);
+                    tn_travelLocate = data;
+                });
+
+                //生成游记对象，发送到后台进行保存
+                var travelNote = {
+                    travelNoteTitle : tn_Title,
+                    travelNoteCover : tn_Cover,
+                    travelNoteText : tn_Text,
+                    publishDate : tn_publishDate,
+                    travelTime : tn_travelTime,
+                    travelDays : tn_travelDays,
+                    travelPerson : tn_travelPerson,
+                    travelPrice : tn_travelPrice,
+                    travelLocate : tn_travelLocate,
+                };
+                console.log("生成的游记实例信息"); console.log(travelNote);
+                alert(travelNote.toString());
+                $.post("/travelnote/addTravelNote",{travelnote : travelNote}, function (data) {
+                    console.log("保存游记信息后返回值: "); console.log(data);
+                    if (data != null) {
+                        alert("游记信息发表成功");
+                    } else {
+                        alert("游记信息发表失败");
+                    }
+                });*/
+
+                /*layer.alert(JSON.stringify(data.field), {
+                    offset:'300px',
+                    title: '最终的提交信息'
+                });
+                //表单取值
+                var data = form.val('get-info');
+                alert("表单取值: " + JSON.stringify(data));
+                return false;*/
+            });
+
+        });
+
+    }
 </script>
 
 </body>

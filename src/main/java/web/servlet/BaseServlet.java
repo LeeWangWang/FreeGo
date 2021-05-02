@@ -25,12 +25,10 @@ public class BaseServlet extends HttpServlet {
         //完成方法的分发
         //1.获取请求路径
         String requestURI = req.getRequestURI();
-        System.out.println("BaseServlet请求URI:" + requestURI);
         //2.获取方法名称
         String methodName = requestURI.substring(requestURI.lastIndexOf('/') + 1);
-        System.out.println("BaseServlet方法名称:" + methodName);
+        System.out.println("请求URI: " + requestURI);
         //3.获取方法对象的method，谁调用我?我代表谁
-        System.out.println("BaseServlet:" + this);
         try {
             //4.获取执行方法，暴力反射
             Method method = this.getClass().getMethod(methodName, HttpServletRequest.class, HttpServletResponse.class);

@@ -141,7 +141,7 @@
 
 <body>
 
-    <div id="rg_layout" class="rg_layout" style="background-size: cover;">
+    <div id="rg_layout" class="rg_layout">
         <div class="rg_form clearfix">
 
             <div class="rg_form_left">

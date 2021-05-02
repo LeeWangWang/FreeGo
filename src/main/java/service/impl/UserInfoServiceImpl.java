@@ -14,13 +14,6 @@ public class UserInfoServiceImpl implements UserInfoService {
 
     private UserInfoDao userDao = new UserInfoDaoInfoImpl();
 
-    /**
-    * @Author:  李旺旺
-    * @Date:    2021/4/18 16:01
-    * @param:   [userInfo]
-    * @Return:  boolean
-    * @Description: 用户注册，不存在返回true，存在返回false
-    */
     @Override
     public UserInfo register(UserInfo userInfo) {
         boolean teleFlag = userDao.isUserCellnumberExist(userInfo.getUserTele());
@@ -36,13 +29,6 @@ public class UserInfoServiceImpl implements UserInfoService {
         return null;
     }
 
-    /**
-     * @Author:  李旺旺
-     * @Date:    2021/4/18 16:01
-     * @param:   [userInfo]
-     * @Return:  boolean
-     * @Description: 用户登录，登陆成功返回UserInfo实例对象，失败返回null
-     */
     @Override
     public UserInfo login(String account, String password) {
         return  userDao.isAccountRight(account, password);

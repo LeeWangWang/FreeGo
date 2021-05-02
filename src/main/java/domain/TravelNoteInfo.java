@@ -1,6 +1,6 @@
 package domain;
 
-import org.joda.time.DateTime;
+import java.sql.Date;
 
 /**
  * @Author: 李旺旺
@@ -12,33 +12,28 @@ public class TravelNoteInfo {
     private String travelNoteTitle;     //游记标题
     private String travelNoteCover;     //游记封面
     private String travelNoteText;      //游记正文
-    private DateTime publishDate;       //发布日期
-    private int pageViews;              //浏览量
-    private DateTime travelTime;        //出发时间
+    private Date publishDate;           //发布日期
+    private Date travelTime;            //出发时间
     private int travelDays;             //旅行天数
-    private String travelPerson;        //旅行人物
+    private int travelPerson;           //旅行人物
     private int travelPrice;            //人均费用
-    private String travelLocate;        //游记位置
-    private Boolean isPublish;          //是否发布
+    private int travelLocate;           //游记位置
+    private int pageViews;              //浏览量
+    private Boolean isPublish;          //是否发布（1:未发表，1:已发表）
     private Boolean flag;               //游记状态(0:未删除，1:已删除)
 
     public TravelNoteInfo() {}
 
-    public TravelNoteInfo(String travelNoteTitle, String travelNoteCover, String travelNoteText, DateTime publishDate,
-                          int pageViews, DateTime travelTime, int travelDays, String travelPerson, int travelPrice,
-                          String travelLocate, Boolean isPublish, Boolean flag) {
+    public TravelNoteInfo(String travelNoteTitle, String travelNoteCover, String travelNoteText, Date publishDate, Date travelTime, int travelDays, int travelPerson, int travelPrice, int travelLocate) {
         this.travelNoteTitle = travelNoteTitle;
         this.travelNoteCover = travelNoteCover;
         this.travelNoteText = travelNoteText;
         this.publishDate = publishDate;
-        this.pageViews = pageViews;
         this.travelTime = travelTime;
         this.travelDays = travelDays;
         this.travelPerson = travelPerson;
         this.travelPrice = travelPrice;
         this.travelLocate = travelLocate;
-        this.isPublish = isPublish;
-        this.flag = flag;
     }
 
     public int getTravelNoteId() {
@@ -73,27 +68,19 @@ public class TravelNoteInfo {
         this.travelNoteText = travelNoteText;
     }
 
-    public DateTime getPublishDate() {
+    public Date getPublishDate() {
         return publishDate;
     }
 
-    public void setPublishDate(DateTime publishDate) {
+    public void setPublishDate(Date publishDate) {
         this.publishDate = publishDate;
     }
 
-    public int getPageViews() {
-        return pageViews;
-    }
-
-    public void setPageViews(int pageViews) {
-        this.pageViews = pageViews;
-    }
-
-    public DateTime getTravelTime() {
+    public Date getTravelTime() {
         return travelTime;
     }
 
-    public void setTravelTime(DateTime travelTime) {
+    public void setTravelTime(Date travelTime) {
         this.travelTime = travelTime;
     }
 
@@ -105,11 +92,11 @@ public class TravelNoteInfo {
         this.travelDays = travelDays;
     }
 
-    public String getTravelPerson() {
+    public int getTravelPerson() {
         return travelPerson;
     }
 
-    public void setTravelPerson(String travelPerson) {
+    public void setTravelPerson(int travelPerson) {
         this.travelPerson = travelPerson;
     }
 
@@ -121,12 +108,20 @@ public class TravelNoteInfo {
         this.travelPrice = travelPrice;
     }
 
-    public String getTravelLocate() {
+    public int getTravelLocate() {
         return travelLocate;
     }
 
-    public void setTravelLocate(String travelLocate) {
+    public void setTravelLocate(int travelLocate) {
         this.travelLocate = travelLocate;
+    }
+
+    public int getPageViews() {
+        return pageViews;
+    }
+
+    public void setPageViews(int pageViews) {
+        this.pageViews = pageViews;
     }
 
     public Boolean getPublish() {
@@ -153,12 +148,12 @@ public class TravelNoteInfo {
                 ", 游记封面='" + travelNoteCover + '\'' +
                 ", 游记正文='" + travelNoteText + '\'' +
                 ", 发布日期=" + publishDate +
-                ", 浏览量=" + pageViews +
                 ", 出发时间=" + travelTime +
                 ", 旅行天数=" + travelDays +
                 ", 旅行人物='" + travelPerson + '\'' +
                 ", 人均费用=" + travelPrice +
                 ", 游记位置='" + travelLocate + '\'' +
+                ", 浏览量=" + pageViews +
                 ", 是否发布=" + isPublish +
                 ", 游记状态(是否删除)=" + flag +
                 '}';

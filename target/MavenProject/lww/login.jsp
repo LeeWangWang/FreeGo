@@ -100,7 +100,7 @@
 
 <body>
 
-<div id="login_layout" class="login_layout" style="background-size: cover;">
+<div id="login_layout" class="login_layout">
     <div class="login_form clearfix">
 
         <div class="login_form_left">
@@ -175,6 +175,7 @@
         '31.jpeg', '32.jpeg', '33.jpeg', '34.jpeg', '35.jpeg', '36.jpeg', '37.jpeg', '38.jpeg', '39.jpeg', '40.jpeg',
         '41.jpeg', '42.jpeg', '43.jpeg', '44.jpeg', '45.jpeg'];
     document.getElementById("login_layout").style.background="url(../images/li/signup&login/"+bg_img[Math.floor(Math.random()*(bg_img.length))]+") no-repeat center";
+    $("#login_layout").attr("style", "background-size: cover");
     $("#checkCode").click();
 </script>
 

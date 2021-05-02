@@ -2,6 +2,9 @@ package dao.impl;
 
 import dao.TravelNoteInfoDao;
 import domain.*;
+import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.JdbcTemplate;
+import utils.JDBCUtils;
 
 import java.util.List;
 
@@ -12,17 +15,36 @@ import java.util.List;
  */
 public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
 
-    /**
-     * @Author:  李旺旺
-     * @Date:    2021/3/31 20:31
-     * @param:   [userId]
-     * @Description: 系统根据用户编号userId查询用户偏好表（UserPreferList）和用户关注表（UserConcernList）,获取到用户偏好信息和用户关注信息,
-     *               通过用户偏好信息和用户关注信息查询标签关联表（TagLinkList）、游记信息表（TravelNoteList）、游记图片关系表(TravelNotePictureList),
-     *               查询成功返回游记信息实例集合List<TravelNoteInfo>,若查询失败，返回 null。
-     */
+    private JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
+
     @Override
     public List<TravelNoteInfo> recommendTravelNoteInfoNote(int userId) {
         return null;
+    }
+
+    @Override
+    public String getLocate() {
+        String sql = null;
+        List<String> list = null;
+        //1.定义sql语句
+        sql = "select locateName from locate";
+        //2.执行
+        list = template.queryForList(sql, String.class);
+        String result = "[";
+        for (String item : list) {
+            result = result + "{\"title\":\"" + item + "\"},";
+        }
+        result = result.substring(0, result.length()-1);
+        result = result + "]";
+        return result;
+    }
+
+    @Override
+    public int checkLocate(String locateName) {
+        //1.定义sql语句
+        String sql = "select locateId from locate where locateName = ?";
+        //2.执行
+        return template.queryForObject(sql,Integer.class, locateName);
     }
 
     /**
@@ -160,14 +182,28 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
         return null;
     }
 
-    /**
-     * @Author:  李旺旺
-     * @Date:    2021/3/31 20:42
-     * @param:   [travelNote]
-     * @Description: 系统将游记对象保存在游记信息表（TravelNoteList）、游记图片关系表（TravelNotePictureList）中，若保存成功返回true,若保存失败，返回 false。
-     */
     @Override
-    public Boolean addTravelNote(TravelNoteInfo travelNote) {
+    public TravelNoteInfo addTravelNote(TravelNoteInfo travelNote) {
+        //1.定义sql语句
+        String sql1 = "insert into travelnote (travelNoteTitle,travelNoteCover,travelNoteText,publishDate,travelTime," +
+                "travelDays,travelPerson,travelPrice,travelLocate) values(?,?,?,?,?,?,?,?,?)";
+        //2.执行
+        int result = template.update(sql1,
+                travelNote.getTravelNoteTitle(),
+                travelNote.getTravelNoteCover(),
+                travelNote.getTravelNoteText(),
+                travelNote.getPublishDate(),
+                travelNote.getTravelTime(),
+                travelNote.getTravelDays(),
+                travelNote.getTravelPerson(),
+                travelNote.getTravelPrice(),
+                travelNote.getTravelLocate() );
+        if (result == 1){
+            TravelNoteInfo noteInfo = null;
+            String sql2 = "select * from travelnote where travelNoteCover = ?";
+            noteInfo = template.queryForObject(sql2, new BeanPropertyRowMapper<TravelNoteInfo>(TravelNoteInfo.class), travelNote.getTravelNoteCover());
+            return noteInfo;
+        }
         return null;
     }
 
