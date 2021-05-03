@@ -31,16 +31,9 @@
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
                     $("#user_head").html(head);
                 } else {
-                    $("#user_panel").remove();
                     $("#login_in").remove();//移除已登录标签
+                    location.href="http://localhost:8080/lww/login.jsp";
                 }
-            });
-            //显示下拉菜单
-            $("#login_status").mouseover(function () {
-                $("#menu_panel").next("a").slideDown;
-            });
-            $("#login_status").mouseleave(function () {
-                $("#user_panel").children("a").slideUp;
             });
         });
     </script>

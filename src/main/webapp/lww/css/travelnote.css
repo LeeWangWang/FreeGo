@@ -65,25 +65,28 @@
     margin-left: 400px;
     transform: translateY(-15px);
 }
-.person a{
+.person-name{
     display: inline-block;
     float: left;
     font-size: 14px;
-}
-.person a.person-name{
+    text-align: center;
     width: auto;
     color: #ff7200;
-    font-size: 14px;
     font-weight: bold;
-    float: left;
     margin-right: 20px;
+    cursor: default;
 }
 .person-follow{
+    display: inline-block;
+    float: left;
+    font-size: 14px;
+    text-align: center;
     color: #FFFFFF;
     background-color: #ff9d00;
     width: 55px;
     margin-right: 20px;
     border-radius: 3px;
+    cursor: default;
 }
 .glyphicon-plus{
     color: #FFFFFF;
@@ -242,7 +245,7 @@
     height: 20px;
     line-height: 20px;
     font-size: 14px;
-    transform: translateY(-18px);
+    margin-top: 20px;
 }
 .vc-article .report a{
     color: #333;

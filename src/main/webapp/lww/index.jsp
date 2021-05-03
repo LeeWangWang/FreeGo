@@ -22,21 +22,20 @@
 
     <script>
         $(function () {
+            var userId;
             //判断用户是否登录
             $.get("/user/findOne", {}, function (user) {
                 if (user) {
                     //用户登录了
+                    userId = user.userId;
                     $("#login_out").remove();//移除未登录标签
                     var userHead = user.userHeadPicturePath;
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
                     $("#user_head").html(head);
                 } else {
                     $("#login_in").remove();//移除已登录标签
+                    location.href="http://localhost:8080/lww/login.jsp";
                 }
-                /*var userId = user.userId;
-                $.get("/travelnote/recommendTravelNoteInfoNote", userId, function (result) {
-                    //展示推荐游记
-                });*/
             });
 
             //游记推荐
@@ -96,7 +95,7 @@
                 },{
                     title: '退出登录'
                     ,id: 'icon_logout'
-                    ,href: 'https://www.icon_follow.com/'
+                    ,href: 'http://localhost:8080/user/exit'
                 }]
             });
         });
@@ -147,8 +146,8 @@
 
                 <div id="banner_1" class="item active">
                     <a href="" class="show-title">
-                        <div class="travelnote-date">2021.4.19</div>
-                        <div class="travelnote-title">【自驾甘孜】仓央嘉措，无尽雪山和风</div>
+                        <div id="travelNote_date_1" class="travelnote-date">2021.4.19</div>
+                        <div id="travelNote_title_1" class="travelnote-title">【自驾甘孜】仓央嘉措，无尽雪山和风</div>
                     </a>
                     <a href="" class="show-pic">
                         <img src="/FreegoImg/li/travelnote/1.jpeg" alt="" class="banner-picture">
@@ -157,8 +156,8 @@
 
                 <div id="banner_2" class="item">
                     <a href="" class="show-title">
-                        <div class="show-date">2021.4.19</div>
-                        <div class="travelnote-title">常州金坛亲子游｜撷一肩春色，跟着小念一起花样春游吧</div>
+                        <div id="travelNote_date_2" class="travelnote-date">2021.4.19</div>
+                        <div id="travelNote_title_2" class="travelnote-title">常州金坛亲子游｜撷一肩春色，跟着小念一起花样春游吧</div>
                     </a>
                     <a href="" class="show-pic">
                         <img src="/FreegoImg/li/travelnote/2.jpeg" alt="" class="banner-picture">
@@ -167,8 +166,8 @@
 
                 <div id="banner_3" class="item">
                     <a href="" class="show-title">
-                        <div class="show-date">2021.4.19</div>
-                        <div class="travelnote-title">别样东莞｜广东第四城的美食和古迹</div>
+                        <div id="travelNote_date_3" class="travelnote-date">2021.4.19</div>
+                        <div id="travelNote_title_3" class="travelnote-title">别样东莞｜广东第四城的美食和古迹</div>
                     </a>
                     <a href="" class="show-pic">
                         <img src="/FreegoImg/li/travelnote/3.jpeg" alt="" class="banner-picture">
@@ -177,8 +176,8 @@
 
                 <div id="banner_4" class="item">
                     <a href="" class="show-title">
-                        <div class="show-date">2021.4.19</div>
-                        <div class="travelnote-title">走吧、让我们一路川西吧！</div>
+                        <div id="travelNote_date_4" class="travelnote-date">2021.4.19</div>
+                        <div id="travelNote_title_4" class="travelnote-title">走吧、让我们一路川西吧！</div>
                     </a>
                     <a href="" class="show-pic">
                         <img src="/FreegoImg/li/travelnote/4.jpeg" alt="" class="banner-picture">

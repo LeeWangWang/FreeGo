@@ -6,6 +6,7 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import utils.JDBCUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -19,14 +20,29 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
 
     @Override
     public List<TravelNoteInfo> recommendTravelNoteInfoNote(int userId) {
+        //总共搜索出50条数据，5种偏好，数量分别是(15,12,10,8,5)
+        List<TravelNoteInfo> list;
+        if (userId == -1) {
+        } else {
+            // 1.首先获取用户的所有偏好信息(按照偏好权重由高到低)
+            String sql1 = "select * from userprefer where userId = ? order by preferWeight desc";
+            List<UserPrefer> userPrefers = template.queryForList(sql1, UserPrefer.class, userId);
+            // 2.根据标签Id，查询相对应的游记信息
+            List<Integer> noteIdList = null;
+            for (int i = 0; i < 4; i++) {
+                List<Integer> idList;
+                String sql2 = "select linkId from taglink where tagId = ? and type = '0' ";
+                idList = template.queryForList(sql2, Integer.class, userPrefers.get(i).getTagId() );
+                noteIdList.addAll(idList);
+            }
+        }
         return null;
     }
 
     @Override
     public List<String> getLocate() {
         //1.定义sql语句
-        String sql = null;
-        sql = "select locateName from locate";
+        String sql = "select locateName from locate";
         //2.执行
         return template.queryForList(sql, String.class);
     }
@@ -68,28 +84,6 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
 
     /**
      * @Author:  李旺旺
-     * @Date:    2021/3/31 20:32
-     * @param:   [userId, travelNoteId]
-     * @Description: 系统根据用户编号userId和游记编号travelNoteId查询游记点赞表(TravelNoteLikeList)，若查询到结果返回该游记的点赞量,若查询不到，返回-1。
-     */
-    @Override
-    public int queryTravelNoteLike(int userId, int travelNoteId) {
-        return 0;
-    }
-
-    /**
-     * @Author:  李旺旺
-     * @Date:    2021/3/31 20:33
-     * @param:   [userId, travelNoteId]
-     * @Description: 系统根据用户编号userId和游记编号travelNoteId查询游记收藏表(TravelNoteCollectionList)，若查询到结果返回该游记的收藏量,若查询不到，返回-1。
-     */
-    @Override
-    public int queryTravelNoteCollection(int userId, int travelNoteId) {
-        return 0;
-    }
-
-    /**
-     * @Author:  李旺旺
      * @Date:    2021/3/31 20:34
      * @param:   [search]
      * @Description: 系统根据搜索内容search查询游记信息表（TravelNoteList）、游记图片关系表（TravelNotePictureList），
@@ -100,13 +94,6 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
         return null;
     }
 
-    /**
-     * @Author:  李旺旺
-     * @Date:    2021/3/31 20:39
-     * @param:   [travelNoteId]
-     * @Description: 系统根据游记编号travelNoteId查询游记信息表（TravelNoteList）、游记图片关系表（TravelNotePictureList），
-     *               查询成功返回游记信息实例TravelNoteInfo,若查询失败，返回 null。
-     */
     @Override
     public TravelNoteInfo queryTravelNoteInfoById(int travelNoteId) {
         //1.定义sql语句
@@ -140,26 +127,50 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
         return null;
     }
 
-    /**
-     * @Author:  李旺旺
-     * @Date:    2021/4/3 16:47
-     * @param:   [userId, travelNoteId]
-     * @Description: 系统根据用户编号userId和游记编号travelNoteId更新游记点赞表(TravelNoteLikeList)，若更新成功返回true,若更新失败，返回 false。
-     */
-    @Override
-    public Boolean updateTravelNoteLike(int userId, int travelNoteId) {
-        return null;
-    }
-
-    /**
-     * @Author:  李旺旺
-     * @Date:    2021/4/3 16:47
-     * @param:   [userId, travelNoteId]
-     * @Description: 系统根据用户编号userId和游记编号travelNoteId更新游记收藏表(TravelNoteCollectionList)，若更新成功返回true,若更新失败，返回 false。
-     */
     @Override
     public Boolean updateTravelNoteCollect(int userId, int travelNoteId) {
-        return null;
+        //1.定义sql语句
+        String sql1 = "select count(*) from travelnotecollection where userId = ? and travelNoteId = ?";
+        //2.执行
+        int result1 =  template.queryForObject(sql1, Integer.class, userId, travelNoteId);
+        if (result1 == 1){
+            String sql2 = "delete from travelnotecollection where userId = ? and travelNoteId = ?";
+            int result2 = template.update(sql2, userId, travelNoteId);
+            if (result2 == 1){
+                return true;
+            }
+            return false;
+        } else {
+            String sql2 = "insert into travelnotecollection (userId, travelNoteId) values (?,?)";
+            int result2 = template.update(sql2, userId, travelNoteId);
+            if (result2 == 1){
+                return true;
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public Boolean updateTravelNoteLike(int userId, int travelNoteId) {
+        //1.定义sql语句
+        String sql1 = "select count(*) from travelnotelike where userId = ? and travelNoteId = ?";
+        //2.执行
+        int result1 =  template.queryForObject(sql1, Integer.class, userId, travelNoteId);
+        if (result1 == 1){
+            String sql2 = "delete from travelnotelike where userId = ? and travelNoteId = ?";
+            int result2 = template.update(sql2, userId, travelNoteId);
+            if (result2 == 1){
+                return true;
+            }
+            return false;
+        } else {
+            String sql2 = "insert into travelnotelike (userId, travelNoteId) values (?,?)";
+            int result2 = template.update(sql2, userId, travelNoteId);
+            if (result2 == 1){
+                return true;
+            }
+            return false;
+        }
     }
 
     /**
@@ -275,5 +286,92 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
     @Override
     public Boolean banShare(int travelNoteId) {
         return null;
+    }
+
+    @Override
+    public Boolean isUserFollowedByTravelNoteId(int userId, int noteId) {
+        //1.定义sql语句
+        String sql = "SELECT COUNT(*) FROM userconcern WHERE userId = ? AND followId = (SELECT userId FROM travelnotelist WHERE travelnoteId = ?);";
+        //2.执行
+        int result =  template.queryForObject(sql, Integer.class, userId, noteId);
+        if (result == 1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean isTravelNoteCollect(int userId, int noteId) {
+        //1.定义sql语句
+        String sql = "select count(*) from travelnotecollection where userId = ? and travelNoteId = ?";
+        //2.执行
+        int result =  template.queryForObject(sql, Integer.class, userId, noteId);
+        if (result == 1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean isTravelNoteLike(int userId, int noteId) {
+        //1.定义sql语句
+        String sql = "select count(*) from travelnotelike where userId = ? and travelNoteId = ?";
+        //2.执行
+        int result =  template.queryForObject(sql, Integer.class, userId, noteId);
+        if (result == 1){
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public Boolean updateUserFollowByTravelNoteId(int userId, int noteId) {
+        //1.定义sql语句
+        String sql = "SELECT COUNT(*) FROM userconcern WHERE userId = ? AND followId = (SELECT userId FROM travelnotelist WHERE travelnoteId = ?);";
+        //2.执行
+        int result =  template.queryForObject(sql, Integer.class, userId, noteId);
+        if (result == 1){
+            String sql2 = "delete from userconcern WHERE userId = ? AND followId = (SELECT userId FROM travelnotelist WHERE travelnoteId = ?);";
+            int result2 = template.update(sql2, userId, noteId);
+            if (result2 == 1){
+                return true;
+            }
+            return false;
+        } else {
+            String sql2 = "insert into userconcern (userId, followId) values ( ? , (SELECT userId FROM travelnotelist WHERE travelnoteId = ?) );";
+            int result2 = template.update(sql2, userId, noteId);
+            if (result2 == 1) {
+                return true;
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public int queryTravelNoteCollectionNum(int noteId) {
+        //1.定义sql语句
+        String sql = "SELECT COUNT(*) FROM travelnotecollection WHERE travelNoteId = ?;";
+        //2.执行
+        return template.queryForObject(sql, Integer.class, noteId);
+    }
+
+    @Override
+    public int queryTravelNoteLikeNum(int noteId) {
+        //1.定义sql语句
+        String sql = "SELECT COUNT(*) FROM travelnotelike WHERE travelNoteId = ?;";
+        //2.执行
+        return template.queryForObject(sql, Integer.class, noteId);
+    }
+
+    @Override
+    public Boolean updateTravelNoteView(int noteId) {
+        //1.定义sql语句
+        String sql = "update travelnote set pageViews=pageViews+1 where travelNoteId = ?";
+        //2.执行
+        int result = template.update(sql, noteId);
+        if (result == 1){
+            return true;
+        }
+        return false;
     }
 }

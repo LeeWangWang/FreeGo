@@ -115,5 +115,15 @@ public class SQLTest {
         /*String sql = "select locateId from locate where locateName = ?";
         int result = template.queryForObject(sql,Integer.class, "上海市");
         System.out.println(result);*/
+
+        //1.定义sql语句
+        String sql = null;
+        sql = "select count(*) from travelnotelike where userId = ? and travelNoteId = ?";
+        //2.执行
+        int result =  template.queryForObject(sql, Integer.class, 1000, 1);
+        if (result == 1){
+            System.out.println("true");
+        }
+        System.out.println("false");
     }
 }

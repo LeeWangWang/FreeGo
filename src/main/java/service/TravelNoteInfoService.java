@@ -78,4 +78,93 @@ public interface TravelNoteInfoService {
      */
     String matchPeople(int peopleId);
 
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/3 15:01
+    * @param:   [userId, noteId]
+    * @return:  java.lang.Boolean
+    * @exception:
+    * @description: 判断是否关注
+    */
+    Boolean isUserFollowedByTravelNoteId(int userId, int noteId);
+
+    /**
+     * @author:  李旺旺
+     * @date:    2021/5/3 13:33
+     * @param:   [userId, noteId]
+     * @return:  java.lang.Boolean
+     * @exception:
+     * @description: 判断是否收藏
+     */
+    Boolean isTravelNoteCollect(int userId, int noteId);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/3 13:33
+    * @param:   [userId, noteId]
+    * @return:  java.lang.Boolean
+    * @exception:
+    * @description: 判断是否点赞
+    */
+    Boolean isTravelNoteLike(int userId, int noteId);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/3 15:14
+    * @param:   [userId, noteId]
+    * @return:  int
+    * @exception:
+    * @description: 获取游记收藏量
+    */
+    int queryTravelNoteCollectionNum(int noteId);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/3 15:14
+    * @param:   [userId, noteId]
+    * @return:  int
+    * @exception:
+    * @description: 查询游记点赞数量
+    */
+    int queryTravelNoteLikeNum(int noteId);
+
+    /**
+     * @author:  李旺旺
+     * @date:    2021/5/3 16:48
+     * @param:   [userId, noteId]
+     * @return:  java.lang.Boolean
+     * @exception:
+     * @description: 更新关注信息
+     */
+    Boolean updateUserFollowByTravelNoteId(int userId, int noteId);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/3 16:02
+    * @param:   [userId, noteId]
+    * @return:  java.lang.Boolean
+    * @exception:
+    * @description: 更新收藏信息
+    */
+    Boolean updateTravelNoteCollect(int userId, int noteId);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/3 16:03
+    * @param:   [userId, noteId]
+    * @return:  java.lang.Boolean
+    * @exception:
+    * @description: 更新点赞信息
+    */
+    Boolean updateTravelNoteLike(int userId, int noteId);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/3 19:47
+    * @param:   [noteId]
+    * @return:  java.lang.Boolean
+    * @exception:
+    * @description: 更新浏览量
+    */
+    Boolean updateTravelNoteView(int noteId);
 }

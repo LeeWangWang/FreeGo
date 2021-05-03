@@ -22,51 +22,133 @@
 
     <script>
         $(function () {
-            //查询用户信息
-            $.get("/user/findOne", {}, function (user) {
-                if (user) {
-                    //用户登录了
-                    $("#login_out").remove();//移除未登录标签
-                    var userHead = user.userHeadPicturePath;
-                    var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
-                    $("#user_head").html(head);
-                } else {
-                    $("#user_panel").remove();
-                    $("#login_in").remove();//移除已登录标签
-                }
-            });
-            //显示下拉菜单
-            $("#login_status").mouseover(function () {
-                $("#menu_panel").next("a").slideDown;
-            });
-            $("#login_status").mouseleave(function () {
-                $("#user_panel").children("a").slideUp;
-            });
-            var noteid = getParameter("noteid");
-            $.get("/travelnote/queryTravelNoteInfoById", {noteid: noteid}, function (travelnote) {
+            //——————————————————————————————初始化——————————————————————————————
+            var userId;
+            var noteId = getParameter("noteId");
+            var likeNum = 0;
+            var collectNum = 0;
+            $.get("/travelnote/queryTravelNoteInfoById", {noteId: noteId}, function (travelnote) {
                 console.log("当前游记信息"); console.log(travelnote);
-                var thisLocation = "";
-                var thisPeople = "";
+                //查询用户信息
+                $.get("/user/findOne", {}, function (user) {
+                    if (user) {         //用户登录了
+                        userId = user.userId;
+                        //是否已关注
+                        $.get("/travelnote/isUserFollowedByTravelNoteId", {userId: userId, noteId: noteId}, function (flag) {
+                            console.log("当前关注信息: " + flag);
+                            if (flag == "true") {
+                                $(".person-follow").text("已关注");
+                            }
+                        });
+                        //是否已收藏
+                        $.get("/travelnote/isTravelNoteCollect", {userId: userId, noteId: noteId}, function (flag) {
+                            console.log("当前收藏信息: " + flag);
+                            if (flag == "true") {
+                                $("#tn_collect_icon").css('color', '#ff9d00');
+                            }
+                        });
+                        //是否已点赞
+                        $.get("/travelnote/isTravelNoteLike", {userId: userId, noteId: noteId}, function (flag) {
+                            console.log("当前点赞信息: " + flag);
+                            if (flag == "true") {
+                                $("#tn_like_icon").css('color', '#ff9d00');
+                            }
+                        });
+                        $("#login_out").remove();//移除未登录标签
+                        var userHead = user.userHeadPicturePath;
+                        var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
+                        $("#user_head").html(head);
+                    } else {
+                        userId = 0;
+                        $("#login_in").remove();//移除已登录标签
+                        location.href="http://localhost:8080/lww/login.jsp";
+                    }
+                });
+                //获取游记收藏量
+                $.get("/travelnote/queryTravelNoteCollectionNum", {userId: userId, noteId: noteId}, function (number) {
+                    console.log("当前收藏数量信息: " + number);
+                    collectNum = parseInt(number);
+                    $("#tn_collect_num").text(number + "收藏");
+                });
+                //获取游记点赞量
+                $.get("/travelnote/queryTravelNoteLikeNum", {userId: userId, noteId: noteId}, function (number) {
+                    console.log("当前点赞数量信息: " + number);
+                    likeNum = parseInt(number);
+                    $("#tn_like_num").text(number + "点赞");
+                });
                 //获取位置名称
-                $.get("/travelnote/matchLocate", {locateid: travelnote.travelLocate}, function (locate) {
-                    console.log("当前位置信息"); console.log(locate);
-                    thisLocation = locate;
+                $.get("/travelnote/matchLocate", {locateId: travelnote.travelLocate}, function (locate) {
+                    console.log("当前位置信息: " + locate);
+                    $("#travelnote_locate").html('<img src="../images/li/travelnote/Icon/locate.jpeg">目的地<span>/</span>' + locate);
                 });
                 //获取人物名称
-                $.get("/travelnote/matchPeople", {peopleid: travelnote.travelPerson}, function (people) {
-                    console.log("当前人物信息"); console.log(people);
-                    thisPeople = people;
+                $.get("/travelnote/matchPeople", {peopleId: travelnote.travelPerson}, function (people) {
+                    console.log("当前人物信息: " + people);
+                    $("#travelnote_people").html('<img src="../images/li/travelnote/Icon/people.jpeg">人物<span>/</span>' + people);
                 });
                 $("#set_bg_cover").attr("src",travelnote.travelNoteCover);
                 $("#travelnote_title").text(travelnote.travelNoteTitle);
                 $("#publish_time").text(travelnote.publishDate);
-                $("#view_num").html('<img src="../images/li/travelnote/Icon/eye.jpeg">'+travelnote.pageViews);
+                $("#view_num").html('<img src="../images/li/travelnote/Icon/eye.jpeg">'+(parseInt(travelnote.pageViews) + 1));
                 $("#travelnote_time").html('<img src="../images/li/travelnote/Icon/time.jpeg">出发时间<span>/</span>' + travelnote.travelTime);
                 $("#travelnote_day").html('<img src="../images/li/travelnote/Icon/day.jpeg">出行天数<span>/</span>' + travelnote.travelDays);
-                $("#travelnote_people").html('<img src="../images/li/travelnote/Icon/people.jpeg">人物<span>/</span>' + thisPeople);
                 $("#travelnote_cost").html('<img src="../images/li/travelnote/Icon/cost.jpeg">人均费用<span>/</span>' + travelnote.travelPrice);
-                $("#travelnote_locate").html('<img src="../images/li/travelnote/Icon/locate.jpeg">目的地<span>/</span>' + thisLocation);
                 $("#content_box").html(travelnote.travelNoteText);
+                //更新文章浏览量
+                $.get("/travelnote/updateTravelNoteView", {noteId: noteId}, function (flag) {
+                    console.log("更新文章浏览量结果: " + flag);
+                });
+            });
+            //————————————————————————————绑定触发事件——————————————————————————————
+            //关注按钮
+            $(".person-follow").click(function () {
+                var follow = $("#person_follow").text();
+                console.log("关注信息:" + follow);
+                if (follow == "关注") {
+                    $("#person_follow").text("已关注");
+                } else {
+                    $("#person_follow").text("关注");
+                }
+                //更新关注信息
+                $.get("/travelnote/updateUserFollowByTravelNoteId", {userId: userId, noteId: noteId}, function (flag) {
+                    console.log("更新关注结果: " + flag);
+                });
+            });
+            //收藏按钮
+            $("#tn_collect_icon").click(function () {
+                var color = "" + $("#tn_collect_icon").css("color");
+                console.log("收藏按钮颜色: " + color);
+                if (color == "rgb(0, 0, 0)") {
+                    $("#tn_collect_icon").css('color', '#ff9d00');
+                    collectNum = collectNum + 1;
+                    $("#tn_collect_num").text(collectNum + "收藏");
+                } else {
+                    $("#tn_collect_icon").css('color', '#000000');
+                    collectNum = collectNum - 1;
+                    $("#tn_collect_num").text(collectNum + "收藏");
+                }
+                //更新收藏信息
+                $.get("/travelnote/updateTravelNoteCollect", {userId: userId, noteId: noteId}, function (flag) {
+                    console.log("更新收藏结果: " + flag);
+                });
+            });
+            //点赞按钮
+            $("#tn_like_icon").click(function () {
+                var color = "" + $("#tn_like_icon").css("color");
+                console.log("点赞按钮颜色: " + color);
+                if (color == "rgb(0, 0, 0)") {
+                    $("#tn_like_icon").css('color', '#ff9d00');
+                    likeNum = likeNum + 1;
+                    $("#tn_like_icon").text(likeNum + "收藏");
+                } else {
+                    $("#tn_like_icon").css('color', '#000000');
+                    likeNum = likeNum - 1;
+                    $("#tn_like_icon").text(likeNum + "收藏");
+                }
+                //更新点赞信息
+                $.get("/travelnote/updateTravelNoteLike", {userId: userId, noteId: noteId}, function (flag) {
+                    console.log("更新点赞结果: " + flag);
+                });
             });
         });
     </script>
@@ -128,10 +210,8 @@
             </div>
             <div class="person">
                 <div>
-                    <a href="" target="_blank" class="person-name">H-C川(上海)</a>
-                    <a href="" target="_blank" class="person-follow">
-                        <span class="glyphicon glyphicon-plus"></span>关注
-                    </a>
+                    <div id="person_name" class="person-name">H-C川(上海)</div>
+                    <div id="person_follow" class="person-follow">关注</div>
                     <div class="publish-time">
                         <span class="time" id="publish_time">2021-04-06</span>
                         <span id="view_num"><img src="../images/li/travelnote/Icon/eye.jpeg">3.7w</span>
@@ -142,14 +222,14 @@
             <div class="bar-collection-like">
                 <div class="collection">
                     <a href="javascript:void(0);" rel="nofollow" class="tn-btn">
-                        <i class="glyphicon glyphicon-star-empty"></i>
-                        <span>11收藏</span>
+                        <i id="tn_collect_icon" class="glyphicon glyphicon-star-empty"></i>
+                        <span id="tn_collect_num">11收藏</span>
                     </a>
                 </div>
                 <div class="like">
                     <a href="javascript:void(0);" rel="nofollow" class="tn-btn">
-                        <i class="glyphicon glyphicon-thumbs-up"></i>
-                        <span>681点赞</span>
+                        <i id="tn_like_icon" class="glyphicon glyphicon-thumbs-up"></i>
+                        <span id="tn_like_num">681点赞</span>
                     </a>
                 </div>
             </div>

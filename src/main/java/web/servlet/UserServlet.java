@@ -77,8 +77,6 @@ public class UserServlet extends BaseServlet {
         //2.获取用户账号
         String account = request.getParameter("userAccount");
         String password = request.getParameter("userPassword");
-        //System.out.println("UserServlet---login---account:" + account);
-        //System.out.println("UserServlet---login---password:" + password);
         UserInfoService service = new UserInfoServiceImpl();
         UserInfo user = service.login(account, password);
         if (user == null) {
@@ -111,6 +109,17 @@ public class UserServlet extends BaseServlet {
         //将user返回客户端
         writeValue(user,response);
     }
+
+    /**
+     * 退出登录
+     */
+    public void exit(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1.销毁session
+        request.getSession().invalidate();
+        //2.跳转页面
+        response.sendRedirect(request.getContextPath() + "/lww/login.jsp");
+    }
+
 }
 
 

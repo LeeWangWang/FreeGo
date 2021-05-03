@@ -35,6 +35,7 @@
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
                     $("#user_head").html(head);
                 } else {
+                    $("#login_in").remove();//移除已登录标签
                     location.href="http://localhost:8080/lww/login.jsp";
                 }
             });

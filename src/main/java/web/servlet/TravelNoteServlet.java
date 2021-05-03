@@ -4,7 +4,6 @@ import java.io.*;
 
 import domain.TravelNoteInfo;
 import net.sf.json.JSONObject;
-import org.apache.commons.beanutils.BeanUtils;
 import service.TravelNoteInfoService;
 import service.impl.TravelNoteInfoServiceImpl;
 
@@ -12,11 +11,8 @@ import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.lang.reflect.InvocationTargetException;
 import java.sql.Date;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @Author: 李旺旺
@@ -79,7 +75,7 @@ public class TravelNoteServlet extends BaseServlet{
      * @description: 匹配地址名称
      */
     public void matchLocate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int locateId = Integer.parseInt(request.getParameter("locateid"));
+        int locateId = Integer.parseInt(request.getParameter("locateId"));
         System.out.println("后台获取到的地址编号: " + locateId);
         String locateName = noteInfoService.matchLocate(locateId);
         System.out.println("后台返回的地址名称: " + locateName);
@@ -99,7 +95,7 @@ public class TravelNoteServlet extends BaseServlet{
      * @description: 匹配人物名称
      */
     public void matchPeople(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        int peopleId = Integer.parseInt(request.getParameter("peopleid"));
+        int peopleId = Integer.parseInt(request.getParameter("peopleId"));
         System.out.println("后台获取到的人物编号: " + peopleId);
         String peopleName = noteInfoService.matchPeople(peopleId);
         System.out.println("后台返回的人物名称: " + peopleName);
@@ -126,8 +122,10 @@ public class TravelNoteServlet extends BaseServlet{
         writeValue(list, response);
     }
 
+    /**
+     * 添加游记信息
+     */
     public void addTravelNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
         String json = request.getParameter("travelnote");
         System.out.println("后台获取到的游记对象: " + json);
         if (json.equals("")) {
@@ -154,14 +152,199 @@ public class TravelNoteServlet extends BaseServlet{
         }
     }
 
+    /**
+     * 根据游记Id查询游记
+     */
     public void queryTravelNoteInfoById(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         //1.接收id
-        int noteId = Integer.valueOf(request.getParameter("noteid"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
         System.out.println("后台获取到的游记Id: " + noteId);
         //2.调用service查询route对象
         TravelNoteInfo travelNoteInfo = noteInfoService.queryTravelNoteInfoById(noteId);
         //3.转为json写回客户端
         writeValue(travelNoteInfo, response);
+    }
+
+    /**
+     * 判断是否已经关注
+     */
+    public void isUserFollowedByTravelNoteId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的登录用户Id: " + userId + " 游记Id: " + noteId);
+        // 2.调用service查询route对象
+        Boolean flag = noteInfoService.isUserFollowedByTravelNoteId(userId, noteId);
+        if (flag) {
+            System.out.println("该用户已关注");
+        }
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 判断是否已经收藏
+     */
+    public void isTravelNoteCollect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的登录用户Id: " + userId + " 游记Id: " + noteId);
+        // 2.调用service查询route对象
+        Boolean flag = noteInfoService.isTravelNoteCollect(userId, noteId);
+        if (flag) {
+            System.out.println("该游记已收藏");
+        }
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 判断是否已经点赞
+     */
+    public void isTravelNoteLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的登录用户Id: " + userId + " 游记Id: " + noteId);
+        // 2.调用service查询route对象
+        Boolean flag = noteInfoService.isTravelNoteLike(userId, noteId);
+        if (flag) {
+            System.out.println("该游记已点赞");
+        }
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 查询游记收藏数量
+     */
+    public void queryTravelNoteCollectionNum(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到当前游记Id: " + noteId);
+        // 2.调用service查询route对象
+        int number = noteInfoService.queryTravelNoteCollectionNum(noteId);
+        System.out.println("后台获取的游记收藏数量:" + number);
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(number);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 查询游记点赞数量
+     */
+    public void queryTravelNoteLikeNum(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到当前游记Id: " + noteId);
+        // 2.调用service查询route对象
+        int number = noteInfoService.queryTravelNoteLikeNum(noteId);
+        System.out.println("后台获取的游记点赞数量:" + number);
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(number);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 更新关注信息
+     */
+    public void updateUserFollowByTravelNoteId(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的登录用户Id: " + userId + " 游记Id: " + noteId);
+        // 2.调用service查询route对象
+        Boolean flag = noteInfoService.updateUserFollowByTravelNoteId(userId, noteId);
+        if (flag) {
+            System.out.println("更新关注成功");
+        }
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 更新收藏信息
+     */
+    public void updateTravelNoteCollect(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的登录用户Id: " + userId + " 游记Id: " + noteId);
+        // 2.调用service查询route对象
+        Boolean flag = noteInfoService.updateTravelNoteCollect(userId, noteId);
+        if (flag) {
+            System.out.println("更新收藏成功");
+        }
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 更新点赞信息
+     */
+    public void updateTravelNoteLike(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的登录用户Id: " + userId + " 游记Id: " + noteId);
+        // 2.调用service查询route对象
+        Boolean flag = noteInfoService.updateTravelNoteLike(userId, noteId);
+        if (flag) {
+            System.out.println("更新点赞成功");
+        }
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
+    }
+
+    /**
+     * 更新浏览量信息
+     */
+    public void updateTravelNoteView(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        // 1.接收id
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的游记Id: " + noteId);
+        // 2.调用service查询route对象
+        Boolean flag = noteInfoService.updateTravelNoteView(noteId);
+        if (flag) {
+            System.out.println("更新浏览量成功");
+        }
+        // 3.写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
     }
 
 }
