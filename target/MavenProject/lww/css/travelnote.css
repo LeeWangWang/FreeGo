@@ -153,7 +153,7 @@
 }
 .travelnote-view{
     position: relative;
-    width: 1010px;
+    width: 710px;
     margin: 10px auto 0;
     transform: translateY(80px);
 }
@@ -247,41 +247,6 @@
     color: #333;
     float: right;
     margin-right: 8px;
-}
-
-/*游记目录*/
-.view-side{
-    float: right;
-    position: fixed;
-    top: 100px;
-    right: 10px;
-    height: 500px;
-    width: 240px;
-    z-index: 1040;
-}
-.notes-catalog{
-    width: 240px;
-}
-.notes-catalog .side-title{
-    margin-bottom: 15px;
-    font-size: 20px;
-    line-height: 1;
-}
-.catalog-content{
-    font-size: 14px;
-    line-height: 26px;
-}
-.catalog-content li{
-    margin-bottom: 10px;
-    padding-left: 30px;
-}
-.catalog-content .catalog-num{
-    float: left;
-    margin-left: -30px;
-    color: #ccc;
-}
-.catalog-content li a{
-    color: #999;
 }
 
 /*游记评论*/

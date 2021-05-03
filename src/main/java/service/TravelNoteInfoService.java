@@ -26,7 +26,7 @@ public interface TravelNoteInfoService {
     * @exception:
     * @description: 获取所有地址信息
     */
-    String getLocate();
+    List<String> getLocate();
 
     /**
     * @author:  李旺旺
@@ -44,8 +44,38 @@ public interface TravelNoteInfoService {
     * @param:   [locateName]
     * @return:  int
     * @exception:
-    * @description: 校验地址编号
+    * @description: 根据位置名称查询位置编号
     */
     int checkLocate(String locateName);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/2 20:11
+    * @param:   [noteId]
+    * @return:  domain.TravelNoteInfo
+    * @exception:
+    * @description: 根据游记Id查询游记信息
+    */
+    TravelNoteInfo queryTravelNoteInfoById(int noteId);
+
+    /**
+    * @author:  李旺旺
+    * @date:    2021/5/2 20:11
+    * @param:   [locateId]
+    * @return:  java.lang.String
+    * @exception:
+    * @description: 根据位置编号查询位置名称
+    */
+    String matchLocate(int locateId);
+
+    /**
+     * @author:  李旺旺
+     * @date:    2021/5/2 20:11
+     * @param:   [locateId]
+     * @return:  java.lang.String
+     * @exception:
+     * @description: 根据人物编号查询人物名称
+     */
+    String matchPeople(int peopleId);
 
 }

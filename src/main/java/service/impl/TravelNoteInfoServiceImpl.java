@@ -22,7 +22,7 @@ public class TravelNoteInfoServiceImpl implements TravelNoteInfoService {
     }
 
     @Override
-    public String getLocate() {
+    public List<String> getLocate() {
         return noteInfoDao.getLocate();
     }
 
@@ -34,5 +34,20 @@ public class TravelNoteInfoServiceImpl implements TravelNoteInfoService {
     @Override
     public int checkLocate(String locateName) {
         return noteInfoDao.checkLocate(locateName);
+    }
+
+    @Override
+    public TravelNoteInfo queryTravelNoteInfoById(int noteId) {
+        return noteInfoDao.queryTravelNoteInfoById(noteId);
+    }
+
+    @Override
+    public String matchLocate(int locateId) {
+        return noteInfoDao.matchLocate(locateId);
+    }
+
+    @Override
+    public String matchPeople(int peopleId) {
+        return noteInfoDao.matchPeople(peopleId);
     }
 }

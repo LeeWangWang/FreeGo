@@ -87,7 +87,6 @@
 							$this.val(bigAutocomplete.holdText);//输入框显示用户原始输入的值
 						}
 
-
 						break;
 					case 38://向上键
 						if($bigAutocompleteContent.css("display") == "none")return;
@@ -109,10 +108,8 @@
 						}else{
 							$this.val(bigAutocomplete.holdText);//输入框显示用户原始输入的值
 						}
-
 						break;
 					case 27://ESC键隐藏下拉框
-
 						bigAutocomplete.hideAutocomplete();
 						break;
 				}
@@ -142,24 +139,25 @@
 					var url = config.url;
 					var keyword_ = $.trim($this.val());
 					if(keyword_ == null || keyword_ == ""){
+						console.log("1.执行到bigAutocomplete了-------------------------");
 						bigAutocomplete.hideAutocomplete();
 						return;
 					}
 					if(data != null && $.isArray(data) ){
+						console.log("2.执行到bigAutocomplete了-------------------------");
 						var data_ = new Array();
 						for(var i=0;i<data.length;i++){
 							if(data[i].title.indexOf(keyword_) > -1){
 								data_.push(data[i]);
 							}
 						}
-
 						makeContAndShow(data_);
 					}else if(url != null && url != ""){//ajax请求数据
+						console.log("3.执行到bigAutocomplete了-------------------------");
 						$.post(url,{keyword:keyword_},function(result){
 							makeContAndShow(result.data)
 						},"json")
 					}
-
 
 					bigAutocomplete.holdText = $this.val();
 				}
@@ -173,9 +171,7 @@
 						$bigAutocompleteContent.hide();
 					}
 				}
-
 			});
-
 
 			//组装下拉框html内容并显示
 			function makeContAndShow(data_){

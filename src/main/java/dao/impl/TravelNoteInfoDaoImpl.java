@@ -23,20 +23,12 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
     }
 
     @Override
-    public String getLocate() {
-        String sql = null;
-        List<String> list = null;
+    public List<String> getLocate() {
         //1.定义sql语句
+        String sql = null;
         sql = "select locateName from locate";
         //2.执行
-        list = template.queryForList(sql, String.class);
-        String result = "[";
-        for (String item : list) {
-            result = result + "{\"title\":\"" + item + "\"},";
-        }
-        result = result.substring(0, result.length()-1);
-        result = result + "]";
-        return result;
+        return template.queryForList(sql, String.class);
     }
 
     @Override
@@ -45,6 +37,22 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
         String sql = "select locateId from locate where locateName = ?";
         //2.执行
         return template.queryForObject(sql,Integer.class, locateName);
+    }
+
+    @Override
+    public String matchLocate(int locateId) {
+        //1.定义sql语句
+        String sql = "select locateName from locate where locateId = ?";
+        //2.执行
+        return template.queryForObject(sql,String.class, locateId);
+    }
+
+    @Override
+    public String matchPeople(int peopleId) {
+        //1.定义sql语句
+        String sql = "select tagName from tag where tagId = ?";
+        //2.执行
+        return template.queryForObject(sql,String.class, peopleId);
     }
 
     /**
@@ -101,7 +109,12 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
      */
     @Override
     public TravelNoteInfo queryTravelNoteInfoById(int travelNoteId) {
-        return null;
+        //1.定义sql语句
+        String sql = "select * from travelnote where travelNoteId = ?";
+        //2.执行
+        TravelNoteInfo noteInfo = template.queryForObject(sql, new BeanPropertyRowMapper<TravelNoteInfo>(TravelNoteInfo.class), travelNoteId);
+        System.out.println("根据游记Id查询游记信息：" + noteInfo.getTravelNoteTitle());
+        return noteInfo;
     }
 
     /**
