@@ -30,6 +30,7 @@
             $.get("/user/findOne", {}, function (user) {
                 if (user) {
                     //用户登录了
+                    console.log("当前登录用户Id:" + user.userId);
                     $("#login_out").remove();//移除未登录标签
                     var userHead = user.userHeadPicturePath;
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
@@ -273,7 +274,7 @@
                     }
                 }
                 ,error: function(){
-                    //请求异常回调
+                    alert("服务器出错,请稍后再试.");
                 }
             });
         });
@@ -282,7 +283,7 @@
         const E = window.wangEditor
         const editor = new E('#toolbar_container', '#textarea_container') // 传入两个元素
         // 配置菜单栏，设置不需要的菜单
-        editor.config.excludeMenus = ['fontName', 'italic', 'strikeThrough', 'indent', 'lineHeight', 'todo', 'justify', 'quote', 'video', 'code']
+        editor.config.excludeMenus = ['fontName', 'italic', 'strikeThrough', 'indent', 'lineHeight', 'todo', 'justify', 'quote', 'emoticon', 'video', 'code']
         editor.config.placeholder = '从这里开始游记正文...'
         editor.config.height = 600
         // editor.config.onchange = function (newHtml) { console.log('change 之后最新的 html', newHtml) }
@@ -362,7 +363,6 @@
                 $('#submit_btn').trigger('click');
                 return true;
             }
-            alert("发布失败，请稍后重试");
             return false;
         });
 
@@ -418,10 +418,16 @@
                         travelLocate : tn_travelLocate,
                     };
                     console.log("生成的游记实例信息"); console.log(travelNote);
-                    $.post("/travelnote/addTravelNote",{travelnote : JSON.stringify(travelNote)}, function (data) {
-                        console.log("保存游记信息后返回值: "); console.log(data);
-                        if (data != null) {
-                            location.href = "http://localhost:8080/lww/travelnote.jsp?noteid=" + data.travelNoteId;
+                    $.get("/user/findOne", {}, function (user) {
+                        if (user) {
+                            $.post("/travelnote/addTravelNote",{travelnote : JSON.stringify(travelNote), userId : user.userId}, function (data) {
+                                console.log("保存游记信息后返回值: "); console.log(data);
+                                if (data != null) {
+                                    location.href = "http://localhost:8080/lww/travelnote.jsp?noteId=" + data.travelNoteId;
+                                } else {
+                                    alert("游记信息发表失败,请稍后重试");
+                                }
+                            });
                         } else {
                             alert("游记信息发表失败,请稍后重试");
                         }

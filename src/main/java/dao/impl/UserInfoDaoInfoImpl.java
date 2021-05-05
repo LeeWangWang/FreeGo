@@ -181,4 +181,12 @@ public class UserInfoDaoInfoImpl implements UserInfoDao {
         //2.执行
         return  template.query(sql, new BeanPropertyRowMapper<UserInfo>(UserInfo.class), userId);
     }
+
+    @Override
+    public UserInfo queryUserInfoByTravelNoteId(int noteId) {
+        //1.定义sql语句
+        String sql = "select * from user where userId = (select userId from travelnotelist where travelNoteId = ?)";
+        //2.执行
+        return template.queryForObject(sql, new BeanPropertyRowMapper<UserInfo>(UserInfo.class), noteId);
+    }
 }

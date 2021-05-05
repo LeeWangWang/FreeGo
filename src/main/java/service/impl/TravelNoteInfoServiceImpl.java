@@ -2,7 +2,9 @@ package service.impl;
 
 import dao.TravelNoteInfoDao;
 import dao.impl.TravelNoteInfoDaoImpl;
+import domain.PageBean;
 import domain.TravelNoteInfo;
+import domain.UserInfo;
 import service.TravelNoteInfoService;
 
 import java.util.List;
@@ -17,8 +19,8 @@ public class TravelNoteInfoServiceImpl implements TravelNoteInfoService {
     private TravelNoteInfoDao noteInfoDao = new TravelNoteInfoDaoImpl();
 
     @Override
-    public List<TravelNoteInfo> recommendTravelNoteInfoNote(String userId) {
-        return null;
+    public List<TravelNoteInfo> recommendTravelNoteInfo(int userId) {
+        return noteInfoDao.recommendTravelNoteInfo(userId);
     }
 
     @Override
@@ -27,8 +29,8 @@ public class TravelNoteInfoServiceImpl implements TravelNoteInfoService {
     }
 
     @Override
-    public TravelNoteInfo addTravelNote(TravelNoteInfo travelNote) {
-        return noteInfoDao.addTravelNote(travelNote);
+    public TravelNoteInfo addTravelNote(TravelNoteInfo travelNote, int userId) {
+        return noteInfoDao.addTravelNote(travelNote, userId);
     }
 
     @Override
@@ -49,6 +51,11 @@ public class TravelNoteInfoServiceImpl implements TravelNoteInfoService {
     @Override
     public String matchPeople(int peopleId) {
         return noteInfoDao.matchPeople(peopleId);
+    }
+
+    @Override
+    public Boolean isMyTravelNote(int userId, int noteId) {
+        return noteInfoDao.isMyTravelNote(userId, noteId);
     }
 
     @Override

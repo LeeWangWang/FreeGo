@@ -22,12 +22,11 @@
 
     <script>
         $(function () {
-            var userId;
             //判断用户是否登录
             $.get("/user/findOne", {}, function (user) {
                 if (user) {
                     //用户登录了
-                    userId = user.userId;
+                    console.log("当前登录用户Id:" + user.userId);
                     $("#login_out").remove();//移除未登录标签
                     var userHead = user.userHeadPicturePath;
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
@@ -38,8 +37,8 @@
                 }
             });
 
-            //游记推荐
-            // $.get("/travelnote/recommendTravelInfoNote", {}, );
+            //当页码加载完成后，调用load方法，发送ajax请求加载数据
+            load(null);
 
             //发表游记
             $("#travelnoe_publish").click(function () {
@@ -54,7 +53,7 @@
             });
 
             //当表单提交时，调用查询方法
-            $("#index_search").submit(function () {
+            $("#btn_search").click(function () {
                 if ($("#checkbox_scenic").get(0).checked) {
                     // do something
                 } else if ($("#checkbox_hotel").get(0).checked) {
@@ -67,6 +66,171 @@
                 }
             });
         });
+
+        function load(currentPage) {
+            //游记推荐
+            $.get("/user/findOne", {}, function (user) {
+                var userId = user.userId;
+                $.post("/travelnote/recommendTravelNoteInfo", {userId : userId, currentPage:currentPage}, function (pb) {
+                    var data = pb.headRow;
+                    console.log("游记推荐: "+pb);
+                    //更改轮播图信息
+                    $("#travelNote_date_1").html(data[0].travelTime);
+                    $("#travelNote_title_1").html(data[0].travelNoteTitle);
+                    $(".banner-href-1").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[0].travelNoteId);
+
+                    $("#travelNote_date_2").html(data[1].travelTime);
+                    $("#travelNote_title_2").html(data[1].travelNoteTitle);
+                    $(".banner-href-2").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[1].travelNoteId);
+
+                    $("#travelNote_date_3").html(data[2].travelTime);
+                    $("#travelNote_title_3").html(data[2].travelNoteTitle);
+                    $(".banner-href-3").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[2].travelNoteId);
+
+                    $("#travelNote_date_4").html(data[3].travelTime);
+                    $("#travelNote_title_4").html(data[3].travelNoteTitle);
+                    $(".banner-href-4").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[3].travelNoteId);
+
+                    //1.分页工具条数据展示
+                    //1.1 展示总页码和总记录数
+                    $("#totalPage").html(pb.totalPage);
+                    $("#totalCount").html(pb.totalCount);
+
+                    var lis = "";
+
+                    var fristPage = '<li onclick="javascipt:load(1)"><a href="javascript:void(0)">首页</a></li>';
+
+                    //计算上一页的页码
+                    var beforeNum =  pb.currentPage - 1;
+                    if(beforeNum <= 0) {
+                        beforeNum = 1;
+                    }
+                    var beforePage = '<li  onclick="javascipt:load('+beforeNum+')" class="threeword"><a href="javascript:void(0)">上一页</a></li>';
+
+                    lis += fristPage;
+                    lis += beforePage;
+
+                    var begin; // 开始位置
+                    var end ; //  结束位置
+
+                    //1.要显示5个页码
+                    if(pb.totalPage < 5){
+                        //总页码不够5页
+                        begin = 1;
+                        end = pb.totalPage;
+                    }else{
+                        //总页码超过5页
+                        begin = pb.currentPage - 3 ;
+                        end = pb.currentPage + 2 ;
+
+                        //2.如果前边不够3个，后边补齐5个
+                        if(begin < 1){
+                            begin = 1;
+                            end = begin + 4;
+                        }
+
+                        //3.如果后边不足2个，前边补齐5个
+                        if(end > pb.totalPage){
+                            end = pb.totalPage;
+                            begin = end - 4 ;
+                        }
+                    }
+
+                    for (var i = begin; i <= end ; i++) {
+                        var li;
+                        //判断当前页码是否等于i
+                        if(pb.currentPage == i){
+                            li = '<li class="curPage" onclick="javascipt:load('+i+')"><a href="javascript:void(0)">'+i+'</a></li>';
+                        }else{
+                            //创建页码的li
+                            li = '<li onclick="javascipt:load('+i+')"><a href="javascript:void(0)">'+i+'</a></li>';
+                        }
+                        //拼接字符串
+                        lis += li;
+                    }
+
+                    //计算下一页的页码
+                    var nextNum =  pb.currentPage + 1;
+                    if(nextNum >= pb.totalPage){
+                        nextNum = pb.totalPage;
+                    }
+
+                    var nextPage = '<li  onclick="javascipt:load('+nextNum+')" class="threeword"><a href="javascript:void(0)">下一页</a></li>';
+
+                    var lastPage = '<li onclick="javascipt:load('+pb.totalPage+')"><a href="javascript:void(0)">末页</a></li>';
+
+                    lis += nextPage;
+                    lis += lastPage;
+
+                    //将lis内容设置到 ul
+                    $("#pageNum").html(lis);
+
+                    // 2.列表数据展示
+                    var travelnoteList = pb.list;
+                    var locateList = pb.locate;
+                    var userList = pb.userList;
+                    var collectList = pb.collectNum;
+                    var likeList = pb.likeNum;
+                    var route_lis = "";
+                    // 2.1展示游记信息
+                    for (var i = 0; i < travelnoteList.length; i++) {
+                        var noteInfo = travelnoteList[i];
+                        var locateInfo = locateList[i];
+                        var userInfo = userList[i];
+                        var collectInfo = collectList[i];
+                        var likeInfo = likeList[i];
+                        var noteText = noteInfo.travelNoteText.replace(/[^\u4e00-\u9fa5\uf900-\ufa2d]/g,'');
+                        var li = '<div class="travelnote-item clearfix">\n' +
+                            '    <div class="travelnote-left">\n' +
+                            '        <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank">\n' +
+                            '            <img src="'+noteInfo.travelNoteCover+'" alt="" class="travelnote-picture">\n' +
+                            '        </a>\n' +
+                            '    </div>\n' +
+                            '    <div class="travelnote-right">\n' +
+                            '        <dl>\n' +
+                            '            <dt>\n' +
+                            '                <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank">'+noteInfo.travelNoteTitle+'</a>\n' +
+                            '            </dt>\n' +
+                            '            <dd>\n' +
+                            '                <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank" class="travelnote-list-text">'+noteText+'</a>\n' +
+                            '            </dd>\n' +
+                            '        </dl>\n' +
+                            '        <div class="travelnote-extra">\n' +
+                            '            <%--定位--%>\n' +
+                            '            <div class="travelnote-location">\n' +
+                            '                <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">\n' +
+                            '                <div id="locate_'+noteInfo.travelNoteId+'" class="travelnote-location-text">'+locateInfo+'</div>\n' +
+                            '            </div>\n' +
+                            '            <%--用户--%>\n' +
+                            '            <div class="travelnote-user">\n' +
+                            '                <div class="travelnote-user-head">\n' +
+                            '                    <img class="travelnote-user-head-pic" src="/FreegoImg/user/'+userInfo.userHeadPicturePath+'">\n' +
+                            '                </div>\n' +
+                            '                <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">'+userInfo.userNickName+'</a>\n' +
+                            '            </div>\n' +
+                            '            <%--浏览量/收藏量--%>\n' +
+                            '            <div class="travelnote-view-collection">\n' +
+                            '                <img src="../images/li/travelnote/Icon/eye.jpeg">\n' +
+                            '                <div class="travelnote-view">'+noteInfo.pageViews+'/</div>\n' +
+                            '                <div id="collectNum_'+noteInfo.travelNoteId+'" class="travlenote-collection">'+collectInfo+'</div>\n' +
+                            '            </div>\n' +
+                            '            <%--点赞量--%>\n' +
+                            '            <div class="travelnote-like">\n' +
+                            '                <div id="likeNum_'+noteInfo.travelNoteId+'" class="travelnote-user-likes">'+likeInfo+'</div>\n' +
+                            '                <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">\n' +
+                            '            </div>\n' +
+                            '        </div>\n' +
+                            '    </div>\n' +
+                            '</div>';
+                        route_lis += li;
+                    }
+                    $("#travelnote_list").html(route_lis);
+                    //定位到页面顶部
+                    window.scrollTo(0,0);
+                });
+            });
+        }
+
     </script>
 
     <%--用户头像下拉列表--%>
@@ -145,41 +309,41 @@
             <div id="banner_warp" class="carousel-inner" role="listbox">
 
                 <div id="banner_1" class="item active">
-                    <a href="" class="show-title">
+                    <a href="" class="show-title banner-href-1" target="_blank">
                         <div id="travelNote_date_1" class="travelnote-date">2021.4.19</div>
                         <div id="travelNote_title_1" class="travelnote-title">【自驾甘孜】仓央嘉措，无尽雪山和风</div>
                     </a>
-                    <a href="" class="show-pic">
+                    <a href="" class="show-pic banner-href-1" target="_blank">
                         <img src="/FreegoImg/li/travelnote/1.jpeg" alt="" class="banner-picture">
                     </a>
                 </div>
 
                 <div id="banner_2" class="item">
-                    <a href="" class="show-title">
+                    <a href="" class="show-title banner-href-2" target="_blank">
                         <div id="travelNote_date_2" class="travelnote-date">2021.4.19</div>
                         <div id="travelNote_title_2" class="travelnote-title">常州金坛亲子游｜撷一肩春色，跟着小念一起花样春游吧</div>
                     </a>
-                    <a href="" class="show-pic">
+                    <a href="" class="show-pic banner-href-2" target="_blank">
                         <img src="/FreegoImg/li/travelnote/2.jpeg" alt="" class="banner-picture">
                     </a>
                 </div>
 
                 <div id="banner_3" class="item">
-                    <a href="" class="show-title">
+                    <a href="" class="show-title banner-href-3" target="_blank">
                         <div id="travelNote_date_3" class="travelnote-date">2021.4.19</div>
                         <div id="travelNote_title_3" class="travelnote-title">别样东莞｜广东第四城的美食和古迹</div>
                     </a>
-                    <a href="" class="show-pic">
+                    <a href="" class="show-pic banner-href-3" target="_blank">
                         <img src="/FreegoImg/li/travelnote/3.jpeg" alt="" class="banner-picture">
                     </a>
                 </div>
 
                 <div id="banner_4" class="item">
-                    <a href="" class="show-title">
+                    <a href="" class="show-title banner-href-4" target="_blank">
                         <div id="travelNote_date_4" class="travelnote-date">2021.4.19</div>
                         <div id="travelNote_title_4" class="travelnote-title">走吧、让我们一路川西吧！</div>
                     </a>
-                    <a href="" class="show-pic">
+                    <a href="" class="show-pic banner-href-4" target="_blank">
                         <img src="/FreegoImg/li/travelnote/4.jpeg" alt="" class="banner-picture">
                     </a>
                 </div>
@@ -222,7 +386,7 @@
                             <input name="q" type="text" placeholder="搜游记/景点/酒店" id="index_search_input_all" autocomplete="off">
                         </div>
                     </div>
-                    <button type="submit" class="layui-btn layui-btn-warm layui-btn-radius">搜索</button>
+                    <button id="btn_search" type="button" class="layui-btn layui-btn-warm layui-btn-radius">搜索</button>
                 </div>
             </div>
         </form>
@@ -239,9 +403,9 @@
                 <div class="travelnote-hot" id="travelnoe_hot">
                     <a href="javascript:void(0);" rel="nofollow">热门游记</a>
                 </div>
-                <div class="travelnote-new" id="travelnoe_new">
+                <%--<div class="travelnote-new" id="travelnoe_new">
                     <a href="javascript:void(0);" rel="nofollow">最新发表</a>
-                </div>
+                </div>--%>
                 <div class="travelnote-publish" id="travelnoe_publish">
                     <img class="travelnote-publish-img" src="../images/li/travelnote/Icon/write.jpeg">
                     <div class="travelnote-publish-text">写游记</div>
@@ -250,8 +414,7 @@
 
             <%--游记列表--%>
             <div class="page-block-travelnote" id="pgae_block_travelnote">
-                <div class="travelnote-list">
-
+                <div id="travelnote_list" class="travelnote-list">
                     <div class="travelnote-item clearfix">
                         <div class="travelnote-left">
                             <a href="" target="_blank">
@@ -259,20 +422,18 @@
                             </a>
                         </div>
                         <div class="travelnote-right">
-
                             <dl>
                                 <dt>
-                                    <a href="" target="_blank">清明青岛，有点德味儿</a>
+                                    <a href="" target="_blank" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">清明青岛，有点德味儿</a>
                                 </dt>
                                 <dd>
-                                    <a href="" target="_blank">写在前面 考虑到孕妇的行动不便，为期三天的清明假期我们选择了离北京
+                                    <a href="" target="_blank" style="overflow: hidden;text-overflow: ellipsis;white-space: nowrap;">写在前面 考虑到孕妇的行动不便，为期三天的清明假期我们选择了离北京
                                         不远的青岛作为2021年出行的第一站，也是最后一站。整体来讲， 青岛 虽与九年前的样子差别不大，
                                         能留下深刻印象的景点也不多，却是一个可以短暂放空，享受海鲜饕餮盛宴的清净之地。在清朝末年被
                                         德国人与日本人轮番殖民占领的青岛，通过一系列外资的引入与最新城市规划理念的实践，逐渐登上历史
                                         的舞台，成为当代中国北方最重要的沿海城市之一。如今的青岛继续发扬历史遗留下来的经济文化优. . .</a>
                                 </dd>
                             </dl>
-
                             <div class="travelnote-extra">
                                 <%--定位--%>
                                 <div class="travelnote-location">
@@ -298,460 +459,8 @@
                                     <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
                                 </div>
                             </div>
-
                         </div>
                     </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/12.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">【彩虹帮】东欧自驾之黑山漫游，想念亚得里亚海的艳阳</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">黑山旅行预告片如果说我们在巴尔干半岛二十天的自驾旅行，就像是收获
-                                        了一捧五彩缤纷的 东欧 宝石，那么 黑山 ，一定是其中最闪烁耀眼的那一颗。布德 瓦碧蓝的 地中海
-                                        海滩， 科托尔 古城的红色屋顶，亚得里亚海初夏的烈日艳阳，音乐节热烈躁动的音浪，一切的景致都
-                                        比想象中来得更加迷人。无敌美景的民宿带来家一般的温暖，让旅行的时光变得温情自然了许多，也让
-                                        属于 黑山 的每一个日子，都闪闪地发着光亮。有遭遇过不快，也遇见了暖心。美好沉甸甸的，. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">大柴旦</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head4.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">彩虹帮的二当家</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">7.1w/</div>
-                                    <div class="travlenote-collection">729</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">2066</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/13.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">【西行日记｜十月浪漫】之三：走过青海——走过翡翠. . .</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">特以此篇纪念我52岁的生日 在我若干次的自驾旅途中，行程往往都是不按
-                                        计划走的，它只受心的支配。此次西部之行同样如此。按计划，10月30日，我们早已经在家中。但是，
-                                        实际上，这一天我们却仍旧行驶在315国道上。这是旅行带来的意外，旅行又怎会给人带来一个个出奇
-                                        不意的幸福和历久弥新的回忆呢？10月30日，我正好52岁。拜苍天所赐，在我喜欢的315国道上，特意
-                                        为我准备了一块刻有“1030”字样的路碑。这是我此生过的最特别、最有意义的生日，不仅有天空、大地
-                                        的豪迈，还有“在路上”的那份仪式感。为此，特在开篇写下这些话，以见证并纪念我52岁的生日。. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">青海</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head6.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">大浪汪洋</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">2.2w/</div>
-                                    <div class="travlenote-collection">288</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">5034</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/14.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">俄罗斯的十八天之圣彼得堡（一）~圣伊萨克大教堂、. . .</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">【出行时间：2019年9月2~3日】
-
-                                        上海 鲁迅公园内专门有个旅游角，每周的星期六上午是喜欢旅游人士的“大聚会”，参加这类聚合的大多
-                                        数是年长的老人，一般性“野路子”的旅行社也会来“混迹于中”，我就是在这个旅游角上认识了年近80的
-                                        、又是坐在残疾车上的老顾，攀谈之余，聊起了 俄罗斯 旅游的事，想不到他把我登记在案；临出发前，
-                                        他们为我们每一位游客买了一份保险，52元人民币，保单赔偿额是最低的，只有25万人民币，然而恰恰
-                                        在我的名字上多了一个单人旁，尽管音是相同的，但字不同万一发生了什么事保险公司是不赔. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">圣彼得堡</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head3.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">好望角</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">1207/</div>
-                                    <div class="travlenote-collection">6</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/13.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">【西行日记｜十月浪漫】之三：走过青海——走过翡翠. . .</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">特以此篇纪念我52岁的生日 在我若干次的自驾旅途中，行程往往都是不按
-                                        计划走的，它只受心的支配。此次西部之行同样如此。按计划，10月30日，我们早已经在家中。但是，
-                                        实际上，这一天我们却仍旧行驶在315国道上。这是旅行带来的意外，旅行又怎会给人带来一个个出奇
-                                        不意的幸福和历久弥新的回忆呢？10月30日，我正好52岁。拜苍天所赐，在我喜欢的315国道上，特意
-                                        为我准备了一块刻有“1030”字样的路碑。这是我此生过的最特别、最有意义的生日，不仅有天空、大地
-                                        的豪迈，还有“在路上”的那份仪式感。为此，特在开篇写下这些话，以见证并纪念我52岁的生日。. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">青海</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head6.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">大浪汪洋</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">2.2w/</div>
-                                    <div class="travlenote-collection">288</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">5034</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/14.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">俄罗斯的十八天之圣彼得堡（一）~圣伊萨克大教堂、. . .</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">【出行时间：2019年9月2~3日】
-
-                                        上海 鲁迅公园内专门有个旅游角，每周的星期六上午是喜欢旅游人士的“大聚会”，参加这类聚合的大多
-                                        数是年长的老人，一般性“野路子”的旅行社也会来“混迹于中”，我就是在这个旅游角上认识了年近80的
-                                        、又是坐在残疾车上的老顾，攀谈之余，聊起了 俄罗斯 旅游的事，想不到他把我登记在案；临出发前，
-                                        他们为我们每一位游客买了一份保险，52元人民币，保单赔偿额是最低的，只有25万人民币，然而恰恰
-                                        在我的名字上多了一个单人旁，尽管音是相同的，但字不同万一发生了什么事保险公司是不赔. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">圣彼得堡</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head3.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">好望角</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">1207/</div>
-                                    <div class="travlenote-collection">6</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/11.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">清明青岛，有点德味儿</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">写在前面 考虑到孕妇的行动不便，为期三天的清明假期我们选择了离北京
-                                        不远的青岛作为2021年出行的第一站，也是最后一站。整体来讲， 青岛 虽与九年前的样子差别不大，
-                                        能留下深刻印象的景点也不多，却是一个可以短暂放空，享受海鲜饕餮盛宴的清净之地。在清朝末年被
-                                        德国人与日本人轮番殖民占领的青岛，通过一系列外资的引入与最新城市规划理念的实践，逐渐登上历史
-                                        的舞台，成为当代中国北方最重要的沿海城市之一。如今的青岛继续发扬历史遗留下来的经济文化优. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">青岛</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head1.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">DiDi_酱</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">1207/</div>
-                                    <div class="travlenote-collection">6</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/12.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">【彩虹帮】东欧自驾之黑山漫游，想念亚得里亚海的艳阳</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">黑山旅行预告片如果说我们在巴尔干半岛二十天的自驾旅行，就像是收获
-                                        了一捧五彩缤纷的 东欧 宝石，那么 黑山 ，一定是其中最闪烁耀眼的那一颗。布德 瓦碧蓝的 地中海
-                                        海滩， 科托尔 古城的红色屋顶，亚得里亚海初夏的烈日艳阳，音乐节热烈躁动的音浪，一切的景致都
-                                        比想象中来得更加迷人。无敌美景的民宿带来家一般的温暖，让旅行的时光变得温情自然了许多，也让
-                                        属于 黑山 的每一个日子，都闪闪地发着光亮。有遭遇过不快，也遇见了暖心。美好沉甸甸的，. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">大柴旦</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head4.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">彩虹帮的二当家</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">7.1w/</div>
-                                    <div class="travlenote-collection">729</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">2066</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/13.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">【西行日记｜十月浪漫】之三：走过青海——走过翡翠. . .</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">特以此篇纪念我52岁的生日 在我若干次的自驾旅途中，行程往往都是不按
-                                        计划走的，它只受心的支配。此次西部之行同样如此。按计划，10月30日，我们早已经在家中。但是，
-                                        实际上，这一天我们却仍旧行驶在315国道上。这是旅行带来的意外，旅行又怎会给人带来一个个出奇
-                                        不意的幸福和历久弥新的回忆呢？10月30日，我正好52岁。拜苍天所赐，在我喜欢的315国道上，特意
-                                        为我准备了一块刻有“1030”字样的路碑。这是我此生过的最特别、最有意义的生日，不仅有天空、大地
-                                        的豪迈，还有“在路上”的那份仪式感。为此，特在开篇写下这些话，以见证并纪念我52岁的生日。. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">青海</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head6.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">大浪汪洋</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">2.2w/</div>
-                                    <div class="travlenote-collection">288</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">5034</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-                    <div class="travelnote-item clearfix">
-                        <div class="travelnote-left">
-                            <a href="" target="_blank">
-                                <img src="/FreegoImg/li/travelnote/14.jpeg" alt="" class="travelnote-picture">
-                            </a>
-                        </div>
-                        <div class="travelnote-right">
-
-                            <dl>
-                                <dt>
-                                    <a href="" target="_blank">俄罗斯的十八天之圣彼得堡（一）~圣伊萨克大教堂、. . .</a>
-                                </dt>
-                                <dd>
-                                    <a href="" target="_blank">【出行时间：2019年9月2~3日】
-
-                                        上海 鲁迅公园内专门有个旅游角，每周的星期六上午是喜欢旅游人士的“大聚会”，参加这类聚合的大多
-                                        数是年长的老人，一般性“野路子”的旅行社也会来“混迹于中”，我就是在这个旅游角上认识了年近80的
-                                        、又是坐在残疾车上的老顾，攀谈之余，聊起了 俄罗斯 旅游的事，想不到他把我登记在案；临出发前，
-                                        他们为我们每一位游客买了一份保险，52元人民币，保单赔偿额是最低的，只有25万人民币，然而恰恰
-                                        在我的名字上多了一个单人旁，尽管音是相同的，但字不同万一发生了什么事保险公司是不赔. . .</a>
-                                </dd>
-                            </dl>
-
-                            <div class="travelnote-extra">
-                                <%--定位--%>
-                                <div class="travelnote-location">
-                                    <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">
-                                    <div class="travelnote-location-text">圣彼得堡</div>
-                                </div>
-                                <%--用户--%>
-                                <div class="travelnote-user">
-                                    <div class="travelnote-user-head">
-                                        <img class="travelnote-user-head-pic" src="/FreegoImg/user/head3.jpeg">
-                                    </div>
-                                    <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">好望角</a>
-                                </div>
-                                <%--浏览量/收藏量--%>
-                                <div class="travelnote-view-collection">
-                                    <img src="../images/li/travelnote/Icon/eye.jpeg">
-                                    <div class="travelnote-view">1207/</div>
-                                    <div class="travlenote-collection">6</div>
-                                </div>
-                                <%--点赞量--%>
-                                <div class="travelnote-like">
-                                    <div class="travelnote-user-likes">34</div>
-                                    <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">
-                                </div>
-                            </div>
-
-                        </div>
-                    </div>
-
                 </div>
             </div>
 
@@ -767,20 +476,13 @@
             </div>
             <div class="pageNum">
                 <ul id="pageNum">
-                    <li class="first-page"><a href="">首页</a></li>
                     <li class="threeword"><a href="#">上一页</a></li>
                     <li class="curPage"><a href="#">1</a></li>
                     <li><a href="#">2</a></li>
                     <li><a href="#">3</a></li>
                     <li><a href="#">4</a></li>
                     <li><a href="#">5</a></li>
-                    <li><a href="#">6</a></li>
-                    <li><a href="#">7</a></li>
-                    <li><a href="#">8</a></li>
-                    <li><a href="#">9</a></li>
-                    <li><a href="#">10</a></li>
                     <li class="threeword"><a href="javascript:;">下一页</a></li>
-                    <li class="last-page"><a href="javascript:;">末页</a></li>
                 </ul>
             </div>
         </div>

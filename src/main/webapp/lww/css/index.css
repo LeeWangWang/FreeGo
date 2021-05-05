@@ -208,13 +208,25 @@ a:hover{
     font-size: 22px;
 }
 .travelnote-item dt a{
+    display: block;
     width: 420px;
-    height: 20px;
+    height: 30px;
     color: #333;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
     font-weight: 400;
+}
+.travelnote-item dd a{
+    display: -webkit-box;
+    width: 695px;
+    height: 100px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 4;
+    letter-spacing: 1px;
+    line-height: 25px;
 }
 .travelnote-item dd{
     line-height: 20px;

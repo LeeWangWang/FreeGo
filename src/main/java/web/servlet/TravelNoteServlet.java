@@ -2,16 +2,21 @@ package web.servlet;
 
 import java.io.*;
 
+import domain.PageBean;
 import domain.TravelNoteInfo;
+import domain.UserInfo;
 import net.sf.json.JSONObject;
 import service.TravelNoteInfoService;
+import service.UserInfoService;
 import service.impl.TravelNoteInfoServiceImpl;
+import service.impl.UserInfoServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -25,6 +30,7 @@ public class TravelNoteServlet extends BaseServlet{
     public String filename = null;
 
     TravelNoteInfoService noteInfoService = new TravelNoteInfoServiceImpl();
+    UserInfoService userInfoService = new UserInfoServiceImpl();
 
     /**
      * 获取地址
@@ -51,13 +57,8 @@ public class TravelNoteServlet extends BaseServlet{
     }
 
     /**
-    * @author:  李旺旺
-    * @date:    2021/5/2 16:46
-    * @param:   [request, response]
-    * @return:  void
-    * @exception:
-    * @description: 检查地址编号
-    */
+     * 检查地址编号
+     */
     public void checkLocate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String locateName = request.getParameter("name");
         System.out.println("后台获取到的地址名称: " + locateName);
@@ -67,12 +68,7 @@ public class TravelNoteServlet extends BaseServlet{
     }
 
     /**
-     * @author:  李旺旺
-     * @date:    2021/5/2 16:46
-     * @param:   [request, response]
-     * @return:  void
-     * @exception:
-     * @description: 匹配地址名称
+     * 匹配地址名称
      */
     public void matchLocate(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int locateId = Integer.parseInt(request.getParameter("locateId"));
@@ -87,12 +83,7 @@ public class TravelNoteServlet extends BaseServlet{
     }
 
     /**
-     * @author:  李旺旺
-     * @date:    2021/5/2 16:46
-     * @param:   [request, response]
-     * @return:  void
-     * @exception:
-     * @description: 匹配人物名称
+     * 匹配人物名称
      */
     public void matchPeople(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int peopleId = Integer.parseInt(request.getParameter("peopleId"));
@@ -109,17 +100,97 @@ public class TravelNoteServlet extends BaseServlet{
     /**
      * 游记推荐
      */
-    public void recommendTravelNoteInfoNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        //1.调用service查询TravelNote对象集合
-        String userId = request.getParameter("userId");
-        System.out.println("后台获取到的用户Id: "+userId);
-        List<TravelNoteInfo> list = noteInfoService.recommendTravelNoteInfoNote(userId);
-        System.out.println("游记推荐");
-        for (TravelNoteInfo noteInfo : list) {
-            noteInfo.toString();
+    public void recommendTravelNoteInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PageBean<TravelNoteInfo> pageBean = new PageBean<>();
+        //1.接收参数
+        String id = request.getParameter("userId");
+        String currentPageStr = request.getParameter("currentPage");
+        System.out.println("1.后台获取到的参数: 用户Id:  " + id + " currentPage " + currentPageStr);
+        //2.处理参数
+        int userId = 0;//用户编号，如果不传递，默认为0
+        if (id != "") {
+            userId = Integer.valueOf(id);
         }
-        //2.将TravelNote对象集合序列化为json，返回
-        writeValue(list, response);
+        int currentPage = 0;//当前页码，如果不传递，则默认为第一页
+        if (currentPageStr != null && currentPageStr.length() > 0){
+            currentPage = Integer.parseInt(currentPageStr);
+        }else {
+            currentPage = 1;
+        }
+        pageBean.setCurrentPage(currentPage);
+
+        //3.调用service查询PageBean对象
+        System.out.println("3.后台获取到的参数: 用户Id:  " + userId + " currentPage " + currentPage);
+        List<TravelNoteInfo> list = noteInfoService.recommendTravelNoteInfo(userId);
+
+        // 4.设置总记录数
+        int totalCount = list.size()-4;
+        pageBean.setTotalCount(totalCount);
+
+        // 5.设置总页码
+        int totalPage = totalCount%10==0 ? (totalCount/10) : (totalCount/10)+1;
+        pageBean.setTotalPage(totalPage);
+
+        // 6.设置轮播图显示的数据集合 0~3
+        List<TravelNoteInfo> head = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            if (list.get(i) != null){
+                head.add(list.get(i));
+                System.out.print(" " + list.get(i).getTravelNoteId() + ",");
+            }
+        }
+        pageBean.setHeadRow(head);
+
+        // 7.设置当前页显示的游记数据集合 4~13   14~23   24~33   34~43   44~53
+        int start = (currentPage - 1)*10;
+        List<TravelNoteInfo> noteInfoList = new ArrayList<>();
+        for (int i = start+4; i < (start+14); i++) {
+            if (list.get(i) != null){
+                noteInfoList.add(list.get(i));
+            }
+        }
+        pageBean.setList(noteInfoList);
+
+        // 8.设置当前页显示的位置信息集合
+        List<String> locateList = new ArrayList<>();
+        for (int i = 0; i < noteInfoList.size(); i++) {
+            if (noteInfoList.get(i) != null) {
+                locateList.add( noteInfoService.matchLocate( noteInfoList.get(i).getTravelLocate() ) );
+            }
+        }
+        pageBean.setLocate(locateList);
+
+        // 9.设置当前页显示的用户信息集合
+        List<UserInfo> userList = new ArrayList<>();
+        for (int i = 0; i < noteInfoList.size(); i++) {
+            if (noteInfoList.get(i) != null) {
+                userList.add( userInfoService.queryUserInfoByTravelNoteId( noteInfoList.get(i).getTravelNoteId() ) );
+            }
+        }
+        pageBean.setUserList(userList);
+
+        // 10.设置当前页显示的收藏数量集合
+        List<Integer> collectList = new ArrayList<>();
+        for (int i = 0; i < noteInfoList.size(); i++) {
+            if (noteInfoList.get(i) != null) {
+                collectList.add( noteInfoService.queryTravelNoteCollectionNum( noteInfoList.get(i).getTravelNoteId() ) );
+            }
+        }
+        pageBean.setCollectNum(collectList);
+
+        // 11.设置当前页显示的点赞数量集合
+        List<Integer> likeList = new ArrayList<>();
+        for (int i = 0; i < noteInfoList.size(); i++) {
+            if (noteInfoList.get(i) != null) {
+                likeList.add( noteInfoService.queryTravelNoteCollectionNum( noteInfoList.get(i).getTravelNoteId() ) );
+            }
+        }
+        pageBean.setLikeNum(likeList);
+        System.out.println();
+        System.out.println("11.Servlet获取到的游记推荐数量:  " + list.size());
+
+        // 12.将pageBean对象集合序列化为json，返回
+        writeValue(pageBean, response);
     }
 
     /**
@@ -127,7 +198,8 @@ public class TravelNoteServlet extends BaseServlet{
      */
     public void addTravelNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String json = request.getParameter("travelnote");
-        System.out.println("后台获取到的游记对象: " + json);
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        System.out.println("后台获取到的游记对象长度: " + json.length() +"  用户Id: " + userId);
         if (json.equals("")) {
             System.out.println("后台没有接收到游记对象信息");
         } else {
@@ -146,7 +218,7 @@ public class TravelNoteServlet extends BaseServlet{
             noteInfo.setTravelLocate(object.getInt("travelLocate"));
             System.out.println("后台实例化游记对象: " + noteInfo.toString());;
             // 3.将游记信息保存进数据库
-            TravelNoteInfo travelNoteInfo = noteInfoService.addTravelNote(noteInfo);
+            TravelNoteInfo travelNoteInfo = noteInfoService.addTravelNote(noteInfo, userId);
             System.out.println("数据库操作后返回游记对象: " + travelNoteInfo.toString());;
             writeValue(travelNoteInfo, response);
         }
@@ -163,6 +235,24 @@ public class TravelNoteServlet extends BaseServlet{
         TravelNoteInfo travelNoteInfo = noteInfoService.queryTravelNoteInfoById(noteId);
         //3.转为json写回客户端
         writeValue(travelNoteInfo, response);
+    }
+
+    /**
+     * 查询该游记是否是自己的
+     */
+    public void isMyTravelNote(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        //1.接收id
+        int userId = Integer.valueOf(request.getParameter("userId"));
+        int noteId = Integer.valueOf(request.getParameter("noteId"));
+        System.out.println("后台获取到的用户Id: "+userId+" 游记Id: " + noteId);
+        //2.调用service查询route对象
+        Boolean flag = noteInfoService.isMyTravelNote(userId, noteId);
+        //3.转为json写回客户端
+        response.setContentType("text/html;charset=utf-8");
+        PrintWriter out = response.getWriter();
+        out.print(flag);
+        out.flush();
+        out.close();
     }
 
     /**
@@ -348,3 +438,4 @@ public class TravelNoteServlet extends BaseServlet{
     }
 
 }
+

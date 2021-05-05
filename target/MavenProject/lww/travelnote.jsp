@@ -21,7 +21,7 @@
     <script src="${pageContext.request.contextPath}/lww/layui/layui.js"></script>
 
     <script>
-        $(function () {
+        window.onload = function(){
             //——————————————————————————————初始化——————————————————————————————
             var userId;
             var noteId = getParameter("noteId");
@@ -31,13 +31,25 @@
                 console.log("当前游记信息"); console.log(travelnote);
                 //查询用户信息
                 $.get("/user/findOne", {}, function (user) {
-                    if (user) {         //用户登录了
+                    if (user) {
+                        //用户登录了
+                        console.log("当前登录用户Id:" + user.userId);
                         userId = user.userId;
-                        //是否已关注
-                        $.get("/travelnote/isUserFollowedByTravelNoteId", {userId: userId, noteId: noteId}, function (flag) {
-                            console.log("当前关注信息: " + flag);
+                        //是否是自己的游记
+                        $.get("/travelnote/isMyTravelNote", {userId: userId, noteId: noteId}, function (flag) {
+                            console.log("是否是自己的游记查询结果: " + flag);
                             if (flag == "true") {
-                                $(".person-follow").text("已关注");
+                                $("#person_follow").remove();
+                                console.log("关注标签已移除");
+                            } else {
+                                //是否已关注
+                                console.log("该游记不属于用户");
+                                $.get("/travelnote/isUserFollowedByTravelNoteId", {userId: userId, noteId: noteId}, function (flag) {
+                                    console.log("当前关注信息: " + flag);
+                                    if (flag == "true") {
+                                        $("#person_follow").text("已关注");
+                                    }
+                                });
                             }
                         });
                         //是否已收藏
@@ -65,13 +77,13 @@
                     }
                 });
                 //获取游记收藏量
-                $.get("/travelnote/queryTravelNoteCollectionNum", {userId: userId, noteId: noteId}, function (number) {
+                $.get("/travelnote/queryTravelNoteCollectionNum", {noteId: noteId}, function (number) {
                     console.log("当前收藏数量信息: " + number);
                     collectNum = parseInt(number);
                     $("#tn_collect_num").text(number + "收藏");
                 });
                 //获取游记点赞量
-                $.get("/travelnote/queryTravelNoteLikeNum", {userId: userId, noteId: noteId}, function (number) {
+                $.get("/travelnote/queryTravelNoteLikeNum", {noteId: noteId}, function (number) {
                     console.log("当前点赞数量信息: " + number);
                     likeNum = parseInt(number);
                     $("#tn_like_num").text(number + "点赞");
@@ -101,7 +113,7 @@
             });
             //————————————————————————————绑定触发事件——————————————————————————————
             //关注按钮
-            $(".person-follow").click(function () {
+            $("#person_follow").click(function () {
                 var follow = $("#person_follow").text();
                 console.log("关注信息:" + follow);
                 if (follow == "关注") {
@@ -139,18 +151,18 @@
                 if (color == "rgb(0, 0, 0)") {
                     $("#tn_like_icon").css('color', '#ff9d00');
                     likeNum = likeNum + 1;
-                    $("#tn_like_icon").text(likeNum + "收藏");
+                    $("#tn_like_num").text(likeNum + "收藏");
                 } else {
                     $("#tn_like_icon").css('color', '#000000');
                     likeNum = likeNum - 1;
-                    $("#tn_like_icon").text(likeNum + "收藏");
+                    $("#tn_like_num").text(likeNum + "收藏");
                 }
                 //更新点赞信息
                 $.get("/travelnote/updateTravelNoteLike", {userId: userId, noteId: noteId}, function (flag) {
                     console.log("更新点赞结果: " + flag);
                 });
             });
-        });
+        }
     </script>
 
 </head>

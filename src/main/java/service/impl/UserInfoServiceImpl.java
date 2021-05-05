@@ -33,4 +33,9 @@ public class UserInfoServiceImpl implements UserInfoService {
     public UserInfo login(String account, String password) {
         return  userDao.isAccountRight(account, password);
     }
+
+    @Override
+    public UserInfo queryUserInfoByTravelNoteId(int noteId) {
+        return userDao.queryUserInfoByTravelNoteId(noteId);
+    }
 }

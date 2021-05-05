@@ -26,6 +26,7 @@
             $.get("/user/findOne", {}, function (user) {
                 if (user) {
                     //用户登录了
+                    console.log("当前登录用户Id:" + user.userId);
                     $("#login_out").remove();//移除未登录标签
                     var userHead = user.userHeadPicturePath;
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
