@@ -31,7 +31,7 @@
 &emsp;&emsp;界面:  
 &emsp;&emsp;功能：发表游记（未完成）  
 1.10版本(2021.5.2)  
-&emsp;&emsp;界面： 
+&emsp;&emsp;界面：  
 &emsp;&emsp;功能：发表游记  
 1.11版本(2021.5.3)  
 &emsp;&emsp;界面:  
