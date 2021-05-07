@@ -135,4 +135,9 @@ public interface TravelNoteInfoDao {
     * 更新浏览量
     */
     Boolean updateTravelNoteView(int noteId);
+
+    /**
+     * 查询用户游记数量
+     */
+    int countTravelNoteNum(int userId);
 }

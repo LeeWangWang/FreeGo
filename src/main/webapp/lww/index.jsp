@@ -52,16 +52,19 @@
                 });
             });
 
+            $("#user_head").click(function () {
+                location.href = "http://localhost:8080/lww/userMain.jsp";
+            });
+
             //当表单提交时，调用查询方法
             $("#btn_search").click(function () {
-                if ($("#checkbox_scenic").get(0).checked) {
+                if ($("#checkbox_travelnote").get(0).checked) {
+                    location.href="http://localhost:8080/lww/search.jsp?type=1&search=" + $("#index_search_input_all").val();
                     // do something
-                } else if ($("#checkbox_hotel").get(0).checked) {
+                } else if ($("#checkbox_scenic").get(0).checked) {
                     // do something
-                } else if ($("#checkbox_travelnote").get(0).checked) {
-                    location.href="http://localhost:8080/lww/search.jsp?type=3&search=" + $("#index_search_input_all").val();
                 } else {
-                    // do something
+                    //do something
                 }
             });
         });
@@ -72,23 +75,27 @@
                 var userId = user.userId;
                 $.post("/travelnote/recommendTravelNoteInfo", {userId : userId, currentPage:currentPage}, function (pb) {
                     var data = pb.headRow;
-                    console.log("游记推荐: "+pb);
+                    console.log("游记推荐: "); console.log(pb);
                     //更改轮播图信息
                     $("#travelNote_date_1").html(data[0].travelTime);
                     $("#travelNote_title_1").html(data[0].travelNoteTitle);
                     $(".banner-href-1").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[0].travelNoteId);
+                    $("#banner_img_1").html('<img src="'+data[0].travelNoteCover+'" alt="" class="banner-picture">');
 
                     $("#travelNote_date_2").html(data[1].travelTime);
                     $("#travelNote_title_2").html(data[1].travelNoteTitle);
                     $(".banner-href-2").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[1].travelNoteId);
+                    $("#banner_img_2").html('<img src="'+data[1].travelNoteCover+'" alt="" class="banner-picture">');
 
                     $("#travelNote_date_3").html(data[2].travelTime);
                     $("#travelNote_title_3").html(data[2].travelNoteTitle);
                     $(".banner-href-3").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[2].travelNoteId);
+                    $("#banner_img_3").html('<img src="'+data[2].travelNoteCover+'" alt="" class="banner-picture">');
 
                     $("#travelNote_date_4").html(data[3].travelTime);
                     $("#travelNote_title_4").html(data[3].travelNoteTitle);
                     $(".banner-href-4").attr("href", "http://localhost:8080/lww/travelnote.jsp?noteId=" + data[3].travelNoteId);
+                    $("#banner_img_4").html('<img src="'+data[3].travelNoteCover+'" alt="" class="banner-picture">');
 
                     //1.分页工具条数据展示
                     //1.1 展示总页码和总记录数
@@ -243,19 +250,19 @@
                 ,data: [{
                     title: '我的游记'
                     ,id: 'icon_travelnote'
-                    ,href: 'https://www.icon_travelnote.com/'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=1'
                 },{
                     title: '我的收藏'
                     ,id: 'icon_collection'
-                    ,href: 'https://www.icon_collection.com/'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=2'
                 },{
                     title: '我的订单'
                     ,id: 'icon_order'
-                    ,href: 'https://www.icon_order.com/'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=3'
                 },{
                     title: '我的关注'
                     ,id: 'icon_follow'
-                    ,href: 'https://www.icon_follow.com/'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=4'
                 },{
                     title: '退出登录'
                     ,id: 'icon_logout'
@@ -275,7 +282,7 @@
                 <li id="head_nav_index_li" role="presentation"><a href="http://localhost:8080/lww/index.jsp" id="head_nav_index_a">首页</a></li>
                 <li id="head_nav_scenic_li" role="presentation"><a href="http://localhost:8080/lww/scenic.jsp" id="head_nav_scenic_a" title="景点">景点</a></li>
                 <li id="head_nav_hotel_li" role="presentation"><a href="http://localhost:8080/lww/hotel.jsp" id="head_nav_hotel_a" title="酒店">订酒店</a></li>
-                <li id="head_nav_gonglve_li" role="presentation"><a href="http://localhost:8080/lww/travelnote.jsp" id="head_nav_gonglve_a" title="旅游攻略">旅游攻略</a></li>
+                <li id="head_nav_gonglve_li" role="presentation"><a href="http://localhost:8080/lww/search.jsp?type=1&search=" id="head_nav_gonglve_a" title="旅游攻略">旅游攻略</a></li>
             </ul>
             <div class="login_status">
                 <!-- 未登录状态  -->
@@ -310,41 +317,37 @@
 
                 <div id="banner_1" class="item active">
                     <a href="" class="show-title banner-href-1" target="_blank">
-                        <div id="travelNote_date_1" class="travelnote-date">2021.4.19</div>
-                        <div id="travelNote_title_1" class="travelnote-title">【自驾甘孜】仓央嘉措，无尽雪山和风</div>
+                        <div id="travelNote_date_1" class="travelnote-date"></div>
+                        <div id="travelNote_title_1" class="travelnote-title"></div>
                     </a>
-                    <a href="" class="show-pic banner-href-1" target="_blank">
-                        <img src="/FreegoImg/li/travelnote/1.jpeg" alt="" class="banner-picture">
+                    <a id="banner_img_1" href="" class="show-pic banner-href-1" target="_blank">
                     </a>
                 </div>
 
                 <div id="banner_2" class="item">
                     <a href="" class="show-title banner-href-2" target="_blank">
-                        <div id="travelNote_date_2" class="travelnote-date">2021.4.19</div>
-                        <div id="travelNote_title_2" class="travelnote-title">常州金坛亲子游｜撷一肩春色，跟着小念一起花样春游吧</div>
+                        <div id="travelNote_date_2" class="travelnote-date"></div>
+                        <div id="travelNote_title_2" class="travelnote-title"></div>
                     </a>
-                    <a href="" class="show-pic banner-href-2" target="_blank">
-                        <img src="/FreegoImg/li/travelnote/2.jpeg" alt="" class="banner-picture">
+                    <a id="banner_img_2" href="" class="show-pic banner-href-2" target="_blank">
                     </a>
                 </div>
 
                 <div id="banner_3" class="item">
                     <a href="" class="show-title banner-href-3" target="_blank">
-                        <div id="travelNote_date_3" class="travelnote-date">2021.4.19</div>
-                        <div id="travelNote_title_3" class="travelnote-title">别样东莞｜广东第四城的美食和古迹</div>
+                        <div id="travelNote_date_3" class="travelnote-date"></div>
+                        <div id="travelNote_title_3" class="travelnote-title"></div>
                     </a>
-                    <a href="" class="show-pic banner-href-3" target="_blank">
-                        <img src="/FreegoImg/li/travelnote/3.jpeg" alt="" class="banner-picture">
+                    <a id="banner_img_3" href="" class="show-pic banner-href-3" target="_blank">
                     </a>
                 </div>
 
                 <div id="banner_4" class="item">
                     <a href="" class="show-title banner-href-4" target="_blank">
-                        <div id="travelNote_date_4" class="travelnote-date">2021.4.19</div>
-                        <div id="travelNote_title_4" class="travelnote-title">走吧、让我们一路川西吧！</div>
+                        <div id="travelNote_date_4" class="travelnote-date"></div>
+                        <div id="travelNote_title_4" class="travelnote-title"></div>
                     </a>
-                    <a href="" class="show-pic banner-href-4" target="_blank">
-                        <img src="/FreegoImg/li/travelnote/4.jpeg" alt="" class="banner-picture">
+                    <a id="banner_img_4" href="" class="show-pic banner-href-4" target="_blank">
                     </a>
                 </div>
 
@@ -366,17 +369,14 @@
                 <div class="index-search-tab" id="index_search_tab">
                     <%--单选框--%>
                     <ul class="clearfix">
-                        <li class="tab-select" id="select_all">
-                            <input id="checkbox_all" type="radio" name="select" value="全部" title="全部" checked>
+                        <li class="tab-select" id="select_travelnote">
+                            <input id="checkbox_travelnote" type="radio" name="select" value="游记" title="游记" checked>
                         </li>
                         <li class="tab-select" id="select_scenic">
                             <input id="checkbox_scenic" type="radio" name="select" value="景点" title="景点">
                         </li>
                         <li class="tab-select" id="select_hotel">
                             <input id="checkbox_hotel" type="radio" name="select" value="酒店" title="酒店">
-                        </li>
-                        <li class="tab-select" id="select_travelnote">
-                            <input id="checkbox_travelnote" type="radio" name="select" value="游记" title="游记">
                         </li>
                     </ul>
                 </div>

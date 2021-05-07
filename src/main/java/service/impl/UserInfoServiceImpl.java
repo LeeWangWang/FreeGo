@@ -5,6 +5,8 @@ import dao.impl.UserInfoDaoInfoImpl;
 import domain.UserInfo;
 import service.UserInfoService;
 
+import java.util.List;
+
 /**
  * @Author: 李旺旺
  * @Date: 2021/4/12 12:28
@@ -37,5 +39,20 @@ public class UserInfoServiceImpl implements UserInfoService {
     @Override
     public UserInfo queryUserInfoByTravelNoteId(int noteId) {
         return userDao.queryUserInfoByTravelNoteId(noteId);
+    }
+
+    @Override
+    public List<UserInfo> queryConcernInfo(int userId) {
+        return userDao.queryConcernInfo(userId);
+    }
+
+    @Override
+    public List<UserInfo> queryFollowInfo(int userId) {
+        return userDao.queryFollowInfo(userId);
+    }
+
+    @Override
+    public int countFollowNum(int userId) {
+        return userDao.countFollowNum(userId);
     }
 }

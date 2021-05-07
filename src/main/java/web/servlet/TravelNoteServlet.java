@@ -2,14 +2,13 @@ package web.servlet;
 
 import java.io.*;
 
-import domain.PageBean;
-import domain.TravelNoteInfo;
-import domain.UserInfo;
+import domain.*;
 import net.sf.json.JSONObject;
 import service.TravelNoteInfoService;
 import service.UserInfoService;
 import service.impl.TravelNoteInfoServiceImpl;
 import service.impl.UserInfoServiceImpl;
+import utils.DeBugUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -182,7 +181,7 @@ public class TravelNoteServlet extends BaseServlet{
         List<Integer> likeList = new ArrayList<>();
         for (int i = 0; i < noteInfoList.size(); i++) {
             if (noteInfoList.get(i) != null) {
-                likeList.add( noteInfoService.queryTravelNoteCollectionNum( noteInfoList.get(i).getTravelNoteId() ) );
+                likeList.add( noteInfoService.queryTravelNoteLikeNum( noteInfoList.get(i).getTravelNoteId() ) );
             }
         }
         pageBean.setLikeNum(likeList);
@@ -193,13 +192,16 @@ public class TravelNoteServlet extends BaseServlet{
         writeValue(pageBean, response);
     }
 
+    /**
+     * 根据搜索内容搜索游记
+     */
     public void queryTravelNoteInfoBySearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
         // 1.接收参数
         String search = request.getParameter("search");
         // 2.调用service查询PageBean对象
         System.out.println("3.后台获取到的参数,搜索内容:  " + search);
         List<TravelNoteInfo> list = noteInfoService.queryTravelNoteInfoBySearch(search);
-        // 3.将pageBean对象集合序列化为json，返回
+        // 3.将list对象集合序列化为json，返回
         writeValue(list, response);
 
     }
@@ -446,6 +448,48 @@ public class TravelNoteServlet extends BaseServlet{
         out.print(flag);
         out.flush();
         out.close();
+    }
+
+    /**
+     * 查询个人所有游记信息
+     */
+    public void queryAllTravelNoteInfo(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        PageBean<TravelNoteInfo> pageBean = new PageBean<>();
+        // 1.接收参数
+        String id = request.getParameter("userId");
+        if (DeBugUtils.debug_flag == 1){
+            System.out.println("接收参数:" + id);
+        }
+        // 2.处理参数
+        int userId = Integer.valueOf(id);
+        // 3.调用Service获取游记信息
+        List<TravelNoteInfo> noteInfoList = noteInfoService.queryAllTravelNoteInfo(userId);
+        if (DeBugUtils.debug_flag == 1){
+            System.out.println("查询结果:");
+            for (int i = 0; i < noteInfoList.size(); i++) {
+                System.out.print(noteInfoList.get(i).getTravelNoteId() + "   ");
+            }
+        }
+        // 4.设置显示的游记信息集合
+        pageBean.setList(noteInfoList);
+        // 5.设置显示的点赞数据集合
+        List<Integer> likeList = new ArrayList<>();
+        for (int i = 0; i < noteInfoList.size(); i++) {
+            if (noteInfoList.get(i) != null) {
+                likeList.add( noteInfoService.queryTravelNoteLikeNum( noteInfoList.get(i).getTravelNoteId() ) );
+            }
+        }
+        pageBean.setLikeNum(likeList);
+        // 6.设置显示的收藏数据集合
+        List<Integer> collectList = new ArrayList<>();
+        for (int i = 0; i < noteInfoList.size(); i++) {
+            if (noteInfoList.get(i) != null) {
+                collectList.add( noteInfoService.queryTravelNoteCollectionNum( noteInfoList.get(i).getTravelNoteId() ) );
+            }
+        }
+        pageBean.setCollectNum(collectList);
+        // 7.将pageBean对象集合序列化为json，返回
+        writeValue(pageBean, response);
     }
 
 }

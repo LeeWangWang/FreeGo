@@ -245,7 +245,6 @@
     height: 20px;
     line-height: 20px;
     font-size: 14px;
-    margin-top: 20px;
 }
 .vc-article .report a{
     color: #333;
@@ -276,6 +275,9 @@
     background-color: #f6f6f6;
     border-top-left-radius: 24px;
     border-bottom-left-radius: 24px;
+}
+.freego-cmt-item > .comment-info > .time{
+    float: right;
 }
 .freego-cmt-item .comment-info .comment-user-head{
     width: 48px;
@@ -321,10 +323,9 @@
     height: 24px;
     line-height: 24px;
     color: #999;
-    margin-top: 16px;
 }
-.freego-cmt-item .comment-bot .time{
-    float: left;
+.freego-cmt-item .comment-info .time{
+    float: right;
 }
 .freego-cmt-item .comment-bot .option{
     float: right;
@@ -378,7 +379,7 @@
     border: 0;
     padding: 0;
     width: 600px;
-    height: 180px;
+    height: 80px;
     resize: none;
     color: #666;
     line-height: 22px;

@@ -6,6 +6,7 @@
 }
 .search-head .wid{
     padding-top: 20px;
+    padding-left: 150px;
 }
 .search-head-logo{
     float: left;
@@ -23,6 +24,7 @@
     width: 600px;
     height: 38px;
     overflow: hidden;
+    margin-left: 50px;
 }
 .search-wrapper{
     float: left;
@@ -87,8 +89,7 @@
 }
 .freego-search-main .wid{
     width: 1300px;
-    padding-left: 125px;
-    /*padding-bottom: 50px;*/
+    padding-left: 322px;
 }
 .nav-list{
     line-height: 50px;

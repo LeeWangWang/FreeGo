@@ -1,10 +1,12 @@
 package web.servlet;
 
-import domain.ResultInfo;
-import domain.UserInfo;
+import domain.*;
 import org.apache.commons.beanutils.BeanUtils;
+import service.TravelNoteInfoService;
 import service.UserInfoService;
+import service.impl.TravelNoteInfoServiceImpl;
 import service.impl.UserInfoServiceImpl;
+import utils.DeBugUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +15,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -25,6 +29,7 @@ public class UserServlet extends BaseServlet {
 
     //声明一个UserInfoService成员变量
     UserInfoService userInfoService = new UserInfoServiceImpl();
+    TravelNoteInfoService travelNoteInfoService = new TravelNoteInfoServiceImpl();
 
     /**
      * 用户注册功能
@@ -123,27 +128,50 @@ public class UserServlet extends BaseServlet {
         response.sendRedirect(request.getContextPath() + "/lww/login.jsp");
     }
 
+    /**
+     * 查询用户关注与粉丝信息
+     */
+    public void queryFollowAndFans(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        PageUser pageUser = new PageUser();
+        // 1.接收参数
+        String id = request.getParameter("userId");
+        if (DeBugUtils.debug_flag == 1){
+            System.out.println("接收参数:" + id);
+        }
+        // 2.处理参数
+        int userId = Integer.valueOf(id);
+        // 3.1 调用Service获取关注信息
+        List<UserInfo> followList = userInfoService.queryConcernInfo(userId);
+        List<Integer> followTravelNoteNumList = new ArrayList<>();
+        List<Integer> followNumList = new ArrayList<>();
+        for (int i = 0; i < followList.size(); i++) {
+            int travelNum = travelNoteInfoService.countTravelNoteNum( followList.get(i).getUserId() );
+            int FollowNum = userInfoService.countFollowNum( followList.get(i).getUserId() );
+            followTravelNoteNumList.add(travelNum);
+            followNumList.add(FollowNum);
+        }
+        pageUser.setFollowTravelNoteNumList(followTravelNoteNumList);
+        pageUser.setFollowNumList(followNumList);
+        // 3.2 调用Service获取粉丝信息
+        List<UserInfo> fansList = userInfoService.queryFollowInfo(userId);
+        List<Integer> fansTravelNoteNumList = new ArrayList<>();
+        List<Integer> fansNumList = new ArrayList<>();
+        for (int i = 0; i < fansList.size(); i++) {
+            int travelNum = travelNoteInfoService.countTravelNoteNum(fansList.get(i).getUserId());
+            int FollowNum = userInfoService.countFollowNum(fansList.get(i).getUserId());
+            fansTravelNoteNumList.add(travelNum);
+            fansNumList.add(FollowNum);
+        }
+        pageUser.setFansTravelNoteNumList(fansTravelNoteNumList);
+        pageUser.setFansNumList(fansNumList);
+        // 4.设置显示的关注信息集合
+        pageUser.setFollowList(followList);
+        // 5.设置显示的粉丝信息集合
+        pageUser.setFansList(fansList);
+        writeValue(pageUser, response);
+    }
+
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

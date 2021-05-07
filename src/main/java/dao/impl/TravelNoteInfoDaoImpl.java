@@ -8,7 +8,6 @@ import utils.DeBugUtils;
 import utils.JDBCUtils;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -417,7 +416,15 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
 
     @Override
     public List<TravelNoteInfo> queryAllTravelNoteInfo(int userId) {
-        return null;
+        String sql1 = "select travelNoteId from travelnotelist where userId = ?";
+        List<Integer> noteIdList = template.queryForList(sql1, Integer.class, userId);
+        List<TravelNoteInfo> list = new ArrayList<>();
+        for (int i = 0; i < noteIdList.size(); i++) {
+            String sql2 = "select * from travelnote where travelNoteId = ?";
+            TravelNoteInfo noteInfo = template.queryForObject(sql2, new BeanPropertyRowMapper<TravelNoteInfo>(TravelNoteInfo.class), noteIdList.get(i));
+            list.add(noteInfo);
+        }
+        return list;
     }
 
     @Override
@@ -518,4 +525,13 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
         }
         return false;
     }
+
+    @Override
+    public int countTravelNoteNum(int userId) {
+        //1.定义sql语句
+        String sql = "select count(*) from travelnotelist where userId = ?;";
+        //2.执行
+        return template.queryForObject(sql, Integer.class, userId);
+    }
+
 }

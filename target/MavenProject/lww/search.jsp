@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 李旺旺
   DateTime: 2021/4/22 16:38
-  Description: 
+  Description: 游记搜索界面
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
@@ -24,14 +24,14 @@
         $(function () {
             var type = parseInt(getParameter("type"));
             if (type == 1) {
-                $("#toolbar_scenic").css('color', '#ffffff');
-                $("#toolbar_scenic").css('background-color', '#ff9d00');
-            } else if (type == 2) {
-                $("#toolbar_hotel").css('color', '#ffffff');
-                $("#toolbar_hotel").css('background-color', '#ff9d00');
-            } else {
                 $("#toolbar_travelNote").css('color', '#ffffff');
                 $("#toolbar_travelNote").css('background-color', '#ff9d00');
+            } else if (type == 2) {
+                $("#toolbar_scenic").css('color', '#ffffff');
+                $("#toolbar_scenic").css('background-color', '#ff9d00');
+            } else {
+                $("#toolbar_hotel").css('color', '#ffffff');
+                $("#toolbar_hotel").css('background-color', '#ff9d00');
             }
             //获取search的参数值
             var search = getParameter("search");
@@ -63,6 +63,12 @@
         $("#search_button").click(function () {
             console.log("搜索内容 "); console.log( $("#search_input").val() );
             searchTravelNote( $("#search_input").val() );
+        });
+        $("#toolbar_scenic").click(function () {
+            location.href = "";
+        });
+        $("#toolbar_hotel").click(function () {
+            location.href = "";
         });
 
         function searchTravelNote(searchName) {
@@ -140,9 +146,9 @@
         <div class="search-nav">
             <div class="wid">
                 <div class="nav-list clearfix">
+                    <a id="toolbar_travelNote" href="javascript:void(0)">游记</a>
                     <a id="toolbar_scenic" href="javascript:void(0)">景点</a>
                     <a id="toolbar_hotel" href="javascript:void(0)">酒店</a>
-                    <a id="toolbar_travelNote" href="javascript:void(0)">游记</a>
                 </div>
             </div>
         </div>
@@ -175,7 +181,8 @@
                     </div>
                 </div>
             </div>
-            <div class="flt1 search-rt">
+            <%--右侧景点和酒店--%>
+            <%--<div class="flt1 search-rt">
                 <div class="search-section">
                     <div class="clearfix search-title">
                         <h2>
@@ -286,7 +293,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>--%>
         </div>
     </div>
 

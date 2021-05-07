@@ -189,4 +189,12 @@ public class UserInfoDaoInfoImpl implements UserInfoDao {
         //2.执行
         return template.queryForObject(sql, new BeanPropertyRowMapper<UserInfo>(UserInfo.class), noteId);
     }
+
+    @Override
+    public int countFollowNum(int userId) {
+        //1.定义sql语句
+        String sql = "select count(*) from userconcern where followId = ?;";
+        //2.执行
+        return template.queryForObject(sql, Integer.class, userId);
+    }
 }

@@ -75,4 +75,8 @@ public interface UserInfoDao {
      */
     UserInfo queryUserInfoByTravelNoteId(int noteId);
 
+    /**
+     * 查询用户粉丝数量
+     */
+    int countFollowNum(int userId);
 }

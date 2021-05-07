@@ -2,7 +2,7 @@
   Created by IntelliJ IDEA.
   User: 李旺旺
   DateTime: 2021/4/22 16:38
-  Description: 
+  Description: 游记搜索界面
 --%>
 <%@ page contentType="text/html;charset=UTF-8"  language="java" isELIgnored="false" %>
 <html>
@@ -24,14 +24,14 @@
         $(function () {
             var type = parseInt(getParameter("type"));
             if (type == 1) {
-                $("#toolbar_scenic").css('color', '#ffffff');
-                $("#toolbar_scenic").css('background-color', '#ff9d00');
-            } else if (type == 2) {
-                $("#toolbar_hotel").css('color', '#ffffff');
-                $("#toolbar_hotel").css('background-color', '#ff9d00');
-            } else {
                 $("#toolbar_travelNote").css('color', '#ffffff');
                 $("#toolbar_travelNote").css('background-color', '#ff9d00');
+            } else if (type == 2) {
+                $("#toolbar_scenic").css('color', '#ffffff');
+                $("#toolbar_scenic").css('background-color', '#ff9d00');
+            } else {
+                $("#toolbar_hotel").css('color', '#ffffff');
+                $("#toolbar_hotel").css('background-color', '#ff9d00');
             }
             //获取search的参数值
             var search = getParameter("search");
@@ -64,6 +64,12 @@
             console.log("搜索内容 "); console.log( $("#search_input").val() );
             searchTravelNote( $("#search_input").val() );
         });
+        $("#toolbar_scenic").click(function () {
+            location.href = "";
+        });
+        $("#toolbar_hotel").click(function () {
+            location.href = "";
+        });
 
         function searchTravelNote(searchName) {
             $.post("/travelnote/queryTravelNoteInfoBySearch", {search:searchName}, function (result) {
@@ -95,6 +101,38 @@
             });
         }
 
+    </script>
+
+    <%--用户头像下拉列表--%>
+    <script>
+        layui.use(['dropdown', 'util', 'layer'], function(){
+            var dropdown = layui.dropdown;
+            dropdown.render({
+                elem: '#login_in'       //可绑定在任意元素中，此处以上述按钮为例
+                ,trigger: 'hover'       //触发组件的事件类型。
+                ,data: [{
+                    title: '我的游记'
+                    ,id: 'icon_travelnote'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=1'
+                },{
+                    title: '我的收藏'
+                    ,id: 'icon_collection'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=2'
+                },{
+                    title: '我的订单'
+                    ,id: 'icon_order'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=3'
+                },{
+                    title: '我的关注'
+                    ,id: 'icon_follow'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=4'
+                },{
+                    title: '退出登录'
+                    ,id: 'icon_logout'
+                    ,href: 'http://localhost:8080/user/exit'
+                }]
+            });
+        });
     </script>
 
 </head>
@@ -140,9 +178,9 @@
         <div class="search-nav">
             <div class="wid">
                 <div class="nav-list clearfix">
+                    <a id="toolbar_travelNote" href="javascript:void(0)">游记</a>
                     <a id="toolbar_scenic" href="javascript:void(0)">景点</a>
                     <a id="toolbar_hotel" href="javascript:void(0)">酒店</a>
-                    <a id="toolbar_travelNote" href="javascript:void(0)">游记</a>
                 </div>
             </div>
         </div>
@@ -175,7 +213,8 @@
                     </div>
                 </div>
             </div>
-            <div class="flt1 search-rt">
+            <%--右侧景点和酒店--%>
+            <%--<div class="flt1 search-rt">
                 <div class="search-section">
                     <div class="clearfix search-title">
                         <h2>
@@ -286,7 +325,7 @@
                         </li>
                     </ul>
                 </div>
-            </div>
+            </div>--%>
         </div>
     </div>
 

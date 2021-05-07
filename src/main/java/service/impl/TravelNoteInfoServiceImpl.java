@@ -2,9 +2,7 @@ package service.impl;
 
 import dao.TravelNoteInfoDao;
 import dao.impl.TravelNoteInfoDaoImpl;
-import domain.PageBean;
-import domain.TravelNoteInfo;
-import domain.UserInfo;
+import domain.*;
 import service.TravelNoteInfoService;
 
 import java.util.List;
@@ -106,5 +104,15 @@ public class TravelNoteInfoServiceImpl implements TravelNoteInfoService {
     @Override
     public Boolean updateTravelNoteView(int noteId) {
         return noteInfoDao.updateTravelNoteView(noteId);
+    }
+
+    @Override
+    public List<TravelNoteInfo> queryAllTravelNoteInfo(int userId) {
+        return noteInfoDao.queryAllTravelNoteInfo(userId);
+    }
+
+    @Override
+    public int countTravelNoteNum(int userId) {
+        return noteInfoDao.countTravelNoteNum(userId);
     }
 }

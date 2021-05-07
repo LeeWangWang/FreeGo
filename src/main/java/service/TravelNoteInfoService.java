@@ -1,8 +1,6 @@
 package service;
 
-import domain.PageBean;
-import domain.TravelNoteInfo;
-import domain.UserInfo;
+import domain.*;
 
 import java.util.List;
 
@@ -97,5 +95,15 @@ public interface TravelNoteInfoService {
     * 更新浏览量
     */
     Boolean updateTravelNoteView(int noteId);
+
+    /**
+     * 根据用户Id获取该用户所有游记信息
+     */
+    List<TravelNoteInfo> queryAllTravelNoteInfo(int userId);
+
+    /**
+     * 查询用户游记数量
+     */
+    int countTravelNoteNum(int userId);
 
 }

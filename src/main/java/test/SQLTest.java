@@ -25,8 +25,8 @@ public class SQLTest {
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
         UserInfoDaoInfoImpl userInfoDao = new UserInfoDaoInfoImpl();
         TravelNoteInfoDao noteInfoDao = new TravelNoteInfoDaoImpl();
-        List<TravelNoteInfo> list = noteInfoDao.queryTravelNoteInfoBySearch("上海");
-        list.toString();
+        List<TravelNoteInfo> list = noteInfoDao.queryAllTravelNoteInfo(1000);
+//        System.out.println(list);
         /*
         UserInfo userInfo = new UserInfo("15356145755","876213908@qq.com","Joshua Genter","123456789","男","湖人总冠军","",false);
         userInfo.setUserId(1055);

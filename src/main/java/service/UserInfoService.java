@@ -2,6 +2,8 @@ package service;
 
 import domain.UserInfo;
 
+import java.util.List;
+
 /**
  * @Author: 李旺旺
  * @Date: 2021/4/12 12:28
@@ -23,4 +25,19 @@ public interface UserInfoService {
      * 根据游记Id查询用户信息
      */
     UserInfo queryUserInfoByTravelNoteId(int noteId);
+
+    /**
+     * 查询用户关注信息
+     */
+    List<UserInfo> queryConcernInfo(int userId);
+
+    /**
+     * 查询用户粉丝信息
+     */
+    List<UserInfo> queryFollowInfo(int userId);
+
+    /**
+     * 查询用户粉丝数量
+     */
+    int countFollowNum(int userId);
 }
