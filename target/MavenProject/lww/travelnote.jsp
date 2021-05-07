@@ -40,7 +40,9 @@
                             console.log("是否是自己的游记查询结果: " + flag);
                             if (flag == "true") {
                                 $("#person_follow").remove();
-                                console.log("关注标签已移除");
+                                $("#btn_report").remove();
+                                console.log("关注标签、举报标签已移除");
+
                             } else {
                                 //是否已关注
                                 console.log("该游记不属于用户");
@@ -188,8 +190,8 @@
             <div class="login_status">
                 <!-- 未登录状态  -->
                 <div id="login_out" class="login_out">
-                    <a href="login.jsp">登录</a>
-                    <a href="register.jsp">注册</a>
+                    <a href="http://localhost:8080/lww/login.jsp">登录</a>
+                    <a href="http://localhost:8080/lww/register.jsp">注册</a>
                 </div>
                 <!-- 登录状态  -->
                 <button id="login_in" class="login_in layui-btn layui-btn-primary">
@@ -278,7 +280,7 @@
                         <div class="content-box" id="content_box"></div>
                     </div>
                     <%--举报部分--%>
-                    <div class="report">
+                    <div id="btn_report" class="report">
                         <a class="r-report">举报</a>
                     </div>
                 </div>

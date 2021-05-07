@@ -12,6 +12,11 @@ public interface TravelNoteInfoDao {
     List<TravelNoteInfo> recommendTravelNoteInfo(int userId);
 
     /**
+     * 系统根据搜索内容search查询游记信息表,查询成功返回游记信息实例集合List<TravelNoteInfo>,若查询失败，返回 null。
+     */
+    List<TravelNoteInfo> queryTravelNoteInfoBySearch(String search);
+
+    /**
     * 获取游记地址信息
     */
     List<String> getLocate();
@@ -30,11 +35,6 @@ public interface TravelNoteInfoDao {
      * 根据人物编号查询人物名称
      */
     String matchPeople(int peopleId);
-
-    /**
-     * 系统根据搜索内容search查询游记信息表,查询成功返回游记信息实例集合List<TravelNoteInfo>,若查询失败，返回 null。`
-     */
-    List<TravelNoteInfo> queryTravelNoteInfoBySearch(String search);
 
     /**
      * 系统根据游记编号travelNoteId查询游记信息表，查询成功返回游记信息实例TravelNoteInfo,若查询失败，返回 null。

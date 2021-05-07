@@ -22,21 +22,79 @@
 
     <script>
         $(function () {
+            var type = parseInt(getParameter("type"));
+            if (type == 1) {
+                $("#toolbar_scenic").css('color', '#ffffff');
+                $("#toolbar_scenic").css('background-color', '#ff9d00');
+            } else if (type == 2) {
+                $("#toolbar_hotel").css('color', '#ffffff');
+                $("#toolbar_hotel").css('background-color', '#ff9d00');
+            } else {
+                $("#toolbar_travelNote").css('color', '#ffffff');
+                $("#toolbar_travelNote").css('background-color', '#ff9d00');
+            }
+            //获取search的参数值
+            var search = getParameter("search");
+            console.log("解码前: " + search);
+            if (search) {
+                search = window.decodeURIComponent(search);
+                console.log("解码后: " + search);
+            }
+            var userId;
             //查询用户信息
             $.get("/user/findOne", {}, function (user) {
                 if (user) {
                     //用户登录了
+                    userId = user.userId;
                     console.log("当前登录用户Id:" + user.userId);
                     $("#login_out").remove();//移除未登录标签
                     var userHead = user.userHeadPicturePath;
                     var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
                     $("#user_head").html(head);
+                    $("#search_input").val(search);
+                    searchTravelNote(search);
                 } else {
                     $("#login_in").remove();//移除已登录标签
                     location.href="http://localhost:8080/lww/login.jsp";
                 }
             });
         });
+
+        $("#search_button").click(function () {
+            console.log("搜索内容 "); console.log( $("#search_input").val() );
+            searchTravelNote( $("#search_input").val() );
+        });
+
+        function searchTravelNote(searchName) {
+            $.post("/travelnote/queryTravelNoteInfoBySearch", {search:searchName}, function (result) {
+                console.log("查询游记结果:"); console.log(result);
+                var route_lis = "";
+                for (var i = 0; i < result.length; i++) {
+                    var noteInfo = result[i];
+                    var noteText = noteInfo.travelNoteText.replace(/<\/?.*>/ig, '');
+                    noteText = noteText.substr(0, 60) + "...";
+                    var li = '<li>\n' +
+                        '    <div class="clearfix">\n' +
+                        '        <div class="flt1">\n' +
+                        '            <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank" class="search-link">\n' +
+                        '                <img src="'+noteInfo.travelNoteCover+'">\n' +
+                        '            </a>\n' +
+                        '        </div>\n' +
+                        '        <div class="ct-text">\n' +
+                        '            <h3>\n' +
+                        '                <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank">'+noteInfo.travelNoteTitle+'</a>\n' +
+                        '            </h3>\n' +
+                        '            <p class="seg-desc">'+noteText+'</p>\n' +
+                        '            <div class="seg-views">'+noteInfo.pageViews+'浏览</div>\n' +
+                        '        </div>\n' +
+                        '    </div>\n' +
+                        '</li>';
+                    route_lis += li;
+                }
+                $("#travelNote_list").html(route_lis);
+            });
+        }
+
     </script>
 
 </head>
@@ -54,7 +112,7 @@
                     </div>
                 </div>
                 <div class="search-button">
-                    <a role="button" href="javascript;" id="search_button">
+                    <a role="button" href="javascript:void(0)" id="search_button">
                         <i class="icon-search"></i>
                     </a>
                 </div>
@@ -62,8 +120,8 @@
             <div class="login_status">
                 <!-- 未登录状态  -->
                 <div id="login_out" class="login_out">
-                    <a href="login.jsp">登录</a>
-                    <a href="register.jsp">注册</a>
+                    <a href="http://localhost:8080/lww/login.jsp">登录</a>
+                    <a href="http://localhost:8080/lww/register.jsp">注册</a>
                 </div>
                 <!-- 登录状态  -->
                 <button id="login_in" class="login_in layui-btn layui-btn-primary">
@@ -82,9 +140,9 @@
         <div class="search-nav">
             <div class="wid">
                 <div class="nav-list clearfix">
-                    <a href="">游记</a>
-                    <a href="">景点</a>
-                    <a href="">酒店</a>
+                    <a id="toolbar_scenic" href="javascript:void(0)">景点</a>
+                    <a id="toolbar_hotel" href="javascript:void(0)">酒店</a>
+                    <a id="toolbar_travelNote" href="javascript:void(0)">游记</a>
                 </div>
             </div>
         </div>
@@ -94,7 +152,7 @@
             <div class="flt1 search-lt" id="search_result_left">
                 <div class="search-section">
                     <div class="att-list">
-                        <ul>
+                        <ul id="travelNote_list">
 
                             <li>
                                 <div class="clearfix">
@@ -109,182 +167,6 @@
                                         </h3>
                                         <p class="seg-desc">高光时刻写在最前面的话来张图镇楼~~这张表格是我去迪士尼前看了50+篇攻略并参考迪士尼 app时间表在出行前做的计划，自以为安排的相当好，然鹅. . .</p>
                                         <div class="seg-views">179381浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/32.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">上海老建筑漫步，细品魔都百年风云</a>
-                                        </h3>
-                                        <p class="seg-desc">【前言】说起 上海 的时候，你们会想到什么呢？代表老 上海 怀旧气息的外滩、新天地、田子坊？代表新 上海 现代感的陆家嘴、市中心各大商圈？大. . . </p>
-                                        <div class="seg-views">52144浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/33.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">【终究，还是得逃出去啊！】50千帕的冷冽和渺小. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">序：终究，还是得逃出去啊！我自己都不信我真的会认真写这篇游记的。嗯，我已经确诊懒癌晚期了，距上一篇马蜂窝游记都过去4年多了，即便是这一篇...</p>
-                                        <div class="seg-views">130235浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/34.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">追逐在魔都的闪光少女，错峰出行，解锁上海迪士尼. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">在这片最神奇而真实的土地上，总有一些属于你的magic moment，我们知道它不是生活的避难所，但还是想让这份美好永驻迪士尼 ，于我们，不仅仅是一...</p>
-                                        <div class="seg-views">171829浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/35.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">上海迪士尼溜娃必看，冬日错峰太好玩太好拍！（内. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">契机身边很多妈妈朋友都已经带小朋友打卡 上海迪士尼 了，都推荐我去，一早就让我心痒痒了。怀二胎期间到现在也没带哥哥好好出去玩过。查了一些资料，...</p>
-                                        <div class="seg-views">252059浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/36.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">在【上海海昌海洋公园】的三天两夜，是圆你的梦，. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">生活是兜兜的梦，梦是兜兜的生活。孩子的梦似乎总是天马行空，而我却被社会磨砺得没有了棱角和幻想，正是兜兜的想象，让我好像重新活了过来！我们的这...</p>
-                                        <div class="seg-views">240516浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/31.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">史上最全面最详细上海迪士尼攻略（演出、合影、住宿、. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">高光时刻写在最前面的话来张图镇楼~~这张表格是我去迪士尼前看了50+篇攻略并参考迪士尼 app时间表在出行前做的计划，自以为安排的相当好，然鹅. . .</p>
-                                        <div class="seg-views">179381浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/32.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">上海老建筑漫步，细品魔都百年风云</a>
-                                        </h3>
-                                        <p class="seg-desc">【前言】说起 上海 的时候，你们会想到什么呢？代表老 上海 怀旧气息的外滩、新天地、田子坊？代表新 上海 现代感的陆家嘴、市中心各大商圈？大. . . </p>
-                                        <div class="seg-views">52144浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/33.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">【终究，还是得逃出去啊！】50千帕的冷冽和渺小. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">序：终究，还是得逃出去啊！我自己都不信我真的会认真写这篇游记的。嗯，我已经确诊懒癌晚期了，距上一篇马蜂窝游记都过去4年多了，即便是这一篇...</p>
-                                        <div class="seg-views">130235浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/34.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">追逐在魔都的闪光少女，错峰出行，解锁上海迪士尼. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">在这片最神奇而真实的土地上，总有一些属于你的magic moment，我们知道它不是生活的避难所，但还是想让这份美好永驻迪士尼 ，于我们，不仅仅是一...</p>
-                                        <div class="seg-views">171829浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/35.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">上海迪士尼溜娃必看，冬日错峰太好玩太好拍！（内. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">契机身边很多妈妈朋友都已经带小朋友打卡 上海迪士尼 了，都推荐我去，一早就让我心痒痒了。怀二胎期间到现在也没带哥哥好好出去玩过。查了一些资料，...</p>
-                                        <div class="seg-views">252059浏览</div>
-                                    </div>
-                                </div>
-                            </li>
-                            <li>
-                                <div class="clearfix">
-                                    <div class="flt1">
-                                        <a href="" target="_blank" class="search-link">
-                                            <img src="/FreegoImg/li/travelnote/36.jpeg">
-                                        </a>
-                                    </div>
-                                    <div class="ct-text">
-                                        <h3>
-                                            <a href="">在【上海海昌海洋公园】的三天两夜，是圆你的梦，. . . </a>
-                                        </h3>
-                                        <p class="seg-desc">生活是兜兜的梦，梦是兜兜的生活。孩子的梦似乎总是天马行空，而我却被社会磨砺得没有了棱角和幻想，正是兜兜的想象，让我好像重新活了过来！我们的这...</p>
-                                        <div class="seg-views">240516浏览</div>
                                     </div>
                                 </div>
                             </li>

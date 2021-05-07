@@ -67,8 +67,8 @@
         <div class="login_status">
             <!-- 未登录状态  -->
             <div id="login_out" class="login_out">
-                <a href="login.jsp">登录</a>
-                <a href="register.jsp">注册</a>
+                <a href="http://localhost:8080/lww/login.jsp">登录</a>
+                <a href="http://localhost:8080/lww/register.jsp">注册</a>
             </div>
             <!-- 登录状态  -->
             <button id="login_in" class="login_in layui-btn layui-btn-primary">

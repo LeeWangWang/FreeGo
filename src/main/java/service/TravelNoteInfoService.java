@@ -14,6 +14,11 @@ public interface TravelNoteInfoService {
     List<TravelNoteInfo> recommendTravelNoteInfo(int userId);
 
     /**
+     * 根据输入内容搜索游记
+     */
+    List<TravelNoteInfo> queryTravelNoteInfoBySearch(String search);
+
+    /**
     * 获取所有地址信息
     */
     List<String> getLocate();

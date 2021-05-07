@@ -4,6 +4,7 @@ import dao.TravelNoteInfoDao;
 import domain.*;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
+import utils.DeBugUtils;
 import utils.JDBCUtils;
 
 import java.util.ArrayList;
@@ -27,8 +28,10 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
             // 1.首先获取所有游记编号Id
             String sql1 = "select travelNoteId from travelnote";
             List<Integer> noteIdList = template.queryForList(sql1, Integer.class);
-            System.out.println("noteIdList---排序前查询所有的游记编号List:  " + noteIdList.size());
-            System.out.println(noteIdList);
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("noteIdList---排序前查询所有的游记编号List:  " + noteIdList.size());
+                System.out.println(noteIdList);
+            }
             // 2.根据游记Id的List推荐游记信息（按照游记热度）(收藏量、点赞量、浏览量)
             List<Integer> hotList = new ArrayList<>();
             for (int k : noteIdList) {
@@ -44,9 +47,11 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                 int hot = countCollect*5 + countLike*2 + countPageView;
                 hotList.add(hot);
             }
-            System.out.println("hotList---排序前综合热度:  " + hotList.size());
-            for (int i = 0; i < hotList.size(); i++) {
-                System.out.print(hotList.get(i) + " ");
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("hotList---排序前综合热度:  " + hotList.size());
+                for (int i = 0; i < hotList.size(); i++) {
+                    System.out.print(hotList.get(i) + " ");
+                }
             }
 
             // 3.热度List排序
@@ -65,14 +70,16 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                 resultList.add(noteIdList.get(flag));
                 noteIdList.remove(flag);
             }
-            System.out.println();
-            System.out.println("rankList---排序后综合热度:  " + rankList.size());
-            for (int i = 0; i < rankList.size(); i++) {
-                System.out.print(rankList.get(i) + " ");
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println();
+                System.out.println("rankList---排序后综合热度:  " + rankList.size());
+                for (int i = 0; i < rankList.size(); i++) {
+                    System.out.print(rankList.get(i) + " ");
+                }
+                System.out.println();
+                System.out.println("resultList---排序后查询相对应的游记编号List:  " + resultList.size());
+                System.out.println(resultList);
             }
-            System.out.println();
-            System.out.println("resultList---排序后查询相对应的游记编号List:  " + resultList.size());
-            System.out.println(resultList);
 
             // 4.按照热度查询游记信息
             String sql6 = "select * from travelnote where travelNoteId = ?";
@@ -81,9 +88,11 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                 noteInfo = template.queryForObject(sql6, new BeanPropertyRowMapper<TravelNoteInfo>(TravelNoteInfo.class), resultList.get(i));
                 travelNoteInfoList.add(noteInfo);
             }
-            System.out.println("travelNoteInfoList---数据库查询---游记推荐结果 Id:  " + travelNoteInfoList.size());
-            for (TravelNoteInfo note : travelNoteInfoList) {
-                System.out.print(" " + note.getTravelNoteId());
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("travelNoteInfoList---数据库查询---游记推荐结果 Id:  " + travelNoteInfoList.size());
+                for (TravelNoteInfo note : travelNoteInfoList) {
+                    System.out.print(" " + note.getTravelNoteId());
+                }
             }
             return travelNoteInfoList;
         } else {
@@ -91,9 +100,11 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
             // 1.首先获取用户的所有偏好信息List(按照偏好权重由高到低)
             String sql1 = "select * from userprefer where userId = ? order by preferWeight desc";
             List<UserPrefer> userPrefers = template.query(sql1, new BeanPropertyRowMapper<UserPrefer>(UserPrefer.class), userId);
-            System.out.println("userPrefers---获取用户的所有偏好信息List:  " + userPrefers.size());
-            for (int i = 0; i < userPrefers.size(); i++) {
-                System.out.println(userPrefers.get(i).toString() + " ");
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("userPrefers---获取用户的所有偏好信息List:  " + userPrefers.size());
+                for (int i = 0; i < userPrefers.size(); i++) {
+                    System.out.println(userPrefers.get(i).toString() + " ");
+                }
             }
             // 2.根据标签Id，查询相对应的游记编号List(去除重复的游记Id)
             List<Integer> noteIdList = new ArrayList<>();
@@ -107,8 +118,10 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                     }
                 }
             }
-            System.out.println("noteIdList---排序前查询相对应的游记编号List:  " + noteIdList.size());
-            System.out.println(noteIdList);
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("noteIdList---排序前查询相对应的游记编号List:  " + noteIdList.size());
+                System.out.println(noteIdList);
+            }
             // 3.根据游记Id的List推荐游记信息（按照游记热度）(收藏量、点赞量、浏览量)
             List<Integer> hotList = new ArrayList<>();
             for (int k : noteIdList) {
@@ -124,11 +137,12 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                 int hot = countCollect*5 + countLike*2 + countPageView;
                 hotList.add(hot);
             }
-            System.out.println("hotList---排序前综合热度:  " + hotList.size());
-            for (int i = 0; i < hotList.size(); i++) {
-                System.out.print(hotList.get(i) + " ");
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("hotList---排序前综合热度:  " + hotList.size());
+                for (int i = 0; i < hotList.size(); i++) {
+                    System.out.print(hotList.get(i) + " ");
+                }
             }
-
             // 4.热度List排序
             int flag;
             List<Integer> rankList = new ArrayList<>();
@@ -145,14 +159,14 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                 resultList.add(noteIdList.get(flag));
                 noteIdList.remove(flag);
             }
-
-            System.out.println("rankList---排序后综合热度:  " + rankList.size());
-            for (int i = 0; i < rankList.size(); i++) {
-                System.out.print(rankList.get(i) + " ");
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("rankList---排序后综合热度:  " + rankList.size());
+                for (int i = 0; i < rankList.size(); i++) {
+                    System.out.print(rankList.get(i) + " ");
+                }
+                System.out.println("resultList---排序后查询相对应的游记编号List:  " + resultList.size());
+                System.out.println(resultList);
             }
-            System.out.println("resultList---排序后查询相对应的游记编号List:  " + resultList.size());
-            System.out.println(resultList);
-
             // 5.按照热度排行查询游记信息
             String sql6 = "select * from travelnote where travelNoteId = ?";
             TravelNoteInfo noteInfo;
@@ -160,6 +174,82 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                 noteInfo = template.queryForObject(sql6, new BeanPropertyRowMapper<TravelNoteInfo>(TravelNoteInfo.class), resultList.get(i));
                 travelNoteInfoList.add(noteInfo);
             }
+            if (DeBugUtils.debug_flag == 1) {
+                System.out.println("travelNoteInfoList---数据库查询---游记推荐结果 Id:  " + travelNoteInfoList.size());
+                for (TravelNoteInfo note : travelNoteInfoList) {
+                    System.out.print(" " + note.getTravelNoteId());
+                }
+            }
+        }
+        return travelNoteInfoList;
+    }
+
+    @Override
+    public List<TravelNoteInfo> queryTravelNoteInfoBySearch(String search) {
+        //总共获取50条数据
+        List<TravelNoteInfo> travelNoteInfoList = new ArrayList<>();
+        // 1.首先获取所有游记编号Id
+        String sql1 = "select travelNoteId from travelnote where 1 = 1 and concat(travelNoteTitle, travelNoteText) like ? limit ?";
+        List<Integer> noteIdList = template.queryForList(sql1, Integer.class, "%"+search+"%", 50);
+        if (DeBugUtils.debug_flag == 1) {
+            System.out.println("noteIdList---排序前查询所有的游记编号List:  " + noteIdList.size());
+            System.out.println(noteIdList);
+        }
+        // 2.根据游记Id的List推荐游记信息（按照游记热度）(收藏量、点赞量、浏览量)
+        List<Integer> hotList = new ArrayList<>();
+        for (int k : noteIdList) {
+            //获取收藏量（List）
+            String sql2 = "select count(*) from travelnotecollection where travelNoteId = ?";
+            int countCollect = template.queryForObject(sql2, Integer.class, k);
+            //获取点赞量（List）
+            String sql3 = "select count(*) from travelnotelike where travelNoteId = ?";
+            int countLike = template.queryForObject(sql3, Integer.class, k);
+            //获取浏览量（List）
+            String sql4 = "select pageViews from travelnote where travelNoteId = ?";
+            int countPageView = template.queryForObject(sql4, Integer.class, k);
+            int hot = countCollect*5 + countLike*2 + countPageView;
+            hotList.add(hot);
+        }
+        if (DeBugUtils.debug_flag == 1) {
+            System.out.println("hotList---排序前综合热度:  " + hotList.size());
+            for (int i = 0; i < hotList.size(); i++) {
+                System.out.print(hotList.get(i) + " ");
+            }
+        }
+        // 3.热度List排序
+        int flag;
+        List<Integer> rankList = new ArrayList<>();
+        List<Integer> resultList = new ArrayList<>();
+        while (hotList.size() > 0) {
+            flag = 0;
+            for (int j = 1; j < hotList.size(); j++) {
+                if (hotList.get(j) > hotList.get(flag)) {
+                    flag = j;
+                }
+            }
+            rankList.add(hotList.get(flag));
+            hotList.remove(flag);
+            resultList.add(noteIdList.get(flag));
+            noteIdList.remove(flag);
+        }
+        if (DeBugUtils.debug_flag == 1) {
+            System.out.println();
+            System.out.println("rankList---排序后综合热度:  " + rankList.size());
+            for (int i = 0; i < rankList.size(); i++) {
+                System.out.print(rankList.get(i) + " ");
+            }
+            System.out.println();
+            System.out.println("resultList---排序后查询相对应的游记编号List:  " + resultList.size());
+            System.out.println(resultList);
+        }
+
+        // 4.按照热度查询游记信息
+        String sql5 = "select * from travelnote where travelNoteId = ?";
+        for (int i = 0; i < resultList.size(); i++) {
+            TravelNoteInfo noteInfo = template.queryForObject(sql5, new BeanPropertyRowMapper<TravelNoteInfo>(TravelNoteInfo.class), resultList.get(i));
+            travelNoteInfoList.add(noteInfo);
+        }
+        if (DeBugUtils.debug_flag == 1) {
             System.out.println("travelNoteInfoList---数据库查询---游记推荐结果 Id:  " + travelNoteInfoList.size());
             for (TravelNoteInfo note : travelNoteInfoList) {
                 System.out.print(" " + note.getTravelNoteId());
@@ -198,11 +288,6 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
         String sql = "select tagName from tag where tagId = ?";
         //2.执行
         return template.queryForObject(sql,String.class, peopleId);
-    }
-
-    @Override
-    public List<TravelNoteInfo> queryTravelNoteInfoBySearch(String search) {
-        return null;
     }
 
     @Override

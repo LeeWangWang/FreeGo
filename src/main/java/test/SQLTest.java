@@ -11,10 +11,7 @@ import org.springframework.jdbc.core.RowMapper;
 import utils.JDBCUtils;
 
 import java.sql.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @Author: 李旺旺
@@ -28,7 +25,8 @@ public class SQLTest {
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
         UserInfoDaoInfoImpl userInfoDao = new UserInfoDaoInfoImpl();
         TravelNoteInfoDao noteInfoDao = new TravelNoteInfoDaoImpl();
-        List<TravelNoteInfo> list = noteInfoDao.recommendTravelNoteInfo(0);
+        List<TravelNoteInfo> list = noteInfoDao.queryTravelNoteInfoBySearch("上海");
+        list.toString();
         /*
         UserInfo userInfo = new UserInfo("15356145755","876213908@qq.com","Joshua Genter","123456789","男","湖人总冠军","",false);
         userInfo.setUserId(1055);

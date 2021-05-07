@@ -193,6 +193,17 @@ public class TravelNoteServlet extends BaseServlet{
         writeValue(pageBean, response);
     }
 
+    public void queryTravelNoteInfoBySearch(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException{
+        // 1.接收参数
+        String search = request.getParameter("search");
+        // 2.调用service查询PageBean对象
+        System.out.println("3.后台获取到的参数,搜索内容:  " + search);
+        List<TravelNoteInfo> list = noteInfoService.queryTravelNoteInfoBySearch(search);
+        // 3.将pageBean对象集合序列化为json，返回
+        writeValue(list, response);
+
+    }
+
     /**
      * 添加游记信息
      */

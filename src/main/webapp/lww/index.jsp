@@ -59,8 +59,7 @@
                 } else if ($("#checkbox_hotel").get(0).checked) {
                     // do something
                 } else if ($("#checkbox_travelnote").get(0).checked) {
-                    $.post("/travelnote/queryTravelNoteInfoBySearch", $(this).serialize(), function (result) {
-                    });
+                    location.href="http://localhost:8080/lww/search.jsp?type=3&search=" + $("#index_search_input_all").val();
                 } else {
                     // do something
                 }
@@ -179,49 +178,50 @@
                         var userInfo = userList[i];
                         var collectInfo = collectList[i];
                         var likeInfo = likeList[i];
-                        var noteText = noteInfo.travelNoteText.replace(/[^\u4e00-\u9fa5\uf900-\ufa2d]/g,'');
+                        var noteText = noteInfo.travelNoteText.replace(/<\/?.*>/ig, '');
+                        noteText = noteText.substr(0, 170) + "...";
                         var li = '<div class="travelnote-item clearfix">\n' +
-                            '    <div class="travelnote-left">\n' +
-                            '        <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank">\n' +
-                            '            <img src="'+noteInfo.travelNoteCover+'" alt="" class="travelnote-picture">\n' +
-                            '        </a>\n' +
-                            '    </div>\n' +
-                            '    <div class="travelnote-right">\n' +
-                            '        <dl>\n' +
-                            '            <dt>\n' +
-                            '                <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank">'+noteInfo.travelNoteTitle+'</a>\n' +
-                            '            </dt>\n' +
-                            '            <dd>\n' +
-                            '                <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank" class="travelnote-list-text">'+noteText+'</a>\n' +
-                            '            </dd>\n' +
-                            '        </dl>\n' +
-                            '        <div class="travelnote-extra">\n' +
-                            '            <%--定位--%>\n' +
-                            '            <div class="travelnote-location">\n' +
-                            '                <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">\n' +
-                            '                <div id="locate_'+noteInfo.travelNoteId+'" class="travelnote-location-text">'+locateInfo+'</div>\n' +
-                            '            </div>\n' +
-                            '            <%--用户--%>\n' +
-                            '            <div class="travelnote-user">\n' +
-                            '                <div class="travelnote-user-head">\n' +
-                            '                    <img class="travelnote-user-head-pic" src="/FreegoImg/user/'+userInfo.userHeadPicturePath+'">\n' +
-                            '                </div>\n' +
-                            '                <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">'+userInfo.userNickName+'</a>\n' +
-                            '            </div>\n' +
-                            '            <%--浏览量/收藏量--%>\n' +
-                            '            <div class="travelnote-view-collection">\n' +
-                            '                <img src="../images/li/travelnote/Icon/eye.jpeg">\n' +
-                            '                <div class="travelnote-view">'+noteInfo.pageViews+'/</div>\n' +
-                            '                <div id="collectNum_'+noteInfo.travelNoteId+'" class="travlenote-collection">'+collectInfo+'</div>\n' +
-                            '            </div>\n' +
-                            '            <%--点赞量--%>\n' +
-                            '            <div class="travelnote-like">\n' +
-                            '                <div id="likeNum_'+noteInfo.travelNoteId+'" class="travelnote-user-likes">'+likeInfo+'</div>\n' +
-                            '                <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">\n' +
-                            '            </div>\n' +
-                            '        </div>\n' +
-                            '    </div>\n' +
-                            '</div>';
+                                '    <div class="travelnote-left">\n' +
+                                '        <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank">\n' +
+                                '            <img src="'+noteInfo.travelNoteCover+'" alt="" class="travelnote-picture">\n' +
+                                '        </a>\n' +
+                                '    </div>\n' +
+                                '    <div class="travelnote-right">\n' +
+                                '        <dl>\n' +
+                                '            <dt>\n' +
+                                '                <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank">'+noteInfo.travelNoteTitle+'</a>\n' +
+                                '            </dt>\n' +
+                                '            <dd>\n' +
+                                '                <a href="http://localhost:8080/lww/travelnote.jsp?noteId='+noteInfo.travelNoteId+'" target="_blank" class="travelnote-list-text">'+noteText+'</a>\n' +
+                                '            </dd>\n' +
+                                '        </dl>\n' +
+                                '        <div class="travelnote-extra">\n' +
+                                '            <%--定位--%>\n' +
+                                '            <div class="travelnote-location">\n' +
+                                '                <img class="travelnote-location-pic" src="../images/li/travelnote/Icon/location.jpeg">\n' +
+                                '                <div id="locate_'+noteInfo.travelNoteId+'" class="travelnote-location-text">'+locateInfo+'</div>\n' +
+                                '            </div>\n' +
+                                '            <%--用户--%>\n' +
+                                '            <div class="travelnote-user">\n' +
+                                '                <div class="travelnote-user-head">\n' +
+                                '                    <img class="travelnote-user-head-pic" src="/FreegoImg/user/'+userInfo.userHeadPicturePath+'">\n' +
+                                '                </div>\n' +
+                                '                <a class="travelnote-user-nickname" href="" target="_blank" rel="nofollow">'+userInfo.userNickName+'</a>\n' +
+                                '            </div>\n' +
+                                '            <%--浏览量/收藏量--%>\n' +
+                                '            <div class="travelnote-view-collection">\n' +
+                                '                <img src="../images/li/travelnote/Icon/eye.jpeg">\n' +
+                                '                <div class="travelnote-view">'+noteInfo.pageViews+'/</div>\n' +
+                                '                <div id="collectNum_'+noteInfo.travelNoteId+'" class="travlenote-collection">'+collectInfo+'</div>\n' +
+                                '            </div>\n' +
+                                '            <%--点赞量--%>\n' +
+                                '            <div class="travelnote-like">\n' +
+                                '                <div id="likeNum_'+noteInfo.travelNoteId+'" class="travelnote-user-likes">'+likeInfo+'</div>\n' +
+                                '                <img class="travelnote-user-likes-pic" src="../images/li/travelnote/Icon/like.jpeg">\n' +
+                                '            </div>\n' +
+                                '        </div>\n' +
+                                '    </div>\n' +
+                                '</div>';
                         route_lis += li;
                     }
                     $("#travelnote_list").html(route_lis);
@@ -280,8 +280,8 @@
             <div class="login_status">
                 <!-- 未登录状态  -->
                 <div id="login_out" class="login_out">
-                    <a href="login.jsp">登录</a>
-                    <a href="register.jsp">注册</a>
+                    <a href="http://localhost:8080/lww/login.jsp">登录</a>
+                    <a href="http://localhost:8080/lww/register.jsp">注册</a>
                 </div>
                 <!-- 登录状态  -->
                 <button id="login_in" class="login_in layui-btn layui-btn-primary">

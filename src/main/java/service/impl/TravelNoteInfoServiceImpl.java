@@ -24,6 +24,11 @@ public class TravelNoteInfoServiceImpl implements TravelNoteInfoService {
     }
 
     @Override
+    public List<TravelNoteInfo> queryTravelNoteInfoBySearch(String search) {
+        return noteInfoDao.queryTravelNoteInfoBySearch(search);
+    }
+
+    @Override
     public List<String> getLocate() {
         return noteInfoDao.getLocate();
     }
