@@ -154,7 +154,7 @@ public class TravelNoteServlet extends BaseServlet{
         List<String> locateList = new ArrayList<>();
         for (int i = 0; i < noteInfoList.size(); i++) {
             if (noteInfoList.get(i) != null) {
-                locateList.add( noteInfoService.matchLocate( noteInfoList.get(i).getTravelLocate() ) );
+                locateList.add( noteInfoService.matchLocate( noteInfoList.get(i).getLocateId() ) );
             }
         }
         pageBean.setLocate(locateList);
@@ -228,7 +228,7 @@ public class TravelNoteServlet extends BaseServlet{
             noteInfo.setTravelDays(object.getInt("travelDays"));
             noteInfo.setTravelPerson(object.getInt("travelPerson"));
             noteInfo.setTravelPrice(object.getInt("travelPrice"));
-            noteInfo.setTravelLocate(object.getInt("travelLocate"));
+            noteInfo.setLocateId(object.getInt("locateId"));
             System.out.println("后台实例化游记对象: " + noteInfo.toString());;
             // 3.将游记信息保存进数据库
             TravelNoteInfo travelNoteInfo = noteInfoService.addTravelNote(noteInfo, userId);
@@ -465,7 +465,7 @@ public class TravelNoteServlet extends BaseServlet{
         // 3.调用Service获取游记信息
         List<TravelNoteInfo> noteInfoList = noteInfoService.queryAllTravelNoteInfo(userId);
         if (DeBugUtils.debug_flag == 1){
-            System.out.println("查询结果:");
+            System.out.println("我的游记查询结果:");
             for (int i = 0; i < noteInfoList.size(); i++) {
                 System.out.print(noteInfoList.get(i).getTravelNoteId() + "   ");
             }

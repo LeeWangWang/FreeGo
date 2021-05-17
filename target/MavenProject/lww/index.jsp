@@ -403,9 +403,6 @@
                 <div class="travelnote-hot" id="travelnoe_hot">
                     <a href="javascript:void(0);" rel="nofollow">热门游记</a>
                 </div>
-                <%--<div class="travelnote-new" id="travelnoe_new">
-                    <a href="javascript:void(0);" rel="nofollow">最新发表</a>
-                </div>--%>
                 <div class="travelnote-publish" id="travelnoe_publish">
                     <img class="travelnote-publish-img" src="../images/li/travelnote/Icon/write.jpeg">
                     <div class="travelnote-publish-text">写游记</div>

@@ -100,6 +100,10 @@
                                 $("#tn_like_icon").css('color', '#ff9d00');
                             }
                         });
+                        //获取游记评论信息
+                        /*$.get("/travelnote/queryTravelNoteComment", {noteId: noteId}, function (pageComment) {
+                            console.log("当前评论信息");console.log(pageComment);
+                        });*/
                         $("#login_out").remove();//移除未登录标签
                         var userHead = user.userHeadPicturePath;
                         var head = '<img class="user-head-pic" src="/FreegoImg/user/' + userHead + '">';
@@ -123,7 +127,7 @@
                     $("#tn_like_num").text(number + "点赞");
                 });
                 //获取位置名称
-                $.get("/travelnote/matchLocate", {locateId: travelnote.travelLocate}, function (locate) {
+                $.get("/travelnote/matchLocate", {locateId: travelnote.locateId}, function (locate) {
                     console.log("当前位置信息: " + locate);
                     $("#travelnote_locate").html('<img src="../images/li/travelnote/Icon/locate.jpeg">目的地<span>/</span>' + locate);
                 });
@@ -318,7 +322,7 @@
                 </div>
             </div>
             <%--游记评论--%>
-            <div class="note-reply-bottomReplyApi">
+            <%--<div class="note-reply-bottomReplyApi">
                 <div class="freego-cmt-warp" id="top_reply_list">
 
                     <div class="freego-cmt-item" id="note_reply_127001353" data-username="MkocoIe">
@@ -413,7 +417,7 @@
                             </div>
                         </div>
                     </div>
-                </div>
+                </div>--%>
             </div>
         </div>
     </div>

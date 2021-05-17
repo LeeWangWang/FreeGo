@@ -17,14 +17,14 @@ public class TravelNoteInfo {
     private int travelDays;             //旅行天数
     private int travelPerson;           //旅行人物
     private int travelPrice;            //人均费用
-    private int travelLocate;           //游记位置
+    private int locateId;           //游记位置
     private int pageViews;              //浏览量
     private Boolean isPublish;          //是否发布（1:未发表，1:已发表）
     private Boolean flag;               //游记状态(0:未删除，1:已删除)
 
     public TravelNoteInfo() {}
 
-    public TravelNoteInfo(String travelNoteTitle, String travelNoteCover, String travelNoteText, Date publishDate, Date travelTime, int travelDays, int travelPerson, int travelPrice, int travelLocate) {
+    public TravelNoteInfo(String travelNoteTitle, String travelNoteCover, String travelNoteText, Date publishDate, Date travelTime, int travelDays, int travelPerson, int travelPrice, int locateId) {
         this.travelNoteTitle = travelNoteTitle;
         this.travelNoteCover = travelNoteCover;
         this.travelNoteText = travelNoteText;
@@ -33,7 +33,7 @@ public class TravelNoteInfo {
         this.travelDays = travelDays;
         this.travelPerson = travelPerson;
         this.travelPrice = travelPrice;
-        this.travelLocate = travelLocate;
+        this.locateId = locateId;
     }
 
     public int getTravelNoteId() {
@@ -108,12 +108,12 @@ public class TravelNoteInfo {
         this.travelPrice = travelPrice;
     }
 
-    public int getTravelLocate() {
-        return travelLocate;
+    public int getLocateId() {
+        return locateId;
     }
 
-    public void setTravelLocate(int travelLocate) {
-        this.travelLocate = travelLocate;
+    public void setLocateId(int locateId) {
+        this.locateId = locateId;
     }
 
     public int getPageViews() {
@@ -152,7 +152,7 @@ public class TravelNoteInfo {
                 ", 旅行天数=" + travelDays +
                 ", 旅行人物='" + travelPerson + '\'' +
                 ", 人均费用=" + travelPrice +
-                ", 游记位置='" + travelLocate + '\'' +
+                ", 游记位置='" + locateId + '\'' +
                 ", 浏览量=" + pageViews +
                 ", 是否发布=" + isPublish +
                 ", 游记状态(是否删除)=" + flag +

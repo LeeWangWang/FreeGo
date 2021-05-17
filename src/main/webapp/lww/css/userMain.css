@@ -79,7 +79,7 @@
 }
 /*我的订单*/
 .order-table{
-    width: 980px;
+    width: 1100px;
     margin: auto;
     padding-top: 20px;
     position: relative;
@@ -103,26 +103,31 @@
     border-spacing: 0;
     width: 100%;
 }
-.order-table .td-info {
-    width: 320px;
-    padding-left: 30px;
+.order-hd .td-info {
+    width: 280px;
+    padding-left: 45px;
     text-align: left;
     white-space: nowrap;
 }
-.order-table .td-type {
+.order-hd .td-type {
     width: 85px;
+    text-align: center;
 }
-.order-table .td-date {
-    width: 130px;
+.order-hd .td-date {
+    width: 110px;
+    text-align: center;
 }
-.order-table .td-cost {
+.order-hd .td-cost {
     width: 80px;
+    text-align: center;
 }
-.order-table .td-status {
+.order-hd .td-status {
     width: 80px;
+    text-align: center;
 }
-.order-table .td-operate {
+.order-hd .td-operate {
     width: 70px;
+    text-align: center;
 }
 .order-bd {
     padding: 20px;
@@ -166,18 +171,6 @@ td{
 .order-table td {
     padding: 25px 15px;
 }
-.order-table .td-info {
-    width: 320px;
-    padding-left: 30px;
-    text-align: left;
-    white-space: nowrap;
-}
-.order-table .td-info {
-    width: 320px;
-    padding-left: 30px;
-    text-align: left;
-    white-space: nowrap;
-}
 .order-item .pro-img {
     display: inline-block;
     margin-right: 15px;
@@ -214,42 +207,44 @@ td{
 .order-item .pro-detail a {
     color: #333;
 }
-.order-item .td-type {
+.order-bd .td-info {
+    width: 310px;
+    text-align: left;
+}
+.order-bd .td-type {
+    width: 85px;
+    text-align: center;
     font-size: 12px;
     color: #333;
 }
-.order-item .td-date {
+.order-bd .td-date {
+    width: 130px;
+    text-align: center;
     font-size: 12px;
     color: #333;
     line-height: 26px;
 }
-
-.order-table .td-date {
-    width: 130px;
-}
-.order-item .td-cost {
+.order-bd .td-cost {
+    width: 80px;
+    text-align: center;
     font-size: 14px;
     color: #333;
     font-weight: bold;
 }
-
-.order-table .td-cost {
+.order-bd .td-status {
     width: 80px;
+    text-align: center;
+    font-size: 14px;
+}
+.order-bd .td-operate {
+    width: 70px;
+    text-align: center;
 }
 .order-item .td-cost strong {
     color: #ff9d00;
     font-size: 16px;
     display: block;
     white-space: nowrap;
-}
-.order-item .td-status {
-    font-size: 14px;
-}
-.order-table .td-status {
-    width: 80px;
-}
-.order-table .td-operate {
-    width: 70px;
 }
 .order-item .td-operate a {
     display: block;
@@ -258,13 +253,11 @@ td{
     color: #666;
 }
 
-
-
-
 /*我的好友——我的关注*/
 .content {
     width: 1100px;
-    margin-left: 140px;
+    /*margin-left: 140px;*/
+    margin: auto;
     background: #fff;
 }
 .firedInfom{

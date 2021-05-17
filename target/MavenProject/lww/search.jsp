@@ -103,6 +103,38 @@
 
     </script>
 
+    <%--用户头像下拉列表--%>
+    <script>
+        layui.use(['dropdown', 'util', 'layer'], function(){
+            var dropdown = layui.dropdown;
+            dropdown.render({
+                elem: '#login_in'       //可绑定在任意元素中，此处以上述按钮为例
+                ,trigger: 'hover'       //触发组件的事件类型。
+                ,data: [{
+                    title: '我的游记'
+                    ,id: 'icon_travelnote'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=1'
+                },{
+                    title: '我的收藏'
+                    ,id: 'icon_collection'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=2'
+                },{
+                    title: '我的订单'
+                    ,id: 'icon_order'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=3'
+                },{
+                    title: '我的关注'
+                    ,id: 'icon_follow'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=4'
+                },{
+                    title: '退出登录'
+                    ,id: 'icon_logout'
+                    ,href: 'http://localhost:8080/user/exit'
+                }]
+            });
+        });
+    </script>
+
 </head>
 <body>
     <%--搜索框--%>
@@ -171,7 +203,7 @@
                                         <h3>
                                             <a href="">史上最全面最详细上海迪士尼攻略（演出、合影、住宿、. . . </a>
                                         </h3>
-                                        <p class="seg-desc">高光时刻写在最前面的话来张图镇楼~~这张表格是我去迪士尼前看了50+篇攻略并参考迪士尼 app时间表在出行前做的计划，自以为安排的相当好，然鹅. . .</p>
+                                        <p class="seg-desc">高光时刻写在最前面的话来张图镇楼. . .</p>
                                         <div class="seg-views">179381浏览</div>
                                     </div>
                                 </div>
@@ -181,119 +213,6 @@
                     </div>
                 </div>
             </div>
-            <%--右侧景点和酒店--%>
-            <%--<div class="flt1 search-rt">
-                <div class="search-section">
-                    <div class="clearfix search-title">
-                        <h2>
-                            <a href="" target="_blank" class="search-link">附近热门景点</a>
-                        </h2>
-                        <a href="" target="_blank" class="search-link">全部景点>></a>
-                    </div>
-                    <div class="hot-att">
-                        <ul class="clearfix">
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/1.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-外滩</a>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/2.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-南京路步行街</a>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/3.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-上海城隍庙</a>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/4.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-田子坊</a>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/5.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-东方明珠方波电视塔</a>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/6.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-黄浦江</a>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/7.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-豫园</a>
-                                </p>
-                            </li>
-                            <li>
-                                <a href="" target="_blank" class="search-link">
-                                    <img src="/FreegoImg/li/hotel/8.jpeg" style="width: 90px;height: 90px">
-                                </a>
-                                <p>
-                                    <a href="" target="_blank" class="search-link">上海-陆家嘴</a>
-                                </p>
-                            </li>
-                        </ul>
-                    </div>
-                </div>
-                <div class="s-hr"></div>
-                <div class="hot-rank-list search-section">
-                    <div class="clearfix ser-title">
-                        <h2>最佳酒店</h2>
-                        <a href="" target="_blank" class="search-link">更多酒店>></a>
-                    </div>
-                    <ul>
-                        <li class="clearfix">
-                            <span class="rank">1</span>
-                            <a href="" target="_blank" class="search-link">上海航龙旅馆</a>
-                            <b>¥128</b>
-                        </li>
-                        <li class="clearfix">
-                            <span class="rank">2</span>
-                            <a href="" target="_blank" class="search-link">上海晨阳宾馆</a>
-                            <b>¥112</b>
-                        </li>
-                        <li class="clearfix">
-                            <span class="rank">3</span>
-                            <a href="" target="_blank" class="search-link">上海苏鑫宾馆</a>
-                            <b>¥89</b>
-                        </li>
-                        <li class="clearfix">
-                            <span class="rank">4</span>
-                            <a href="" target="_blank" class="search-link">上海景苑宾馆</a>
-                            <b>¥128</b>
-                        </li>
-                        <li class="clearfix">
-                            <span class="rank">5</span>
-                            <a href="" target="_blank" class="search-link">格林豪泰上海市康桥工业园区锦绣路商务酒店</a>
-                            <b>¥170</b>
-                        </li>
-                    </ul>
-                </div>
-            </div>--%>
         </div>
     </div>
 

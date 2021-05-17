@@ -305,11 +305,6 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
     }
 
     @Override
-    public List<TravelNoteCommentPictureInfo> queryTravelNoteCommentPicture(int travelNoteId) {
-        return null;
-    }
-
-    @Override
     public Boolean updateTravelNoteCollect(int userId, int travelNoteId) {
         //1.定义sql语句
         String sql1 = "select count(*) from travelnotecollection where userId = ? and travelNoteId = ?";
@@ -361,11 +356,6 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
     }
 
     @Override
-    public Boolean addTravelNoteCommentPicture(TravelNoteCommentPictureInfo commentPicture) {
-        return null;
-    }
-
-    @Override
     public Boolean addReport(ReportTravelNoteInfo report) {
         return null;
     }
@@ -374,7 +364,7 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
     public TravelNoteInfo addTravelNote(TravelNoteInfo travelNote, int userId) {
         //1.定义sql语句
         String sql1 = "insert into travelnote (travelNoteTitle, travelNoteCover, travelNoteText, publishDate, travelTime," +
-                " travelDays, travelPerson, travelPrice, travelLocate) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
+                " travelDays, travelPerson, travelPrice, locateId) values(?, ?, ?, ?, ?, ?, ?, ?, ?)";
         //2.执行
         int result1 = template.update(sql1,
                 travelNote.getTravelNoteTitle(),
@@ -385,7 +375,7 @@ public class TravelNoteInfoDaoImpl implements TravelNoteInfoDao {
                 travelNote.getTravelDays(),
                 travelNote.getTravelPerson(),
                 travelNote.getTravelPrice(),
-                travelNote.getTravelLocate() );
+                travelNote.getLocateId() );
         if (result1 == 1){
             System.out.println("保存游记成功");
             TravelNoteInfo noteInfo = null;

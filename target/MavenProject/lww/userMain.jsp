@@ -171,6 +171,39 @@
             });
         });
     </script>
+
+    <%--用户头像下拉列表--%>
+    <script>
+        layui.use(['dropdown', 'util', 'layer'], function(){
+            var dropdown = layui.dropdown;
+            dropdown.render({
+                elem: '#login_in'       //可绑定在任意元素中，此处以上述按钮为例
+                ,trigger: 'hover'       //触发组件的事件类型。
+                ,data: [{
+                    title: '我的游记'
+                    ,id: 'icon_travelnote'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=1'
+                },{
+                    title: '我的收藏'
+                    ,id: 'icon_collection'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=2'
+                },{
+                    title: '我的订单'
+                    ,id: 'icon_order'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=3'
+                },{
+                    title: '我的关注'
+                    ,id: 'icon_follow'
+                    ,href: 'http://localhost:8080/lww/userMain.jsp?tab=4'
+                },{
+                    title: '退出登录'
+                    ,id: 'icon_logout'
+                    ,href: 'http://localhost:8080/user/exit'
+                }]
+            });
+        });
+    </script>
+
 </head>
 <body>
 
@@ -217,7 +250,7 @@
         <div class="layui-tab-item layui-show">
             <div class="note_list">
                 <ul id="note_info_list">
-                    <li>
+                    <%--<li>
                         <dl>
                             <dt>
                                 <a class="note_cover" href="" target="_blank">
@@ -252,7 +285,7 @@
                                 </div>
                             </dd>
                         </dl>
-                    </li>
+                    </li>--%>
                 </ul>
             </div>
         </div>
@@ -293,7 +326,6 @@
                                             <a href="/order_center/index/view_order?order_id=30290342020082824111018&amp;busi_type=sales" target="_blank">30290342020082824111018</a>
                                         </span>
                                         <span class="time">下单时间：2020-08-28 20:11:31</span>
-                                        <span class="supplier">供应商：去远方旅行</span>
                                         <span class="telphone">联系电话：4006588799转11660</span>
                                     </caption>
                                     <tbody>
@@ -362,7 +394,7 @@
                     <div class="layui-tab-item layui-show">
                         <div class="content">
                             <ul id="follow_list" class="firedInfom clearfix">
-                                <li>
+                                <%--<li>
                                     <div class="author">
                                         <a href="">
                                             <img src="/FreegoImg/user/null.jpeg" alt="">
@@ -384,14 +416,14 @@
                                     <div class="btn-follow">
                                         <div class="change-follow">已关注</div>
                                     </div>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
                     </div>
                     <div class="layui-tab-item">
                         <div class="content">
                             <ul id="fans_list" class="firedInfom clearfix">
-                                <li>
+                                <%--<li>
                                     <div class="author">
                                         <a href="">
                                             <img src="/FreegoImg/user/head1.jpeg" alt="">
@@ -413,7 +445,7 @@
                                     <div class="btn-follow">
                                         <div class="change-follow">已关注</div>
                                     </div>
-                                </li>
+                                </li>--%>
                             </ul>
                         </div>
                     </div>

@@ -47,11 +47,6 @@ public interface TravelNoteInfoDao {
     List<TravelNoteCommentInfo> queryTravelNoteComment(int travelNoteId);
 
     /**
-     * 根据游记id从游记评论图片信息表中查询游记评论和图片关系，生成每个游记的TravelNoteCommentPictureInfo的实例集合。
-     */
-    List<TravelNoteCommentPictureInfo> queryTravelNoteCommentPicture(int travelNoteId);
-
-    /**
      * 系统根据用户编号userId和游记编号travelNoteId更新游记收藏表(TravelNoteCollectionList)，若更新成功返回true,若更新失败，返回 false。
      */
     Boolean updateTravelNoteCollect(int userId, int travelNoteId);
@@ -65,11 +60,6 @@ public interface TravelNoteInfoDao {
      * 系统将游记评论对象保存在游记评论表（TravelNoteCommentList）中，若保存成功返回true,若保存失败，返回 false。
      */
     Boolean addTravelNoteComment(TravelNoteCommentInfo comment);
-
-    /**
-     * 系统将游记评论图片保存在游记评论图片关系表（TravelCommentPictureList）中，若保存成功返回true,若保存失败，返回 false。
-     */
-    Boolean addTravelNoteCommentPicture(TravelNoteCommentPictureInfo commentPicture);
 
     /**
      * 系统将游记举报对象保存在游记举报表（ReportTravelNoteList）中，若保存成功返回true,若保存失败，返回 false。

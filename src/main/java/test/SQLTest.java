@@ -3,6 +3,7 @@ package test;
 import dao.TravelNoteInfoDao;
 import dao.impl.TravelNoteInfoDaoImpl;
 import dao.impl.UserInfoDaoInfoImpl;
+import domain.TravelNoteCommentInfo;
 import domain.TravelNoteInfo;
 import domain.UserInfo;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
@@ -25,8 +26,9 @@ public class SQLTest {
         JdbcTemplate template = new JdbcTemplate(JDBCUtils.getDataSource());
         UserInfoDaoInfoImpl userInfoDao = new UserInfoDaoInfoImpl();
         TravelNoteInfoDao noteInfoDao = new TravelNoteInfoDaoImpl();
-        List<TravelNoteInfo> list = noteInfoDao.queryAllTravelNoteInfo(1000);
-//        System.out.println(list);
+        String sql = "insert into travelnotecomment (userId, travelNoteId, commentLevel, commentText) values (?, ?, ?, ?, ?)";
+        int result = template.update(sql,1020, 10, 1, "您的旅游真的很精彩");
+        System.out.println(result);
         /*
         UserInfo userInfo = new UserInfo("15356145755","876213908@qq.com","Joshua Genter","123456789","男","湖人总冠军","",false);
         userInfo.setUserId(1055);
@@ -68,7 +70,7 @@ public class SQLTest {
             result = result + "]}";
             return result;
     */
-       /* String sql = null;
+        /* String sql = null;
         List<String> list = null;
         //1.定义sql语句
         sql = "select locateName from locate";
@@ -89,7 +91,7 @@ public class SQLTest {
         //travelNote.setPublishDate(Date.valueOf("2021-03-05"));
         //1.定义sql语句
         String sql1 = "insert into travelnote (travelNoteTitle,travelNoteCover,travelNoteText,publishDate,travelTime," +
-                "travelDays,travelPerson,travelPrice,travelLocate) values(?,?,?,?,?,?,?,?,?)";
+                "travelDays,travelPerson,travelPrice,locateId) values(?,?,?,?,?,?,?,?,?)";
         //2.执行
         int result = template.update(sql1,
                 travelNote.getTravelNoteTitle(),
@@ -100,7 +102,7 @@ public class SQLTest {
                 travelNote.getTravelDays(),
                 travelNote.getTravelPerson(),
                 travelNote.getTravelPrice(),
-                travelNote.getTravelLocate() );
+                travelNote.getLocateId() );
         if (result == 1) {
             System.out.println("插入成功");
         }
@@ -113,7 +115,7 @@ public class SQLTest {
         /*String sql = "select locateId from locate where locateName = ?";
         int result = template.queryForObject(sql,Integer.class, "上海市");
         System.out.println(result);*/
-/*
+        /*
         //1.定义sql语句
         String sql = null;
         sql = "select count(*) from travelnotelike where userId = ? and travelNoteId = ?";

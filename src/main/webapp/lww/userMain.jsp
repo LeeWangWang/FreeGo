@@ -326,7 +326,6 @@
                                             <a href="/order_center/index/view_order?order_id=30290342020082824111018&amp;busi_type=sales" target="_blank">30290342020082824111018</a>
                                         </span>
                                         <span class="time">下单时间：2020-08-28 20:11:31</span>
-                                        <span class="supplier">供应商：去远方旅行</span>
                                         <span class="telphone">联系电话：4006588799转11660</span>
                                     </caption>
                                     <tbody>
@@ -342,7 +341,7 @@
                                             </td>
                                             <td class="td-type">门票</td>
                                             <td class="td-date">
-                                                <p>使用日期(当地时间)：2021-01-06</p>
+                                                <p>2021-01-06</p>
                                             </td>
                                             <td class="td-cost">
                                                 <strong>￥198.00</strong>
