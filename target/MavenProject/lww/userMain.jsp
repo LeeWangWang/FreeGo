@@ -341,7 +341,7 @@
                                             </td>
                                             <td class="td-type">门票</td>
                                             <td class="td-date">
-                                                <p>使用日期(当地时间)：2021-01-06</p>
+                                                <p>2021-01-06</p>
                                             </td>
                                             <td class="td-cost">
                                                 <strong>￥198.00</strong>

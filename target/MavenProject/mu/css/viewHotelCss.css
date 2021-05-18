@@ -1,0 +1,265 @@
+.container {
+    width: 1000px;
+    margin: 0 auto;
+}
+.top-info {
+    margin: 10px 0 20px;
+}
+.clearfix {
+    *zoom: 1;
+}
+.intro-hd {
+    position: relative;
+}
+.intro-extra {
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    font-size: 14px;
+}
+.divide {
+    margin: 0 10px;
+    display: inline-block;
+    width: 1px;
+    height: 40px;
+    background-color: #ccc;
+    vertical-align: text-bottom;
+}
+.t{
+    display: inline-block;
+    padding-bottom: 3px;
+    line-height: 20px;
+}
+.icon-m {
+    margin-right: 5px;
+    width: 16px;
+    height: 14px;
+    background-position: -220px -30px;
+}
+.main-title {
+    font-size: 24px;
+    color: #333;
+    line-height: 30px;
+}
+.en-title {
+    font-size: 14px;
+    line-height: 24px;
+}
+.hotel-intro .location {
+    line-height: 24px;
+    font-size: 12px;
+    color: #999;
+}
+.intro-bd {
+    margin: 15px 0 10px;
+}
+.img-big {
+    float: left;
+    width: 680px;
+    height: 380px;
+    border-radius: 4px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+    color: #fff;
+}
+.img-big .num {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    padding: 0 15px;
+    line-height: 40px;
+    background-color: rgba(0,0,0,.65);
+    border-radius: 3px;
+    font-size: 16px;
+}
+.img-small {
+    float: right;
+    width: 320px;
+    height: 380px;
+    overflow: hidden;
+}
+.img-small img {
+    width: 150px;
+    height: 120px;
+}
+
+.hotel-booking {
+    padding: 40px 0;
+}
+.hotel-searchbar {
+    margin-bottom: 20px;
+}
+.hotel-searchbar .hs-item-date input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    visibility: hidden;
+    border: 0;
+    padding: 0;
+    width: 100%;
+}
+.hotel-searchbar .hs-item > input {
+    font-size: 16px;
+    color: #333;
+}
+.hotel-searchbar .hs-item > input, .hotel-searchbar .hs-item > span {
+    display: block;
+    height: 34px;
+    line-height: 34px;
+    padding: 0 12px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+.hotel-searchbar .hs-item-date, .hotel-searchbar .hs-item-people {
+    cursor: pointer;
+}
+.hotel-searchbar .hs-item {
+    float: left;
+    width: 132px;
+    margin-right: 3px;
+    position: relative;
+}
+.hotel-searchbar .hs-item-date input {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    z-index: -1;
+    visibility: hidden;
+    border: 0;
+    padding: 0;
+    width: 100%;
+}
+.hotel-searchbar .hs-item > input {
+    font-size: 16px;
+    color: #333;
+}
+.ngp-dropdown {
+    position: absolute;
+    z-index: 1000;
+    margin-top: -1px;
+    border: 1px solid #ffa800;
+    border-radius: 4px;
+    box-shadow: 0 0 4px #ffa800;
+    background-color: #fff;
+    padding: 0 15px;
+    width: 480px;
+    cursor: default;
+    -webkit-transition: all .2s;
+    transition: all .2s;
+}
+
+.ngp-dropdown .item.item-action {
+    border-bottom: 0;
+}
+
+.ngp-dropdown .item {
+    padding: 20px 0;
+    border-bottom: 1px solid #c6c6c6;
+    line-height: 28px;
+}
+.ngp-dropdown .item .tips {
+    font-size: 12px;
+    color: #ef523d;
+}
+.ngp-dropdown .item .btn-action.disabled {
+    background-color: #efefef;
+    color: #999;
+}
+.ngp-dropdown .item .btn-action {
+    float: right;
+    display: inline-block;
+    padding: 2px 22px;
+    background-color: #ffb200;
+    border-radius: 4px;
+    font-size: 14px;
+    line-height: 24px;
+    color: #fff;
+}
+.hotel-booking .btn-action {
+    float: right;
+    display: inline-block;
+    padding: 2px 22px;
+    line-height: 24px;
+    background-color: #ffb200;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 14px;
+}
+.hotel-searchbar .hs-item-action {
+    margin-left: 20px;
+}
+.hotel-searchbar .hs-item {
+    float: left;
+    width: 132px;
+    margin-right: 3px;
+    position: relative;
+}
+.hotel-searchbar .hs-btn {
+    display: block;
+    margin-top: 1px;
+    width: 110px;
+    height: 34px;
+    background-color: #ffb200;
+    border-radius: 3px;
+    text-align: center;
+    color: #fff;
+    font-size: 14px;
+    line-height: 34px;
+    position: relative;
+    overflow: hidden;
+}
+.hotel-maps {
+    padding: 40px 0;
+}
+.maps-cont {
+    float: left;
+    position: relative;
+    width: 680px;
+    height: 380px;
+}
+.maps-cont .map-container {
+    height: 100%;
+}
+.amap-e, .amap-layers, .amap-maps, .amap-tile, .amap-tile-container {
+    position: absolute;
+    left: 0;
+    top: 0;
+    overflow: hidden;
+}
+.amap-e, .amap-maps {
+    width: 100%;
+    height: 100%;
+}
+.amap-drags, .amap-layers {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    overflow: hidden;
+}
+.amap-layers {
+    z-index: 0;
+}
+.amap-overlays {
+    z-index: 110;
+    cursor: default;
+}
+
+元素 {
+
+}
+.amap-overlays {
+
+    z-index: 110;
+    cursor: default;
+
+}
+.amap-context, .amap-graph, .amap-marker, .amap-markers, .amap-overlays, .amap-statics {
+
+    position: absolute;
+    left: 0;
+    top: 0;
+
+}
+

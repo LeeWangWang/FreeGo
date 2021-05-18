@@ -5,7 +5,6 @@ package domain;
  * @Date: 2021/3/30 21:07
  * @Description: 位置信息实体类
  */
-
 public class LocateInfo {
     private int locateId;                   //位置id
     private String locateName;              //位置名称
@@ -64,12 +63,12 @@ public class LocateInfo {
 
     @Override
     public String toString() {
-        return "位置信息实体类{" +
-                "位置id=" + locateId +
-                ", 位置名称='" + locateName + '\'' +
+        return "LocateInfo{" +
+                "locateId=" + locateId +
+                ", locateName='" + locateName + '\'' +
                 ", lng=" + lng +
                 ", lag=" + lag +
-                ", 位置介绍='" + introduce + '\'' +
+                ", introduce='" + introduce + '\'' +
                 '}';
     }
 }
